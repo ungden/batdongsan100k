@@ -13,7 +13,7 @@ export default async function DashboardPage() {
 
   // Fetch user's listings
   const { data: listings, error } = await supabase
-    .from('properties')
+    .from('listings')
     .select('*')
     .eq('user_id', user.id)
     .order('is_vip', { ascending: false })

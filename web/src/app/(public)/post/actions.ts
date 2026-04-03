@@ -37,7 +37,7 @@ export async function submitPropertyAction(
       'phong-tro': 'room',
     }
 
-    const { error } = await supabase.from('properties').insert({
+    const { error } = await supabase.from('listings').insert({
       user_id: user.id,
       title,
       price: priceRaw * 1000000000,

@@ -22,7 +22,7 @@ export default async function AgentProfilePage({ params }: { params: Promise<{ i
 
   // Fetch properties published by this agent
   const { data: listings } = await supabase
-    .from('properties')
+    .from('listings')
     .select('*')
     .eq('agent_id', id)
     .eq('status', 'approved')

@@ -23,7 +23,7 @@ export default async function PropertiesPage({
   const safeSortField = allowedSortFields.has(sortField) ? sortField : 'created_at'
 
   let query = supabase
-    .from('properties')
+    .from('listings')
     .select('*', { count: 'estimated' })
     .order(safeSortField, { ascending: sortOrder === 'asc' })
 

@@ -42,7 +42,7 @@ export async function createProperty(formData: FormData) {
   if (!price || price <= 0) throw new Error('Giá phải lớn hơn 0')
   if (!area || area <= 0) throw new Error('Diện tích phải lớn hơn 0')
 
-  const { error } = await supabase.from('properties').insert({
+  const { error } = await supabase.from('listings').insert({
     user_id: null,
     title,
     description,
@@ -88,7 +88,7 @@ export async function updateProperty(id: string, formData: FormData) {
   if (!title || title.length < 3) throw new Error('Tiêu đề phải có ít nhất 3 ký tự')
 
   const { error } = await supabase
-    .from('properties')
+    .from('listings')
     .update({
       title,
       description,
@@ -115,7 +115,7 @@ export async function updateProperty(id: string, formData: FormData) {
 export async function deleteProperty(id: string) {
   if (!id) throw new Error('Thiếu ID tin đăng')
   const supabase = await createClient()
-  const { error } = await supabase.from('properties').delete().eq('id', id)
+  const { error } = await supabase.from('listings').delete().eq('id', id)
   if (error) throw new Error(error.message)
 
   revalidatePath('/admin/properties')
@@ -124,24 +124,24 @@ export async function deleteProperty(id: string) {
 
 export async function bulkUpdateStatus(ids: string[], status: string) {
   const supabase = await createClient()
-  const { error } = await supabase.from('properties').update({ status, updated_at: new Date().toISOString() }).in('id', ids)
+  const { error } = await supabase.from('listings').update({ status, updated_at: new Date().toISOString() }).in('id', ids)
   if (error) throw new Error(error.message)
   revalidatePath('/admin/properties')
 }
 
 export async function bulkDelete(ids: string[]) {
   const supabase = await createClient()
-  const { error } = await supabase.from('properties').delete().in('id', ids)
+  const { error } = await supabase.from('listings').delete().in('id', ids)
   if (error) throw new Error(error.message)
   revalidatePath('/admin/properties')
 }
 
 export async function toggleFeatured(id: string) {
   const supabase = await createClient()
-  const { data } = await supabase.from('properties').select('is_vip').eq('id', id).single()
+  const { data } = await supabase.from('listings').select('is_vip').eq('id', id).single()
   if (!data) throw new Error('Listing not found')
   const nextVip = !data.is_vip
-  const { error } = await supabase.from('properties').update({ is_vip: nextVip, priority_level: nextVip ? 1 : 0 }).eq('id', id)
+  const { error } = await supabase.from('listings').update({ is_vip: nextVip, priority_level: nextVip ? 1 : 0 }).eq('id', id)
   if (error) throw new Error(error.message)
   revalidatePath('/admin/properties')
 }

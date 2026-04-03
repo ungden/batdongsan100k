@@ -15,7 +15,7 @@ export default async function UpgradeListingPage({ params }: { params: Promise<{
 
   // 1. Fetch listing details
   const { data: listing, error: listingError } = await supabase
-    .from('properties')
+    .from('listings')
     .select('id, title, price, area, district, city, images, status, user_id, priority_level, vip_expires_at')
     .eq('id', id)
     .single();

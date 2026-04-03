@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     expiresAt.setDate(expiresAt.getDate() + pkg.duration_days);
 
     // 4.2 Insert listing_packages
-    await supabase.from('property_packages').insert({
+    await supabase.from('listing_packages').insert({
       listing_id: order.listing_id,
       package_id: pkg.id,
       package_name: pkg.name,
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     });
 
     // 4.3 Update listings table
-    await supabase.from('properties').update({
+    await supabase.from('listings').update({
       is_vip: pkg.priority > 0,
       priority_level: pkg.priority,
       vip_expires_at: expiresAt.toISOString(),

@@ -13,7 +13,7 @@ export default async function SavedPage() {
 
   // Fetch saved listings joined with listing details
   const { data: savedItems, error } = await supabase
-    .from('saved_properties')
+    .from('saved_listings')
     .select(`
       created_at,
       listing_id,

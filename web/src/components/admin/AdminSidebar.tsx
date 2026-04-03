@@ -36,7 +36,7 @@ export default function AdminSidebar() {
   useEffect(() => {
     const supabase = createClient()
     Promise.all([
-      supabase.from('properties').select('*', { count: 'estimated', head: true }).eq('status', 'pending'),
+      supabase.from('listings').select('*', { count: 'estimated', head: true }).eq('status', 'pending'),
       supabase.from('contact_requests').select('*', { count: 'estimated', head: true }).eq('status', 'new'),
     ]).then(([pendingRes, contactRes]) => {
       setBadges({

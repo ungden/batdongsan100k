@@ -19,14 +19,14 @@ export default async function AdminDashboard() {
     { data: listingTypes },
     { data: recentNotifications },
   ] = await Promise.all([
-    supabase.from('properties').select('*', { count: 'estimated', head: true }),
-    supabase.from('properties').select('*', { count: 'estimated', head: true }).in('status', ['approved', 'published']),
-    supabase.from('properties').select('*', { count: 'estimated', head: true }).eq('status', 'pending'),
+    supabase.from('listings').select('*', { count: 'estimated', head: true }),
+    supabase.from('listings').select('*', { count: 'estimated', head: true }).in('status', ['approved', 'published']),
+    supabase.from('listings').select('*', { count: 'estimated', head: true }).eq('status', 'pending'),
     supabase.from('profiles').select('*', { count: 'estimated', head: true }),
     supabase.from('contact_requests').select('*', { count: 'estimated', head: true }).gte('created_at', new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString()),
-    supabase.from('properties').select('*', { count: 'estimated', head: true }).gte('created_at', todayStart.toISOString()),
-    supabase.from('properties').select('id, title, status, created_at, price, category').order('created_at', { ascending: false }).limit(5),
-    supabase.from('properties').select('category'),
+    supabase.from('listings').select('*', { count: 'estimated', head: true }).gte('created_at', todayStart.toISOString()),
+    supabase.from('listings').select('id, title, status, created_at, price, category').order('created_at', { ascending: false }).limit(5),
+    supabase.from('listings').select('category'),
     supabase.from('notifications').select('*').order('created_at', { ascending: false }).limit(10),
   ])
 

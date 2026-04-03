@@ -13,7 +13,7 @@ export async function createPaymentOrderAction(listingId: string, packageId: str
 
   // 1. Verify listing belongs to user
   const { data: listing, error: listingError } = await supabase
-    .from('properties')
+    .from('listings')
     .select('id, user_id')
     .eq('id', listingId)
     .single()
@@ -40,7 +40,7 @@ export async function createPaymentOrderAction(listingId: string, packageId: str
     expiresAt.setDate(expiresAt.getDate() + pkg.duration_days)
 
     const { error: insertError } = await supabase
-      .from('property_packages')
+      .from('listing_packages')
       .insert({
         listing_id: listingId,
         package_id: packageId,
@@ -52,7 +52,7 @@ export async function createPaymentOrderAction(listingId: string, packageId: str
     if (insertError) throw new Error('Đã có lỗi xảy ra khi tạo gói.');
 
     const { error: updateError } = await supabase
-      .from('properties')
+      .from('listings')
       .update({
         is_vip: pkg.priority > 0,
         priority_level: pkg.priority,

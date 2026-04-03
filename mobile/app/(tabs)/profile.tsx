@@ -55,7 +55,7 @@ export default function ProfileScreen() {
           setFavoriteCount(stats.favoriteCount);
         } catch {
           const { count } = await supabase
-            .from('properties')
+            .from('listings')
             .select('*', { count: 'exact', head: true })
             .eq('created_by', user.id);
           setListingCount(count || 0);

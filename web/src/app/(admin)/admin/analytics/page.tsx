@@ -10,9 +10,9 @@ export default async function AnalyticsPage() {
     { count: totalListings },
     { count: totalUsers },
   ] = await Promise.all([
-    supabase.from('properties').select('id, title, views, category, city').in('status', ['approved', 'published']),
+    supabase.from('listings').select('id, title, views, category, city').in('status', ['approved', 'published']),
     supabase.from('contact_requests').select('*', { count: 'estimated', head: true }),
-    supabase.from('properties').select('*', { count: 'estimated', head: true }),
+    supabase.from('listings').select('*', { count: 'estimated', head: true }),
     supabase.from('profiles').select('*', { count: 'estimated', head: true }),
   ])
 
