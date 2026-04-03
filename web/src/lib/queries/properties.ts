@@ -265,39 +265,83 @@ export async function getPropertiesByType(type: string, limit = 6): Promise<Prop
   return result.properties
 }
 
+const KNOWN_PROJECTS = [
+  'Vinhomes Riverside', 'Vinhomes Ocean Park', 'Vinhomes Grand Park',
+  'Landmark 81', 'Masteri Thảo Điền', 'Masteri Centre Point',
+  'The Sun Avenue', 'Aqua City', 'Ecopark Grand', 'Lakeview City',
+  'Tây Hồ Tây', 'Empire City', 'Sunwah Pearl', 'The Rivus',
+  'Holm', 'Sadeco', 'Belleville', 'Verosa Park', 'The Marq',
+]
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function detectProjectName(title: string, address: string, description: string): string | null {
+  const haystack = `${title} ${address} ${description}`.toLowerCase()
+  const matched = KNOWN_PROJECTS.find((name) => haystack.includes(name.toLowerCase()))
+  return matched || null
+}
+
 export async function getProjectSummaries(limit = 12) {
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('projects')
-      .select(`
-        id, name, slug, city, district, cover_image,
-        listings(id, price, price_unit)
-      `)
-      .limit(limit)
+      .from('properties')
+      .select('id, title, address, district, city, description, price, price_unit, images')
+      .in('status', ['active', 'approved', 'published'])
+      .limit(3000) // Fetch a larger chunk to aggregate locally
 
     if (error) throw error
 
-    return data.map((proj: any) => {
-      const validListings = proj.listings || []
-      const propertyCount = validListings.length
-      
-      const sortedByPrice = [...validListings].sort((a, b) => a.price - b.price)
-      const cheapest = sortedByPrice[0]
+    const grouped = new Map<string, any>()
 
-      const formatted = cheapest ? formatListingPrice(cheapest.price) : { priceFormatted: '0', priceUnit: 'tỷ' }
+    for (const item of data || []) {
+      const projectName = detectProjectName(item.title || '', item.address || '', item.description || '')
+      if (!projectName) continue
 
-      return {
-        id: proj.id,
-        name: proj.name,
-        slug: proj.slug,
-        city: proj.city,
-        district: proj.district,
-        coverImage: proj.cover_image,
-        propertyCount,
-        minPriceFormatted: propertyCount > 0 ? `${formatted.priceFormatted} ${formatted.priceUnit}` : 'Liên hệ',
+      const slug = slugify(projectName)
+      if (!grouped.has(slug)) {
+        grouped.set(slug, {
+          name: projectName,
+          slug,
+          city: item.city || 'Chưa cập nhật',
+          district: item.district || 'Chưa cập nhật',
+          coverImage: (item.images && item.images.length > 0) ? item.images[0] : '/placeholder.jpg',
+          propertyCount: 0,
+          minPrice: Number.MAX_SAFE_INTEGER,
+          minPriceFormatted: '',
+          minPriceUnit: '',
+        })
       }
-    }).sort((a, b) => b.propertyCount - a.propertyCount)
+
+      const group = grouped.get(slug)
+      group.propertyCount++
+
+      const itemPrice = Number(item.price || 0)
+      if (itemPrice > 0 && itemPrice < group.minPrice) {
+        group.minPrice = itemPrice
+        const formatted = formatListingPrice(itemPrice)
+        group.minPriceFormatted = formatted.priceFormatted
+        group.minPriceUnit = formatted.priceUnit
+      }
+    }
+
+    return Array.from(grouped.values())
+      .map(group => ({
+        ...group,
+        minPriceFormatted: group.minPrice < Number.MAX_SAFE_INTEGER 
+          ? `${group.minPriceFormatted} ${group.minPriceUnit}` 
+          : 'Liên hệ',
+      }))
+      .sort((a, b) => b.propertyCount - a.propertyCount)
+      .slice(0, limit)
   } catch (err) {
     console.error("Error fetching projects:", err)
     return []
@@ -307,11 +351,21 @@ export async function getProjectSummaries(limit = 12) {
 export async function getProjectListingsBySlug(slug: string, limit = 12): Promise<Property[]> {
   try {
     const supabase = await createClient()
-    const { data: project } = await supabase.from('projects').select('id').eq('slug', slug).single()
-    if (!project) return []
+    // Fetch a large chunk to filter manually
+    const { data, error } = await supabase
+      .from('properties')
+      .select('*, agent:agents(*)')
+      .in('status', ['active', 'approved', 'published'])
+      .limit(3000)
 
-    const { data } = await supabase.from('listings').select('*').eq('project_id', project.id).in('status', ['active', 'approved', 'published']).limit(limit)
-    return (data || []).map(mapToProperty)
+    if (error || !data) throw error
+
+    const matchingItems = (data || []).filter((item: any) => {
+      const projectName = detectProjectName(item.title || '', item.address || '', item.description || '')
+      return projectName ? slugify(projectName) === slug : false
+    })
+
+    return matchingItems.slice(0, limit).map(mapToProperty)
   } catch {
     return []
   }
