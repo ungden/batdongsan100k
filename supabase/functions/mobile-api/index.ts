@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
     if (action === 'get_home_feed') {
       const [featuredResult, nearbyResult] = await Promise.all([
         adminClient
-          .from('properties')
+          .from('listings')
           .select('*')
           .in('status', ['active', 'approved', 'published'])
           .order('is_vip', { ascending: false })
@@ -93,7 +93,7 @@ Deno.serve(async (req) => {
           .order('created_at', { ascending: false })
           .limit(5),
         adminClient
-          .from('properties')
+          .from('listings')
           .select('*')
           .in('status', ['active', 'approved', 'published'])
           .order('is_vip', { ascending: false })
@@ -108,7 +108,7 @@ Deno.serve(async (req) => {
     }
 
     if (action === 'search_listings') {
-      let query = adminClient.from('properties').select('*').in('status', ['active', 'approved', 'published']);
+      let query = adminClient.from('listings').select('*').in('status', ['active', 'approved', 'published']);
       if (body.keyword?.trim()) {
         query = query.or(`title.ilike.%${body.keyword.trim()}%,address.ilike.%${body.keyword.trim()}%,district.ilike.%${body.keyword.trim()}%,city.ilike.%${body.keyword.trim()}%`);
       }
@@ -135,7 +135,7 @@ Deno.serve(async (req) => {
     if (action === 'get_listing_detail') {
       if (!body.listingId) return json({ success: false, error: 'listingId is required' }, 400);
       const { data, error } = await adminClient
-        .from('properties')
+        .from('listings')
         .select('*')
         .eq('id', body.listingId)
         .in('status', ['active', 'approved', 'published'])
@@ -146,7 +146,7 @@ Deno.serve(async (req) => {
 
     if (action === 'get_projects' || action === 'get_project_detail') {
       let query = adminClient
-        .from('properties')
+        .from('listings')
         .select('*')
         .in('status', ['active', 'approved', 'published'])
         .or(detectProjectCondition())
@@ -175,7 +175,7 @@ Deno.serve(async (req) => {
     if (action === 'get_favorites') {
       const currentUser = requireUser();
       const { data, error } = await adminClient
-        .from('saved_properties')
+        .from('saved_listings')
         .select('listing_id')
         .eq('user_id', currentUser.id)
         .order('created_at', { ascending: false });
@@ -187,7 +187,7 @@ Deno.serve(async (req) => {
       const currentUser = requireUser();
       if (!body.listingId) return json({ success: false, error: 'listingId is required' }, 400);
       const { data: existing } = await adminClient
-        .from('saved_properties')
+        .from('saved_listings')
         .select('listing_id')
         .eq('user_id', currentUser.id)
         .eq('listing_id', body.listingId)
@@ -195,7 +195,7 @@ Deno.serve(async (req) => {
 
       if (existing) {
         const { error } = await adminClient
-          .from('saved_properties')
+          .from('saved_listings')
           .delete()
           .eq('user_id', currentUser.id)
           .eq('listing_id', body.listingId);
@@ -203,7 +203,7 @@ Deno.serve(async (req) => {
         return json({ success: true, data: { saved: false } });
       }
 
-      const { error } = await adminClient.from('saved_properties').insert({
+      const { error } = await adminClient.from('saved_listings').insert({
         user_id: currentUser.id,
         listing_id: body.listingId,
       });
@@ -214,8 +214,8 @@ Deno.serve(async (req) => {
     if (action === 'get_profile_stats') {
       const currentUser = requireUser();
       const [{ count: listingCount }, { count: favoriteCount }] = await Promise.all([
-        adminClient.from('properties').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id),
-        adminClient.from('saved_properties').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id),
+        adminClient.from('listings').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id),
+        adminClient.from('saved_listings').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id),
       ]);
       return json({ success: true, data: { listingCount: listingCount || 0, favoriteCount: favoriteCount || 0 } });
     }
@@ -223,7 +223,7 @@ Deno.serve(async (req) => {
     if (action === 'get_my_listings') {
       const currentUser = requireUser();
       const { data, error } = await adminClient
-        .from('properties')
+        .from('listings')
         .select('*')
         .eq('user_id', currentUser.id)
         .order('is_vip', { ascending: false })
@@ -249,7 +249,7 @@ Deno.serve(async (req) => {
       };
 
       const { data, error } = await adminClient
-        .from('properties')
+        .from('listings')
         .insert({
           user_id: currentUser.id,
           title: body.title,
@@ -277,7 +277,7 @@ Deno.serve(async (req) => {
       if (!body.listingId || !body.packageId) return json({ success: false, error: 'listingId and packageId are required' }, 400);
 
       const { data: listing, error: listingError } = await adminClient
-        .from('properties')
+        .from('listings')
         .select('id, user_id')
         .eq('id', body.listingId)
         .single();
@@ -292,7 +292,7 @@ Deno.serve(async (req) => {
 
       if (pkg.price === 0) {
         const expiresAt = new Date(Date.now() + pkg.duration_days * 24 * 60 * 60 * 1000).toISOString();
-        await adminClient.from('property_packages').insert({
+        await adminClient.from('listing_packages').insert({
           listing_id: body.listingId,
           package_id: body.packageId,
           package_name: pkg.name,
@@ -300,7 +300,7 @@ Deno.serve(async (req) => {
           expires_at: expiresAt,
           is_active: true,
         });
-        await adminClient.from('properties').update({
+        await adminClient.from('listings').update({
           is_vip: pkg.priority > 0,
           priority_level: pkg.priority,
           vip_expires_at: expiresAt,

@@ -23,7 +23,7 @@ function formatListingPrice(price: number) {
 }
 
 function mapListingCategory(row: Record<string, unknown>): Property['category'] {
-  if ((row.transaction_type as string) === 'cho-thue') return 'rent'
+  if ((row.category as string) === 'rent') return 'rent'
   return 'sale'
 }
 
@@ -112,23 +112,16 @@ export async function getPublishedProperties(
 ) {
   try {
     const supabase = await createClient()
-    let query = supabase.from('properties').select('*', { count: 'estimated' }).in('status', ['active', 'approved', 'published'])
+    let query = supabase.from('listings').select('*', { count: 'estimated' }).in('status', ['active', 'approved', 'published'])
 
     if (filters?.q) query = query.or(`title.ilike.%${filters.q}%,address.ilike.%${filters.q}%,district.ilike.%${filters.q}%,city.ilike.%${filters.q}%`)
     if (filters?.type) {
-      const typeMap: Record<string, string> = {
-        'chung-cu': 'apartment',
-        'nha-pho': 'house',
-        'biet-thu': 'house',
-        'dat-nen': 'land',
-        'phong-tro': 'room',
-      }
-      query = query.eq('category', typeMap[filters.type] || 'house')
+      query = query.eq('type', filters.type)
     }
     if (filters?.city) query = query.or(`city.eq.${filters.city},province.eq.${filters.city}`)
     if (filters?.district) query = query.ilike('district', `%${filters.district}%`)
-    if (filters?.category === 'rent') query = query.eq('transaction_type', 'cho-thue')
-    if (filters?.category === 'sale') query = query.in('transaction_type', ['ban', 'mua-ban', 'sang-nhuong'])
+    if (filters?.category === 'rent') query = query.eq('category', 'rent')
+    if (filters?.category === 'sale') query = query.eq('category', 'sale')
     if (filters?.areaMin) query = query.gte('area', filters.areaMin)
     if (filters?.areaMax) query = query.lte('area', filters.areaMax)
     if (filters?.priceMin) query = query.gte('price', filters.priceMin)
@@ -178,7 +171,7 @@ export async function getPropertyBySlug(slug: string): Promise<Property | undefi
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('properties')
+      .from('listings')
       .select('*')
       .eq('id', slug)
       .in('status', ['active', 'approved', 'published'])
@@ -205,9 +198,9 @@ export async function getSimilarProperties(property: { type: string; city: strin
 export async function incrementViewCount(propertyId: string) {
   try {
     const supabase = await createClient()
-    const { data: current } = await supabase.from('properties').select('views').eq('id', propertyId).single()
+    const { data: current } = await supabase.from('listings').select('views').eq('id', propertyId).single()
     if (current) {
-      await supabase.from('properties').update({ views: (current.views || 0) + 1 }).eq('id', propertyId)
+      await supabase.from('listings').update({ views: (current.views || 0) + 1 }).eq('id', propertyId)
     }
   } catch {
     // no-op
@@ -217,7 +210,7 @@ export async function incrementViewCount(propertyId: string) {
 export async function getPropertiesCount(): Promise<number> {
   try {
     const supabase = await createClient()
-    const { count } = await supabase.from('properties').select('*', { count: 'exact', head: true }).in('status', ['active', 'approved', 'published'])
+    const { count } = await supabase.from('listings').select('*', { count: 'exact', head: true }).in('status', ['active', 'approved', 'published'])
     return count || 0
   } catch {
     const { properties: mock } = await import('@/lib/data')
@@ -258,7 +251,7 @@ export async function getRentProperties(limit = 6): Promise<Property[]> {
 export async function getMostViewedProperties(limit = 6): Promise<Property[]> {
   try {
     const supabase = await createClient()
-    const { data, error } = await supabase.from('properties').select('*').in('status', ['active', 'approved', 'published']).order('views', { ascending: false }).limit(limit)
+    const { data, error } = await supabase.from('listings').select('*').in('status', ['active', 'approved', 'published']).order('views', { ascending: false }).limit(limit)
     if (error) throw error
     return (data || []).map(mapToProperty)
   } catch {
@@ -279,14 +272,14 @@ export async function getProjectSummaries(limit = 12) {
       .from('projects')
       .select(`
         id, name, slug, city, district, cover_image,
-        listings(id, price, price_unit)
+        properties(id, price, price_unit)
       `)
       .limit(limit)
 
     if (error) throw error
 
     return data.map((proj: any) => {
-      const validListings = proj.listings || []
+      const validListings = proj.properties || []
       const propertyCount = validListings.length
       
       const sortedByPrice = [...validListings].sort((a, b) => a.price - b.price)
@@ -318,7 +311,7 @@ export async function getProjectListingsBySlug(slug: string, limit = 12): Promis
     if (!project) return []
 
     const result = await getPublishedProperties({ q: '' }, limit)
-    const { data } = await supabase.from('listings').select('*').eq('project_id', project.id).in('status', ['active', 'approved', 'published']).limit(limit)
+    const { data } = await supabase.from('listings').select('*, agent:agents(*)').eq('project_id', project.id).in('status', ['active', 'approved', 'published']).limit(limit)
     return (data || []).map(mapToProperty)
   } catch {
     return []
