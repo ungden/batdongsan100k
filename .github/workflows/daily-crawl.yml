@@ -1,0 +1,39 @@
+name: Daily Crawl Sync
+
+on:
+  schedule:
+    - cron: '15 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  crawl-and-insert:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: crawler
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: crawler/package-lock.json
+
+      - name: Install crawler dependencies
+        run: npm ci
+
+      - name: Run daily sync
+        run: npm run sync:daily -- --max-age-days=30 --max-pages=60 --image-limit=4
+
+      - name: Upload crawl artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-crawl-output
+          path: crawler/output/daily-sync-*
+          retention-days: 7

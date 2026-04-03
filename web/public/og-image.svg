@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630">
+      <stop offset="0%" stop-color="#001e40"/>
+      <stop offset="100%" stop-color="#003366"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="200" y2="0">
+      <stop offset="0%" stop-color="#006c47"/>
+      <stop offset="100%" stop-color="#8af5be"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative grid pattern -->
+  <g opacity="0.05">
+    <line x1="0" y1="0" x2="1200" y2="0" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="500" x2="1200" y2="500" stroke="white" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="630" stroke="white" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="630" stroke="white" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="630" stroke="white" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="630" stroke="white" stroke-width="1"/>
+    <line x1="1000" y1="0" x2="1000" y2="630" stroke="white" stroke-width="1"/>
+  </g>
+
+  <!-- House icon large -->
+  <g transform="translate(80, 140)">
+    <path d="M0 120L100 20L200 120V280H140V200H60V280H0V120Z" fill="white" opacity="0.15"/>
+    <path d="M100 20L200 120" stroke="#8af5be" stroke-width="6" stroke-linecap="round" opacity="0.4"/>
+    <path d="M100 20L0 120" stroke="#8af5be" stroke-width="6" stroke-linecap="round" opacity="0.4"/>
+  </g>
+
+  <!-- Main text -->
+  <text x="340" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="900" fill="white" letter-spacing="-1">TitanHome</text>
+  <rect x="340" y="250" width="120" height="4" rx="2" fill="url(#accent)"/>
+
+  <!-- Subtitle -->
+  <text x="340" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="400" fill="rgba(255,255,255,0.8)">N&#7873;n t&#7843;ng b&#7845;t &#273;&#7897;ng s&#7843;n h&#224;ng &#273;&#7847;u Vi&#7879;t Nam</text>
+
+  <!-- Stats -->
+  <g transform="translate(340, 370)">
+    <text font-family="system-ui, sans-serif" font-size="36" font-weight="800" fill="#8af5be">4,500+</text>
+    <text x="0" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.6)" letter-spacing="1">BDS DANG BAN</text>
+
+    <text x="250" font-family="system-ui, sans-serif" font-size="36" font-weight="800" fill="#8af5be">63</text>
+    <text x="250" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.6)" letter-spacing="1">TINH THANH</text>
+
+    <text x="430" font-family="system-ui, sans-serif" font-size="36" font-weight="800" fill="#8af5be">24/7</text>
+    <text x="430" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="rgba(255,255,255,0.6)" letter-spacing="1">HO TRO</text>
+  </g>
+
+  <!-- URL -->
+  <text x="340" y="530" font-family="system-ui, sans-serif" font-size="18" font-weight="600" fill="rgba(255,255,255,0.5)" letter-spacing="2">TITANHOME.VN</text>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="620" width="1200" height="10" fill="url(#accent)"/>
+</svg>

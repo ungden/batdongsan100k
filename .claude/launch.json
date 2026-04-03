@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "export PATH=/usr/local/bin:$PATH && cd /Users/alexle/Documents/batdongsan100k/web && npm run dev -- -p $PORT"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}

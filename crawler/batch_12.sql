@@ -1,0 +1,1558 @@
+INSERT INTO listings (user_id, title, description, price, address, district, city, province, category, area, images, status, is_verified, is_vip, contact_name, contact_phone, rent_price, revenue, transaction_type, views, created_at, updated_at) VALUES (
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán đất Bình Khánh Cần Giờ, mặt tiền đường đá xanh, đất đẹp nở hậu.',
+      'Bán đất Bình Khánh Cần Giờ mặt tiền đường đá xanh, đất đẹp rộng 68 m, nở hậu 72 m, chiều sâu khoảng 40 m.  giá đầu tư 1 triệu 550 / m2, có lộc cho người thiện chí. Liên hệ trực tiếp chính chủ, HH cho người giới thiệu, hỗ trợ .',
+      4200000000,
+      'Rừng Sác, Xã Bình Khánh, Huyện Cần Giờ',
+      'Huyện Cần Giờ',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      2740,
+      ARRAY['https://cdn.chotot.com/kv19y7-uxjvjNyyfsjF2xA-vI8rw-9kNPhmuPUBOIJs/preset:view/plain/8c6c9ef1cc7d014288a6c04bc55fae1e-2977718869919660420.jpg','https://cdn.chotot.com/813KaJRec5QVKzUVO_bsQiCBzF0iR8ppUpG3bfxhViM/preset:view/plain/d0979609ee88c5c5e3438dbfb0abca0b-2977718869835570886.jpg','https://cdn.chotot.com/sJdwUPOAvJGlwq7p1sTETN9nRU1cFqYO6c8A9KAsn3Y/preset:view/plain/bf68c5f7f40a68624071bcfd2b928821-2977718870211476338.jpg','https://cdn.chotot.com/HJrlIRIN0E13B07ofHyMm7yCepV1SiougO5Y8MIUPTo/preset:view/plain/5521f87f44e84d07408bae6a23a0e0fe-2977718870137829764.jpg','https://cdn.chotot.com/FN5VPe_P7a_p2eXRW-4vu6sVojAVhzy6x6Xsb9PSfck/preset:view/plain/3b99926438b756cae17bd68734fcc311-2977718870261596893.jpg']::text[],
+      'approved',
+      false,
+      true,
+      'Thuận',
+      '0915019688',
+      15000000,
+      NULL,
+      'sang-nhuong',
+      56,
+      NOW() - interval '14 days' - interval '18 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN ĐẤT BÌNH CHÁNH 620TRIỆU,MẶT TIỀN TẬP ĐOÀN 8, SAU THPT BÌNH CHÁNH',
+      'Vị trí cực đẹp: Mặt tiền đường Tập Đoàn 8, xã Bình Chánh, huyện Bình Chánh, TP.HCM.
+
+Khu dân cư hiện hữu, xe hơi vô tận nơi, sổ hồng riêng – xây dựng tự do.
+Trong bán kính 500m hội tụ đầy đủ tiện ích: chợ Bình Chánh, UBND, trường học, ngân hàng, siêu thị, bệnh viện… – mọi nhu cầu chỉ vài bước chân.
+
+📐 Diện tích: 5 x 33,6m = 169m²
+➡️ Trong đó 154m² thổ cư – pháp lý chuẩn chỉnh, sang tên công chứng ngay trong ngày.
+
+💰 Giá chỉ 620 triệu – còn thương lượng nhẹ cho khách thiện chí.
+Chủ cần xoay vốn gấp, nên để lại giá mềm hơn thị trường.
+Ai thấy giá này còn hời không? 🏃‍♂️',
+      620000000,
+      'nhựa 13m, Xã Bình Chánh, Huyện Bình Chánh',
+      'Huyện Bình Chánh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      168,
+      ARRAY['https://cdn.chotot.com/a2-cTidt-nRvz6dNR51-zNF5c0IZo-X0z09YQG81rwI/preset:view/plain/df5ae3431b04e1171fc4a55bb9a3eb40-2955360830637338887.jpg','https://cdn.chotot.com/-B3FYrBVbbYhZTx_IzHxee6Gx01dtYadJaZOpfRO_pU/preset:view/plain/30eac98284867b88439f4c2e746ff880-2955360831026058854.jpg','https://cdn.chotot.com/f7OwI98gjru3I5iKmmVMHzQL3qu_TV8AfxhPUTnXm_g/preset:view/plain/33769202f3ee7ac235d69f0ee034c273-2955360830584577054.jpg','https://cdn.chotot.com/6K5PNAYggZblkXnYOn7FSCb-EpU0lb7HwP_-RK4aS_M/preset:view/plain/3ed719b43340e8a9cd1eac223f7bd0c1-2955360830583755974.jpg']::text[],
+      'approved',
+      true,
+      false,
+      'Minh Kiên Ký Gửi Mua Bán BĐS ',
+      '0928236045',
+      3000000,
+      NULL,
+      'sang-nhuong',
+      416,
+      NOW() - interval '8 days' - interval '14 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN ĐẤT RẺ NHỊ BÌNH HÓC MÔN 120M2 SÁT CHỢ GẤU GIÁ CHỈ 1Tỷ350',
+      'Vị trí : ĐƯỜNG BÙI CÔNG TRỪNG CHẠY VÀO KHOẢNG 300m , NHỊ BÌNH , HÓC MÔN , TPHCM
+Diện tích : 120m2 ( ngang 8 dài 15 )
+Đường nhựa xe chạy thoải mái
+Giá bán : 1TỶ350tr ( cỏn thương lượng ) 
+Pháp lí : sổ hồng riêng 
+Tiện ích xung quanh
++ chợ , trường học , bệnh viện , siêu thị
++ giao thông thuận tiện , di chuyển dễ dàng đến các khu vực lân cận 
++ khu vực an ninh , dân cư đông đúc , thích hợp đầu tư 
+Liên hệ để trao đổi thêm thông tin',
+      1350000000,
+      'Đường Bùi Công Trừng, Xã Đông Thạnh, Huyện Hóc Môn',
+      'Huyện Hóc Môn',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      120,
+      ARRAY['https://cdn.chotot.com/l9p3sF8XlX_fj6R2G4wzmvav0PYGRMDmMRMjkAL02XI/preset:view/plain/c03ba49fed00ec1ef562487fcc0f5028-2977404036911709042.jpg','https://cdn.chotot.com/t9RhogT1U6-Giy17881u_i8xw7yjiCaWp9-cJIu7a6I/preset:view/plain/a2ddecea9c23e55ed0fc2da84a82cc17-2977404038132391622.jpg','https://cdn.chotot.com/PWrXfOFcs0wmAH1Yfk6S360BnRVb4dmIFTdxmZGdQjc/preset:view/plain/cc28d63d549a14060ffaf29c882f97f6-2977404037847113414.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thảo',
+      '0944151826',
+      5000000,
+      NULL,
+      'sang-nhuong',
+      135,
+      NOW() - interval '7 days' - interval '0 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'đất chính chủ sổ riêng Nhơn Đức nhà bè',
+      'Đất đẹp kdc Nhơn Đức nhà bè
+5x20,giá 3.9 tỷ 
+4x12, giá 1.3 tỷ
+14x39, giá 8 tỷ 
+Nhận ký gửi mua bán nhà đất nhà bè các quận tphcm',
+      3900000000,
+      'Đường Lê Văn Lương, Xã Hiệp Phước, Huyện Nhà Bè',
+      'Huyện Nhà Bè',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/LL3CxkInyL08nt4YxQUvhxlHVTzpAw8W0B9PlaKnv-o/preset:view/plain/f772369d787a5cd5bbdab67c7a6b4317-2972467580974377490.jpg','https://cdn.chotot.com/ZRmJ3VrsJOMr8V-tFFIPrLCEi4S4hzoffYTlM6AyhCo/preset:view/plain/92ad2ba5411b705c7b977e946e948716-2972467580434521730.jpg','https://cdn.chotot.com/1QoWs0wzgBoR1dOdgphQ_9XL1k6w4-RA9drW6msfUcQ/preset:view/plain/5a696953c07eeb96707c4610b940fc18-2972467581374269153.jpg','https://cdn.chotot.com/2RkBIhdNHi0CHO2xvkJPKJmWF84bGH_8N1yWELh_Pq8/preset:view/plain/7bb2624a064c29738562c8d0f1921460-2972467578591947282.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thái Nguyễn',
+      '0922494081',
+      14000000,
+      NULL,
+      'sang-nhuong',
+      317,
+      NOW() - interval '1 days' - interval '1 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN CẶP ĐẤT ĐẸP THẠNH XUÂN 25 – QUẬN 12',
+      '🔥 NHÀ 4 TẦNG Q.12 – MUA SỚM GIÁ TỐT, DỌN VÀO Ở NGAY 🔥
+
+📍 Thạnh Xuân 25, P. Thới An, Q.12
+🏡 5 x 25m | 1 trệt – 3 lầu
+🛏 4PN – 5WC | Sân thượng trước & sau
+
+✨ Nhà đang xây – hoàn thiện nội thất cao cấp
+👉 Mua giai đoạn này giá tốt hơn – thanh toán nhẹ – dễ tăng giá
+
+💰 Giá từ 5,x tỷ
+
+📞 *** (Mai) – Liên hệ giữ căn đẹp ngay!',
+      4000000000,
+      'thạnh xuân 25, Phường Thới An, Quận 12',
+      'Quận 12',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      125,
+      ARRAY['https://cdn.chotot.com/_r-GRvZj97jrsAKK4AQkamVGvwPhoGTKK8H6oqjRYL4/preset:view/plain/6402488ba5bba6bd076fe47ee739a71b-2977720932848221042.jpg','https://cdn.chotot.com/LNKzmikiMAejB_A0EWnurOWio_vPDy35pc0fYqKqMmE/preset:view/plain/d9fb00752618c554e3bb30f9c06c69fd-2977720932827455174.jpg','https://cdn.chotot.com/nV3gU-nMSX8XnU3UliTVYZly2zDo19s9foMegT37EpQ/preset:view/plain/68ecf9e751d42f9106bed307b2aa6050-2977720932976187349.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Ngọc Mai',
+      '0930193936',
+      27000000,
+      NULL,
+      'sang-nhuong',
+      335,
+      NOW() - interval '7 days' - interval '16 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Cần bán gấp đất củ chi chính chủ',
+      'HẠ GIÁ TỪ 1 ty 990 XUỐNG CÒN 1 tỷ 600
+Lô đất mặt tiền đường 719, đất vườn trung lập thượng củ chi 🌷🌷 bán trông mùa tết gấp...
+* tổng dt 757 m2 vị trí ở trung lập thượng - khu quy hoạch là vườn sát khu dân cư .ở đông đúc gần nhà dân . Gần Trường học gần chợ ,đường 12m xe 7 chổ đến đất ,trên phai đường là đường nhà nước thông tứ hướng thích hộp làm nhà vườn v.v.v . 💐💐chính chủ bán gấp)',
+      1600000000,
+      '719, Xã Thái Mỹ, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      756,
+      ARRAY['https://cdn.chotot.com/iPlFxX1jQfACqc8VcXrqLb2V1qWoOhlaSQQs3ZPtIOU/preset:view/plain/ad54210ba66de0535c7103f82e6013ed-2973798424878779247.jpg','https://cdn.chotot.com/7Lz98Dzrkqrzc_Yc2WcMDdmpEG29RhLYP4buduYl-bw/preset:view/plain/bb26ec60314d20889296357eef0bc63e-2973798424841993352.jpg','https://cdn.chotot.com/O88TwG1-R__5y97X6ettloJ2MqaIuYr3zW6Z0ksm9FQ/preset:view/plain/a4db905d164b3ec0b53e68ed19c0df0f-2973798424569578018.jpg','https://cdn.chotot.com/8bWRkCGeHc7_uE6Dl3_an4Xh5GPHHi6qBZuuOhjmPHk/preset:view/plain/72195bda5ac6b4dec461d4db21a2764b-2973798424301809543.jpg','https://cdn.chotot.com/-B9ZKF3xOjd-sE8zxwGPZvsDAnRx9ozD9SQ_wXhfDw4/preset:view/plain/127a3d083c95ca4889f1f1d6c81af73d-2973798424384317214.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'nguyễn thị ngọc hảo',
+      '0978891463',
+      10000000,
+      NULL,
+      'sang-nhuong',
+      390,
+      NOW() - interval '7 days' - interval '17 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'HIẾM  - DT 5*18.4M ĐẤT MTKD ĐƯỜNG 18 - KHU BÊN SÔNG - GIÁ CHỈ 13.8 TỶ',
+      '🔥🔥🔥 Bán lô đất mặt tiền đường số 18 khu bên sông, phường Hiệp Bình Chánh, Thủ Đức, kế bên Giga Mall đường Phạm Văn Đồng, cách đường PVĐ chỉ 50m. 
+- Vị trí kinh doanh buôn bán, làm văn phòng coong ty, làm nhà nghỉ...
+- Diện tích: 92m2 ( 5*18.4m ) , sổ hồng riêng.
+- Giá bán: 13.8 tỷ
+Liên hệ Nhàn xem đất',
+      13800000000,
+      'Đường số 18, Phường Hiệp Bình, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      92,
+      ARRAY['https://cdn.chotot.com/hqW0OFjFOkSE3nt2QG7eMmfgTo5r9QGqyNKrdNxyUTw/preset:view/plain/9ed222bc3ad8172dd123eac992ca77b5-2959563379198793819.jpg','https://cdn.chotot.com/EosfPb7r2VYfd7x8Zj-rkD-Cx2QiuaKaEJp4W0oZt0I/preset:view/plain/3b8bf81fff510b904890374b31cc088b-2959563388283460708.jpg','https://cdn.chotot.com/ta7TVDm4S7tfCLJCpm_tgs2RqIrWQcUt6QCRKophIV8/preset:view/plain/ab2dcc0471b403c5f381280aaa4539b2-2959563388141312091.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Nhàn',
+      '0919397606',
+      75000000,
+      NULL,
+      'sang-nhuong',
+      40,
+      NOW() - interval '3 days' - interval '22 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN ĐẤT HẺM XE HƠI ĐƯỜNG CÂY CÁM, BÌNH TÂN',
+      'Dự án: 
+Thông tin chi tiết: ĐẤT ĐẸP ĐƯỜNG CÂY CÁM - KHU AN NINH - HẺM 6M - 83M2 - FULL THỔ CƯ - TIỆN XÂY MỚI - GẦN MẶT TIỀN - KHU XÂY TỰ DO - KHÔNG LỖI PHONG THUỶ - CHỈ 4,2 TỶ TL.
+Mô tả:+ Vị trí: Gần đường Quốc lộ 1, Ngay Tân kỳ tân quý, 6p Qua Tân phú. Thuận tiện di chuyển Tân Bình, Bình Tân… Đất vuông vức, tiện xây mới.+ Pháp lý chuẩn, sổ hồng A4, công chứng ngay.
+LH: *** PHẠM TUÂN',
+      4200000000,
+      'Đường Cây Cám, Phường Bình Tân, Quận Bình Tân',
+      'Quận Bình Tân',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      83,
+      ARRAY['https://cdn.chotot.com/ygKFeysJ9k1u4qTaYvqasfSQGpYEv9SiIKHA8T01jVQ/preset:view/plain/e3d9fc3426ed04bb483d31667886e9a2-2977732113187069638.jpg','https://cdn.chotot.com/4bkSsadF2mkTy1J0e7OdbQuaQJXYJeT0ublarKGUXsI/preset:view/plain/ccb5ddc34828c3a12e01a4ad58125507-2977732114304252786.jpg','https://cdn.chotot.com/brdGVkVqfQ2EBXp39LOPFTa_NdZUeeKrKI5u7fotBMM/preset:view/plain/c4517dfa097b50c08acbc199f1eef664-2977732115636674246.jpg','https://cdn.chotot.com/wVjqVG2d16JZPEJKsp4pDOjklHq7Q6PqRmHPS5sAjE0/preset:view/plain/9c6097f78ed8ed8bfbe881ad8435a8c3-2977732116686748530.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Phạm Văn Tuân',
+      '0954544760',
+      21000000,
+      NULL,
+      'sang-nhuong',
+      77,
+      NOW() - interval '11 days' - interval '16 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'TIN THẬT GIÁ NGỢP✅️RA GẤP LÔ GÓC 2MT 210M2 1TY3 TT CỦ CHI SHR,FULL THỔ',
+      'Chủ kẹt tiền bán gấp lô góc 2mt thị trấn củ chi 210m2 1TY3 ( bớt lộc )
+SHR pháp lý rõ ràng , sang tên công chứng trong ngày
+Dân cư xung quanh đông đúc , đầy đủ tiện ích như trường học , cây xăng , chợ , ...
+Thích hợp đầu tư kinh doanh buôn bán , cho thuê mặt bằng ,...
+Anh chị liên hệ số điện thoại hoặc zalo cho e để xem sổ và bản vẽ vị trí cùa đất',
+      1300000000,
+      'Đường Quốc lộ 22, Xã Tân An Hội, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      210,
+      ARRAY['https://cdn.chotot.com/RB5BtJG6hG3NFEWi4EPl_JKtV-CrX8dxrkdnBppABMU/preset:view/plain/219f2a99235c70e7d76ad654bc1f2d09-2977135195836176034.jpg','https://cdn.chotot.com/PciiUkLM2C9WbUmf4XFaNlZl1D4GItbT88MDgWFUUx4/preset:view/plain/24b95718e92593e20c8f69fb642e50be-2977135196020790946.jpg','https://cdn.chotot.com/5vW7UDdFP3kcmy60p9cZILJzkTh-lnikzZsLKv2OJiM/preset:view/plain/7506d1ef9c2d35cb9a9c0985eda957e1-2977135209363074334.jpg','https://cdn.chotot.com/8TBfYPmC9ozt4fYG_0DJUviLCYeKhePy7bNqkr5Mljk/preset:view/plain/e7aa86b3ecb384849ed392acffb9cc95-2977135210097443408.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thế Bình',
+      '0977292577',
+      5000000,
+      NULL,
+      'sang-nhuong',
+      317,
+      NOW() - interval '3 days' - interval '16 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN ĐẤT THỔ CƯ ĐƯỜNG 23 VÀNH ĐAI 3 GẦN VINHOME',
+      'BÁN  50M2 THỔ CƯ ĐƯỜNG 23 NGUYỄN XIỂN CẠNH VÀNH ĐAI 3, , THUẬN TIỆN ĐI LẠI, HẺM OTO , DÂN CƯ ĐÔNG ĐÚC, CÁCH VIN HOME GRAND PARK 500M .
+THÔNG TIN LIÊN HỆ: *** (ZALO ) HUY',
+      3250000000,
+      'Đường Nguyễn Xiển, Phường Long Bình, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      50,
+      ARRAY['https://cdn.chotot.com/1VXPwrpJXxc0_oddMZBykC86Qko1LZyQqTigfpy2vFA/preset:view/plain/257776e1f701bbfd91a9811e922c65bd-2974640603787355672.jpg','https://cdn.chotot.com/9HZwgpT9vLpwryhg4j2O5h0YYEwGw0h3SMwoXWgePlY/preset:view/plain/3a82879d231aa88d182300b6e9d836a2-2974640603581660593.jpg','https://cdn.chotot.com/VIf8UqXbdFI0zjrrf5Pk1MWCkyQAC4hohdf_xyxSUNA/preset:view/plain/fdddc5f2c8a7928f7c88e8e6d056537a-2974640603038790735.jpg','https://cdn.chotot.com/HyoUog-0fT6f4TzIMLZvWC_5Gx98hDSiROoR-490Ef4/preset:view/plain/4e4e28fa5f9e65f7982e23ae942d724a-2974640594010573146.jpg','https://cdn.chotot.com/s4sTElOu3NcndGyExbAsDTfKeAkVJae53mN1YNHhFeg/preset:view/plain/6800dcc322d0b46c8afb74c3c6c282f5-2974640597374209373.jpg','https://cdn.chotot.com/iF2XZOUIP3m-LISkVtwwXsjXyPoekIvKCGqHWDyU9xU/preset:view/plain/e09b5401e3e314332865a147eeb09177-2974640603758475451.jpg']::text[],
+      'approved',
+      true,
+      false,
+      'Huy Huynh van',
+      '0944953514',
+      24000000,
+      NULL,
+      'sang-nhuong',
+      390,
+      NOW() - interval '8 days' - interval '11 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Cần bán lô đất 100m2 - giá 1 tỷ 499 - xã Phong Phú',
+      'Dự án: 
+Thông tin chi tiết: Cần bán lô đất 100m2 - giá 1 tỷ 499 - xã Phong Phú 
+
+ 💰 Giá bán: 1 tỷ 499
+
+✔️ Diện tích: 5x20m ( full thổ cư )
+📍 Vị trí: Đường Quốc Lộ 50, Xã Phong Phú 
+🚗  Đường hẻm xe hơi nở hậu
+🌱 Pháp lý: Có sổ hồng riêng 
+
+📌 Phù hợp cho ai có nhu cầu mua để xây nhà ở hay đầu tư giữ tiền thì liên hệ em ạ 
+☎ Liên hệ: *** (zalo bé Huyền)',
+      1499000000,
+      'Đường Số 21, Xã Bình Hưng, Huyện Bình Chánh',
+      'Huyện Bình Chánh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/A93Px36aMlJ9DuLOcK9-sCu3foi3u7Gzv_xIP_q2GRE/preset:view/plain/f7888365b5abd4b880a0bedfda18ee45-2976952807423483754.jpg','https://cdn.chotot.com/EbPTIYCOaIBrS22p4Z7sg4p35EZFoj_fHPEoOERxsco/preset:view/plain/acc4f1c984e5dfec85b3728d7dd9e598-2976952807605116467.jpg','https://cdn.chotot.com/Rv16MiOzHGvoS2xZ8LnADieXlEZ94OuasTt8V3-NImk/preset:view/plain/34bacdf7ac225faa02fce6818a2fff96-2976952807531417374.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Minh Huyền',
+      '0994441165',
+      10000000,
+      NULL,
+      'sang-nhuong',
+      388,
+      NOW() - interval '10 days' - interval '19 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán đất cắt lỗ Mt 90m2 Mai Bá Hương sở hữu chỉ 470 triệu',
+      'Đất chính chủ cần bán gấp ngay mặt tiền đường lớn
+Vị trí: trục Mai Bá hương rộng 30m, gần Võ Văn kiệt, vành đai 3 di chuyển tầm 3 phút, cách vành đai 4 chỉ 2 phút. 
+Xung quanh khu dân cư hiện hữu có cụm khu công nghiệp 800ha thích hợp cho thuê , kinh doanh, cho thuê trọ 
+Diện tích: 5m x18m = 90m2 ( nở hậu)
+Mặt tiền 18m vỉa hè 5 m
+Ngân hàng hỗ trợ vay 80% trong 30 năm
+Liên hệ ngay để thương lượng giá tốt',
+      470000000,
+      'Đường Mai Bá Hương, Xã Bình Chánh, Huyện Bình Chánh',
+      'Huyện Bình Chánh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      90,
+      ARRAY['https://cdn.chotot.com/yusxfe5PuVJXrMOProxnhSkKiOzchOrCxk1kX7qVviU/preset:view/plain/e5f8885793401c0adf95cd847154e5d7-2977390760231353202.jpg','https://cdn.chotot.com/kA4TNh3R9baAscf8bxHXc7w0F646-iYPQoX4qZiMhqc/preset:view/plain/d0787e25394c14177ea927f69d446bc7-2977390768771152754.jpg','https://cdn.chotot.com/U_OAKuhrva2xofJ0rJvCwSgPamVq54Sli9X0wHMJMOU/preset:view/plain/08bd8f44107ac48b5fd15e8eb8e02c5c-2977390777009027954.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Anh Minh ',
+      '0910355232',
+      2000000,
+      NULL,
+      'sang-nhuong',
+      3,
+      NOW() - interval '14 days' - interval '18 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'ĐẤT GÓC 2 MẶT TIỀN  4.12x16m HẺM 652 QL13, PHƯỜNG HIỆP BÌNH – TP. HCM',
+      'Dự án: 
+Thông tin chi tiết: ĐẤT GÓC 2 MẶT TIỀN – HẺM 652 QL13, PHƯỜNG HIỆP BÌNH – TP. HCM
+- Diện tích: 68.3m² – Ngang 4.12m, nở hậu 4.38m
+- Pháp lý: Sổ riêng – Có GPXD 1 trệt, 2 lầu, sân thượng
+- Vị trí đắt giá:
+• Cách Quốc Lộ 13 chỉ 100m, trục đường thẳng – cực dễ tìm
+
+• Gần KDC Hồng Long & đường Hiệp Bình – khu vực an ninh, sầm uất, tiện ích đầy đủ
+Khách quan tâm cần thêm thông tin vui lòng lh zalo sdt .xin cảm ơn',
+      6700000000,
+      'Đường Quốc lộ 13, Phường Hiệp Bình, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      68.3,
+      ARRAY['https://cdn.chotot.com/QjBvhWE3gPPx2XVvd5vZE9ZCxS7lEHnvO0B5704LFKo/preset:view/plain/04361b0cf42b21aa9e9731078192431c-2976527437099877920.jpg','https://cdn.chotot.com/V0YzGTB-qlrsguj4ALbJvgjq06fFdV-RdWcxAEh-Duo/preset:view/plain/56cfd0fb67399defa8f553b65d9d45c5-2976527436492953298.jpg','https://cdn.chotot.com/aAgSVrFVKFpYRPQQTteDp_Y2oRCcJFH8NqxiaE7a_I0/preset:view/plain/25560b9918586cdc9601057b5fc53e77-2976527437533206226.jpg','https://cdn.chotot.com/ouW-JMt0v2Jn3AwYlugttuagSjYzwbV7P_reATUFLuw/preset:view/plain/512fc72922c41f8f29e8933145269dff-2976527437636814368.jpg','https://cdn.chotot.com/zMxokmL5h_KRxyM53sIaTGt7nujrote4lbwZkMxzjmA/preset:view/plain/ef34cc19ce2b895d0f4a1841f024610d-2976527437591492213.jpg','https://cdn.chotot.com/PCbE1EaX42Qgwr73Ptn9cCg8MXqHy5Yej9tvLaVu4SU/preset:view/plain/0695eccb40edebe75446f537450fbf0b-2976527437835261650.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Nguyễn Thanh  Hoàng',
+      '0962578993',
+      47000000,
+      NULL,
+      'sang-nhuong',
+      168,
+      NOW() - interval '11 days' - interval '1 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Lô đất khu Tân Phú Trung, 162m2 thổ cư, 2.5 tỷ',
+      'Đối diện khu công nghiệp Tân Phú Trung.
+Cách BV Xuyên Á 5km.
+Lô đất vuông vức, đường lớn 2 xe tải quay đầu.
+DT: 5x33m. TC 155m².
+Không dính quy hoạch.
+Không dính mồ mả.
+Giá bán 2.5 tỷ.
+Hình và sổ thực tế, chính xác.
+Thông tin chính chủ',
+      2500000000,
+      'đường số 64, Xã Tân Phú Trung, Huyện Củ Chi, Xã Củ Chi, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      165,
+      ARRAY['https://cdn.chotot.com/7zxacusQRh5eIPNHvl3NxSkI-IpoFcL6h688WbN4C5E/preset:view/plain/612180cffb4dd703058d9732cefe2394-2972908780050664964.jpg','https://cdn.chotot.com/p2i05C1f5II0ahmWPqLMnLJJLuLZckgufxoBfxt72Yw/preset:view/plain/adda03e9dcde6759587097e50398c125-2972908796615895570.jpg','https://cdn.chotot.com/KuX5x1rr1_3vFJsUqE0YxjP1zNy7VE1gX90ShjkXsEc/preset:view/plain/27188e69e82ad7e5c3a0acb007caf886-2972908820574546450.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Ms Hương ',
+      '0995559749',
+      14000000,
+      NULL,
+      'sang-nhuong',
+      219,
+      NOW() - interval '3 days' - interval '21 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán đất chính chủ thổ cư  mặt tiền 20m ngay Vinhomes quận 9',
+      '+ Chính chủ cần bán gấp lô đất Mặt tiền đường 20m đối diện Vinhomes Quận 9
+
++ Vị trí : Đường Nguyễn Xiển, phường Long Thạnh Mỹ, TP. Thủ Đức ( Quận 9 cũ)
+
++ Diện tích : 102m2 ( 4,52m x 22,5m) 
+
++ Công nhận đất ở 100%, xây dựng tự do
+
++ Giá chính chủ : 6,75tỹ',
+      6750000000,
+      'Đường Nguyễn Xiển, Phường Long Bình, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      102,
+      ARRAY['https://cdn.chotot.com/mk3OhDVeddlp-pGZSFRQhFGDLBWQguhjCMSyBdjIopE/preset:view/plain/de8957c1796e805dc7799fb9824d2880-2973472988551851393.jpg','https://cdn.chotot.com/gzW-bMhiaUwhRNIys-CqBvEQjYnPvIkjLm_--gC6QxU/preset:view/plain/0e217a1454a68f0c9103036e74f4c68d-2973472988709977506.jpg','https://cdn.chotot.com/6R7M9nt1mCEye9R6nKetS9zi43YT0bd3-4ufLwRWhKA/preset:view/plain/e277468621b890f6f0d02cfb942369e7-2973472989753135806.jpg','https://cdn.chotot.com/elCqsSLKXfFz3o3btdntEluEENSWSETfm5ocE2J3ogQ/preset:view/plain/8bb56fc32d04e5c2aef20d78efcc6a0d-2973472989774554910.jpg','https://cdn.chotot.com/bcYMV1pGpj4tUo-fsJp_vljOLuNCYPwStONpIZ40Tlk/preset:view/plain/ef47d446408d38617b4810c71da9a67e-2973472990900727169.jpg']::text[],
+      'approved',
+      false,
+      true,
+      'Huy Cường',
+      '0918687896',
+      34000000,
+      NULL,
+      'sang-nhuong',
+      4,
+      NOW() - interval '3 days' - interval '21 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Cần bán lại lô đất gần BX Q8 ngay Tạ Quang Bửu',
+      'Dt 80m2 5x16 đường trước nhà 6m
++ Giá 100%. Hỗ trợ giấy phép xây dựng
++ Ngân hàng hỗ trợ 70% giá trị đất
++ CAM KẾT: SỔ HỒNG có sẵn CÔNG CHỨNG ngay
++ Vị Trí:
+    - Cách BX Q8 500m
+    - Gần đường Tạ Quang Bửu cua vào
+    - gân uỷ ban nhân dân-chợ
+    - Cách đường NGUYỄN VĂN LINH 1Km',
+      1800000000,
+      'Đường số 1, Xã Bình Hưng, Huyện Bình Chánh',
+      'Huyện Bình Chánh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      80,
+      ARRAY['https://cdn.chotot.com/8rplix_mxClQ-gQ-FkkWmb6ltW6OaTb53Swl3FOZwQE/preset:view/plain/a61135f663bcb9d7cec26e55ced91ecb-2926250112993731338.jpg','https://cdn.chotot.com/JRnJKgZqe1N_lt2VJLAlrKNOR6SYX5IWocSrlWIyi78/preset:view/plain/63cdf131d2aa491b8a61140c67e18759-2926250114577770882.jpg','https://cdn.chotot.com/kTyTBYHfDOmBUcl6nO2yyqy20hjl2-LduV4iTp5YjBs/preset:view/plain/a05116d15f4afe3b6d14edff7f35e61a-2926250113124820712.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thanh',
+      '0921584578',
+      8000000,
+      NULL,
+      'sang-nhuong',
+      317,
+      NOW() - interval '1 days' - interval '17 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'cần bán lô đất hai mặt tiền xã Tân Xuân hóc môn',
+      'cần bán lô đất hai mặt tiền ở xã Tân Xuân Hóc Môn thổ cư 100% đã có SHR. giá bán 37ty TL cho ng mua Thiện chí.',
+      37000000000,
+      '3 Ấp Đình, Xã Hóc Môn, Huyện Hóc Môn',
+      'Huyện Hóc Môn',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      800,
+      ARRAY['https://cdn.chotot.com/LKzEXVB4To09b5pGa2ppsRABwB5M7KNTagKboeI3-pY/preset:view/plain/d28b97b4145040651f7acdcece4da226-2977721381165029333.jpg','https://cdn.chotot.com/MRqzx_OeZ-bsqKiRGPgduGC3MQnbiELIFegei-e6GL8/preset:view/plain/619eeace9e4b6c12982ab60079902eef-2977721381767002994.jpg','https://cdn.chotot.com/YMoE-LphpSRFo2KhNylWecwBmsHJx6w-853k7jg_AFk/preset:view/plain/b0bca460b015979be926f92420bbd5cb-2977721382617528688.jpg','https://cdn.chotot.com/_gozXRVUlpmr5D_t-e1X2vyKay-j1gJ5LfXruQTUdgo/preset:view/plain/c129a805af719f7119ffdafe70dea315-2977721383914823366.jpg']::text[],
+      'approved',
+      true,
+      false,
+      'Phương',
+      '0976856365',
+      147000000,
+      NULL,
+      'sang-nhuong',
+      272,
+      NOW() - interval '13 days' - interval '2 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN ĐẤT MT HỒ VĂN TẮNG, CỦ CHI 5x25m, GIÁ CHỈ 1,25 TỶ HÀNG HIẾM',
+      'BÁN ĐẤT HỒ VĂN TẮNG, CỦ CHI 5x25m, GIÁ CHỈ 1,25 TỶ HÀNG HIẾM
+
+Cơ hội mua đất ở thật – giá còn mềm giữa trục đường lớn Hồ Văn Tắng!
+
+Trong khi giá đất khu vực Hồ Văn Tắng – Củ Chi liên tục tăng theo hạ tầng, lô này chủ cần bán nhanh, giá chỉ 1,25 tỷ – không có lô thứ 2 cùng tầm tiền ⚠️
+
+📐 Thông tin lô đất:
+
+📏 Diện tích: 5 x 25m = 125m² (đất vuông vức, dễ xây)
+
+🛣️ Đường Hồ Văn Tắng – trục kết nối Thị trấn Củ Chi
+
+📕 Pháp lý rõ ràng – sổ hồng riêng – sang tên ngay
+
+📍 Vị trí & tiện ích:
+
+✅ Gần chợ, trường học, KCN, khu dân cư hiện hữu
+
+✅ Đi Thị trấn Củ Chi – QL22 nhanh
+
+✅ Phù hợp xây nhà ở lâu dài hoặc đầu tư giữ tiền
+
+– Đất ngang 5m, chiều dài đẹp rất khó tìm
+
+– Giá 1,3 tỷ khu Hồ Văn Tắng đang thấp hơn mặt bằng
+
+– Người xem trước – giữ trước – chốt trước
+
+📞 Liên hệ ngay để xem đất thực tế – chậm là mất!',
+      1250000000,
+      'Đường Hồ Văn Tắng, Xã Củ Chi, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      125,
+      ARRAY['https://cdn.chotot.com/TrhysSbkiGb0rHc2JktVKDL0ooPtIDRWYWw6JaPpUH4/preset:view/plain/5ef45bd41b836aeab21ddd25b470459c-2964215340295514186.jpg','https://cdn.chotot.com/90L1VRSgIEdJQ05DB1ZI3oqeCigUpoJHEiU_ipncE1o/preset:view/plain/5a9995e349c678257cdd321833b43acf-2964215383172598419.jpg','https://cdn.chotot.com/0Ffp9osZ21eFqKasnmn63jEzIc3DO7VLUTph9gswM5w/preset:view/plain/95f3fb690476f9ecb0d326570a000c8c-2964215383152810994.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Nguyễn văn quang',
+      '0917957256',
+      6000000,
+      NULL,
+      'sang-nhuong',
+      286,
+      NOW() - interval '2 days' - interval '7 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'GẤP BÁN - ĐẤT XÂY CHDV - 200M2 - NGANG 8M NGAY TRUNG TÂM - 13.5 TỶ TL',
+      'Dự án: 
+Thông tin chi tiết: ❌CHỦ GẤP BÁN - HẠ GIÁ 1️⃣ TỶ❌
+
+ĐẤT XÂY CHDV NGAY TRUNG TÂM PHƯỚC LONG B
+
+🎋200m2 - ngang 8m bề thế, sổ vuông A4
+
+🎋Gần ĐẠI HỌC VĂN HOÁ, CAO ĐẲNG CÔNG THƯƠNG  ….
+
+💰 Chỉ còn 13.5 tỷ tl mạnh cho khách thiện chí',
+      13500000000,
+      'Đường Số 359, Phường Phước Long, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      200,
+      ARRAY['https://cdn.chotot.com/mnZuS5wFPUXAfXMNZJE7Vx_HfWElaXcMd3qnCuN5vfM/preset:view/plain/352d51cab3dde8ac308c6abb99fcc567-2977698908578994133.jpg','https://cdn.chotot.com/EfNPjhgHtAWFYzmxr3Z3uj4Uj0RGgADfPM5MK21EkNA/preset:view/plain/281b587a663b395ee9e6a1410d7c0e05-2977698909272965318.jpg','https://cdn.chotot.com/ArTQ5r9kIeiZ0fgZZkjPj13QMhFR5VobrAIAkNy8B4g/preset:view/plain/acb81ee38f48fe25592b5ec2d083ed82-2977698908774091205.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thanh Phạm',
+      '0997929703',
+      74000000,
+      NULL,
+      'sang-nhuong',
+      420,
+      NOW() - interval '14 days' - interval '6 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán nhanh lô đất MT đường, full thổ cư, giá 15,2 tỷ.',
+      '- Tôi chính chủ, cần bán nhanh lô đất, full thổ cư
+- SHR, vay ngân hàng 70-80%
+- Mt đường, thích hợ xây dựng CHDV, cty, văn phòng,...
+- Giá: 15, 2 tỷ còn thương lượng
+- Liên hệ: Dương chính chủ
+- Có hh cho mô giới 1%',
+      15200000000,
+      'Đường Phan Văn Hớn, Xã Bà Điểm, Huyện Hóc Môn',
+      'Huyện Hóc Môn',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      220,
+      ARRAY['https://cdn.chotot.com/vTyciIP9BbU1Lj7s18jRfpNhHBArlF3yfn-GDItqg94/preset:view/plain/60894732ffe514bfc9c2371a5e17eedf-2974208508371630675.jpg','https://cdn.chotot.com/AYZKebw1wIk78-RxEE30briynKkm9eDFtvfpMWdCDqg/preset:view/plain/9611b478a20bef681f0f71bf00d1701c-2974208545814967487.jpg','https://cdn.chotot.com/PZZ4mhW87p0LVPTL3SygvBt7IOlz_-oWO-6H7DvSpfU/preset:view/plain/1890095ef6925df0a492d64580ee1aaf-2974208545696370934.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thùy Dương',
+      '0946480868',
+      95000000,
+      NULL,
+      'sang-nhuong',
+      335,
+      NOW() - interval '2 days' - interval '11 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Đất 5x20m ngay chung cư tx22',
+      'Tôi bán lô đất 5x20m ngay chung cư đường tx22
+Chính chủ',
+      380000000,
+      'Tx14, Phường Thới An, Quận 12',
+      'Quận 12',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/gAIV9-yDm2p9QCq3Y595hCoT9JHlhj4EWwJXU8sZRBI/preset:view/plain/e694b15d3026d26da9b9f5dd1ad851aa-2920866577974436242.jpg','https://cdn.chotot.com/5uK1F1EEumjI6UkI_1mTu0XWF4JDwwbYr5ywrXLc29A/preset:view/plain/dc2c8b25744434b75f1f98ea44d1f11b-2924630854695908326.jpg','https://cdn.chotot.com/-kZMl0Tmn83Ze0kwEuRmFzC541Fq6-mzjs4OaqNnDzo/preset:view/plain/dad6731972fd4ba9937abbc84b5e6c00-2924630854509411550.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Minh',
+      '0956639244',
+      2000000,
+      NULL,
+      'sang-nhuong',
+      255,
+      NOW() - interval '10 days' - interval '23 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      '920TR - CHÍNH CHỦ GIAO BÁN LÔ ĐẤT 340M2 NGAY TÂN THÔNG HỘI, MT NHỰA',
+      'Đất Đường số 3 Tân Thông Hội
+Cách Ql22 chỉ 300 mét, 1/ đường Nguyễn Thị Se
+Dt 7,3x 44m( 340m2 có 322m2 thổ cư )
+Xung quanh khu dân cư an ninh, tập trung đông đúc, tiện ích đời sống đầy đủ, không gần ông bà
+# Giá 920tr (có thương lượng)',
+      920000000,
+      'Đường số 3, Xã Củ Chi, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      340,
+      ARRAY['https://cdn.chotot.com/IBceBVcD-zh42NTa72EOIDvK8Ua-brCc65-h0vffaA0/preset:view/plain/2532809ae23bd71fb06f9946eef2bf2e-2976817297367354738.jpg','https://cdn.chotot.com/lgYUu--pYD_nCNse8WB5lPoRjXJg_BrrrhyJLx7qflA/preset:view/plain/02ef9581614665d7dfae3447d7090ba7-2976817312249774672.jpg','https://cdn.chotot.com/h9we3bPGyAHiEOqwDfrxjMCci6PTzEI18WT_HwIiQEw/preset:view/plain/4a8d480f9a38c8c808e1641262c8e702-2976817347058055961.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'TRANG NHÀ ĐẤT',
+      '0957072688',
+      6000000,
+      NULL,
+      'sang-nhuong',
+      422,
+      NOW() - interval '13 days' - interval '16 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Lô đất Mặt tiền 4mx26m. Trục kinh doanh sầm uất. Hệ số xây dựng cao',
+      'Dự án: 
+Thông tin chi tiết: Lô đất Mặt tiền Hiệp Thành 17. Vị trí đẹp thuận tiện xây ở hoặc kinh doanh
+
+Lô đất nằm trên tuyến Hiệp Thành 17, khu dân cư hiện hữu ổn định, thích hợp xây nhà ở lâu dài làm văn phòng công ty, kinh doanh đà ngành nghề
+
+Vị trí 
+Kết nối nhanh ra trục Nguyễn Ảnh Thủ và Dương Thị Mười
+Khu vực đông dân cư, tiện kinh doanh online, mở spa, văn phòng
+
+Diện tích
+4m x 26m
+Kích thước đẹp, chiều dài lý tưởng để xây nhà phố nhiều tầng hoặc khai thác cho thuê
+
+Ưu điểm
+Mặt tiền đường thông thoáng
+Khu dân cư sầm uất 
+Phù hợp vừa ở vừa khai thác kinh doanh đa ngành nghề
+Giá tốt trong phân khúc mặt tiền khu vực
+
+Pháp lý
+Sổ hồng riêng
+Hỗ trợ vay ngân hàng
+
+Giá bán
+6,85 tỷ. Còn thương lượng trực tiếp với chủ
+
+🤝 Cam kết dịch vụ: Thông tin chính xác – Trung thực – Phục vụ tận tâm | Hỗ trợ tư vấn pháp lý & vay vốn ngân hàng
+
+📞 Liên hệ: *** – Thành Trung Land | Uy tín – Trung thực – Chuyên nghiệp | Hỗ trợ A–Z, pháp lý minh bạch 100%.
+
+Chuyên nhận ký gửi bất động sản chính chủ. 
+Tìm nhà đất theo đúng nhu cầu khách hàng. 
+Giá chính chủ, hình ảnh thực tế 100%. 
+Hỗ trợ vay ngân hàng đến 70% giá trị tài sản. 
+Uy tín – Trách nhiệm – Chuyên nghiệp.',
+      6850000000,
+      'Đường Hiệp Thành 17 Nối Dài, Phường Tân Thới Hiệp, Quận 12',
+      'Quận 12',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      105,
+      ARRAY['https://cdn.chotot.com/3jnyy3K9PGqSDRlvddn2cA54w0r63U-F3DybiJ_-A4o/preset:view/plain/c4c02e2e64db4f39486aade1fc4fe28c-2977748887159225202.jpg','https://cdn.chotot.com/bZm5131vmvUdXAYZ7YQh0-Tvf2smn_Zk6Fz_riDT3g0/preset:view/plain/f08360d4ddb8ee42faba270a01b7d004-2977748886886538950.jpg','https://cdn.chotot.com/jKGZlZ43OqZADsB6o4TnJqGt6uTqPni1-WFPND_dnPk/preset:view/plain/acccd2295e1c2255f826a2886f9b0a07-2977748887209622386.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Bất Động Sản Lớn Nhỏ Quận 12',
+      '0967780940',
+      23000000,
+      NULL,
+      'sang-nhuong',
+      278,
+      NOW() - interval '1 days' - interval '5 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán 2 lô liền nhau 5*34m = 170m2. Tân Thới Nhì. Hocmon',
+      '- Bán 2 lô đất liền nhau. Dt mỗi lô 5*34m. Công nhận 150m2 thổ cư/ lô. Còn lại 20m2 lộ giới đường 
+_ vị trí. Đường tân thới nhì 12 vào. Cách mặt tiền Dương Công Khi 400m
+_ Đường trước đất nhựa , thông ra quốc lộ 22. Xe tải vào ra thoải mái 
+_ Dân cư hiện hữu xây dựng hoàn công tự do. Tiện ích xung quanh đầy đủ gần vingroup trường học bệnh viện....
+_ Thích hợp xây nhà vườn kho xưởng....có bán lẻ từng lô
+_ Giá thương lượng trực tiếp chủ nhà.
+LH xem ngay còn nhiều nhà đất khác quanh khu vực giá từ 2 tỷ . Pháp lý chuẩn sổ riêng hết. Đỗ Phúc chuyên khu vực hóc môn. Cảm ơn quý khách',
+      3700000000,
+      'Đường Dương Công Khi, Xã Xuân Thới Sơn, Huyện Hóc Môn',
+      'Huyện Hóc Môn',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      170,
+      ARRAY['https://cdn.chotot.com/SBMAIONvsb7sfJY780evpTumlPpIrRjaPV40VwCQZe4/preset:view/plain/38b9003daef0b0e229bbff3cfdcb7ce1-2976233660579469115.jpg','https://cdn.chotot.com/s2yKLg4715_k0MnRUf1a7D3wAfA4focyLchMnTIr2PE/preset:view/plain/829216542285bcc57f802030d024c600-2976233658099948925.jpg','https://cdn.chotot.com/8OHVSFAiNaG4xD2WAjM6dFTeEE6G3nS6v3oON5w7BlA/preset:view/plain/ce73ee7445dc646e1922f8e04dacc31e-2976233658739447506.jpg','https://cdn.chotot.com/yxyKCYx7qOhTLf67akGaZFM_fQeJ1lxMdf1waV5rAFs/preset:view/plain/43ee745a17adbed6ba44ecde25f9b57e-2976233659140201853.jpg','https://cdn.chotot.com/hhOWkcgkzkeCNFIzL148UELuzkUC9oJRHq-PLn0N9qw/preset:view/plain/6a729a82d74211ba35320a97ed5d1366-2976233671197662860.jpg','https://cdn.chotot.com/Xi53jgUBsUk-9ANxOG7z3Tkm18omOrT6dqZhS6UcCdc/preset:view/plain/ea211306d30b75fece4c00826931f808-2976233666764659457.jpg']::text[],
+      'approved',
+      true,
+      false,
+      'Đỗ Phúc ',
+      '0959289778',
+      22000000,
+      NULL,
+      'sang-nhuong',
+      25,
+      NOW() - interval '7 days' - interval '10 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Đất ngay chợ Phú Hòa Đông, 1ty2 hết 90m2',
+      'Nếu anh chị đang tìm đất chợ làm ăn và sinh sống thuộc TPHCM, thì e có đây, em đang có chỉ 1 lô do em đứng tên,  Em là chủ bán 90m2 đất, loại đất ở đô thị, 6 x 15,  ngay chợ Phú Hòa Đông, Nằm sau nhà lồng chợ 300m, đối điện 2 trường học: Mầm mon và cấp 3 Phú hòa. Em bao giá cả và pháp lý khu vự này cho anh chị yên tâm xây dựng kinh doanh, sinh sống. Em chủ đất không phải MG, anh chị không thể tìm ở đâu ra 1 lô đất chợ mà có giá tốt như em. Alo e dẫn đi xem và công chứng ak. Xin cảm ơn',
+      1200000000,
+      'Đường H32, Xã Phú Hòa Đông, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      90,
+      ARRAY['https://cdn.chotot.com/tF4an_qq-f3Mz675O4fS2LG6v2mBLnWZtn6P0sSxrz4/preset:view/plain/dba8fc0f7f23dc65540eafcc832fd270-2976721571135940271.jpg','https://cdn.chotot.com/9aPCmvGPU-Nymxb7yn9e1-gDEt1rTW2HETP7pIMQxjg/preset:view/plain/eda67e666de35ce41aa6635630089c82-2977129205039086361.jpg','https://cdn.chotot.com/OX-vl9PDZXpM78Nwib8gIjsSQYpfkiqcmTYaOcrM_Xg/preset:view/plain/0964623c24033720c18efd51481a9e12-2977129487708815952.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Aki Life Water',
+      '0974152163',
+      8000000,
+      NULL,
+      'sang-nhuong',
+      15,
+      NOW() - interval '9 days' - interval '20 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Cực Đẹp Lô đất 100m2(5x20) Giá 1TY6,KDC Bến Xe Quận 8.LH:901.898.136',
+      'CỰC ĐẸP LÔ ĐẤT (5x20)100m2 Giá 1Ty6 KDC BÌNH HƯNG,BẾN XE QUẬN 8,QL50,TPHCM.LH ngay: ***
+📍 Vị trí siêu đẹp:KDC Ngay Quốc lộ 50, giao thông thuận tiện, thích hợp kinh doanh, buôn bán hoặc xây dựng nhà ở.
+📐 Diện tích: 100m²
+📑 Pháp lý: Sổ hồng riêng, sang tên công chứng ngay
+💰 Giá bán: Chỉ 1Tỷ6 triệu – giá cực kỳ hợp lý cho vị trí mặt tiền!
+🌟 Tiện ích xung quanh đầy đủ:
+ • Gần chợ, thuận tiện mua sắm
+ • Gần trường học, phù hợp gia đình có con nhỏ
+ • Khu vực dân cư hiện hữu, an ninh, sầm uất
+🚗 Đường lớn, xe hơi quay đầu thoải mái – cơ hội đầu tư sinh lời cao hoặc an cư lâu dài!',
+      1600000000,
+      'Quốc Lộ 50, Xã Bình Hưng, Huyện Bình Chánh',
+      'Huyện Bình Chánh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/Pl7vJuXlrl5pWkXy3b25r5g7mJJurf2vYli9fODstn0/preset:view/plain/b3357019c44d7bdbe1bef00d0afcbd20-2975111260926264901.jpg','https://cdn.chotot.com/RZY3-aCw3xb_EFnPGj2wI0ooJc3x5iR1uq-Hk20NVFc/preset:view/plain/d1c48c42c996b449bdd4b53a4302ecc5-2975111261024942294.jpg','https://cdn.chotot.com/mQfu3ZPGjDSePojkopN1fuiyQqm8sa0g7dG-8wPc6QA/preset:view/plain/e4a4a0e8f6b2aac88cb8082da52085d9-2975111261164996634.jpg']::text[],
+      'approved',
+      true,
+      false,
+      'Minh Quân',
+      '0998384772',
+      12000000,
+      NULL,
+      'sang-nhuong',
+      235,
+      NOW() - interval '11 days' - interval '12 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'CHÍNH CHỦ GỌI BÁN QUỸ ĐẤT HIẾM dt VÀNG VỊ TRÍ VÀNG',
+      'Dự án: 
+Thông tin chi tiết: CHÍNH CHỦ BÁN QUỸ ĐẤT HIẾM dt 17 NGÀN MÉT giá MỘT TRAM BẨY MƯƠI TỲ Đồng 
+Chỉ tiếp khách thiện chí mua đầu tư. Ko tiếp môi giới sổ trong két có thể công chứng ngay sẽ ko gởi vị trí giấy tờ trước khi gặp chủ xin liên hệ sdt ***',
+      170000000000,
+      'Đường Nguyễn Duy Trinh, Phường Long Trường, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      17100,
+      ARRAY['https://cdn.chotot.com/JYetDINAEZ-O71CyxUsETKBwkBIvE4uu42KpTxcFilo/preset:view/plain/fb04823b91985ef4d5e889a3dcaf81dd-2976886136747510838.jpg','https://cdn.chotot.com/k3vMLWr0ObPeHd-lzzVwRlwyyC7woLNhtZojO3uOUhw/preset:view/plain/01302611c295da990bb9979043924b85-2976886136786298041.jpg','https://cdn.chotot.com/FEh5vKSyXlYSIjLcY-SROCV4fuQ7D3objulFVcxZgzQ/preset:view/plain/15d51b5d237632c2926ea1a0459e6b9b-2976886136786363577.jpg']::text[],
+      'approved',
+      false,
+      true,
+      'Lê Phương Minh',
+      '0921364336',
+      630000000,
+      NULL,
+      'sang-nhuong',
+      452,
+      NOW() - interval '12 days' - interval '12 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Đất mặt tiền thuận tiện xây dựng moi . QHXD tret 5 lâu',
+      'Dự án: 
+Thông tin chi tiết: Đất Mặt Tiền Nguyễn Tuyển . BÌNH TRƯNG TÂY QUẬN 2 cũ
+DT:129,3m
+Huong tây nam
+Vị trí đắc đia buôn  bán kinh doanh đa nganh nghề
+💰💰:15,5 ty
+☎️:***',
+      15500000000,
+      'Đường Nguyễn Tuyển, Phường Bình Trưng, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      129.3,
+      ARRAY['https://cdn.chotot.com/fjT2QeRpvkeMKiW9YzJo3cnkY6Jow248o3thUKVJQqk/preset:view/plain/41ea7e60923adbb920d2d32d862d7eec-2975217143956211879.jpg','https://cdn.chotot.com/rrJNTTzLAlnzBeLkLE3JfumGy78BOtMCEAQqf07ojjU/preset:view/plain/b469d48e01c20b2850823e8f25c79abd-2975217143267441449.jpg','https://cdn.chotot.com/zKJ21XGy1M48MvzXeSni0gLb9kOTGAx8DVy7MIa-SwI/preset:view/plain/55af384f661f1d535ed0e18d9a6db3ae-2975217139929614503.jpg']::text[],
+      'approved',
+      false,
+      true,
+      'nhan van',
+      '0963352475',
+      93000000,
+      NULL,
+      'sang-nhuong',
+      176,
+      NOW() - interval '6 days' - interval '12 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán lô nhà vườn An nghĩa, bình khánh 202m2 với chiều ngang 13m',
+      'Thông tin chi tiết: Bán lô vườn có thổ cư sẵn, ngay khu dân cư An Nghĩa. Diện tích thực tế đất dư , chỉ bán diện tích 202m2 công nhận trên sổ. 
+Vị trí đường Rừng Sác giao đường Tam thôn hiệp đến vị trí đất tầm 150m. Khu vực khu dân cư đông đúc
+Tiện ích gần bách hoá xanh, ngân hàng sacombank bên cạnh.
+Sổ hồng riêng sẵn có, công chứng nhanh gọn',
+      2200000000,
+      'Tam thôn Hiệp, Xã Bình Khánh, Huyện Cần Giờ',
+      'Huyện Cần Giờ',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      202,
+      ARRAY['https://cdn.chotot.com/Hw4D1xgilLs4HQemVwj-PU9KSlKQrpv1cpYYK72qkKY/preset:view/plain/44576ece9ef183d6358158073c683361-2977674350344977266.jpg','https://cdn.chotot.com/MB5_IhuYN6hAbjkrywezkiol_45-_EI_qn2U_7fHaEw/preset:view/plain/e0769d91189595982035059161ebb26a-2977674354220645234.jpg','https://cdn.chotot.com/o7tmXcnckYSRB6PoA5ebFm6dJNw_81pZ12odJn35Oww/preset:view/plain/680981e036abb8dc0a2366b38ba86885-2977674353885035378.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'luongthanhchieu',
+      '0927239538',
+      9000000,
+      NULL,
+      'sang-nhuong',
+      398,
+      NOW() - interval '5 days' - interval '23 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Đất Thạnh Lộc 27 sát bên Chung cư Thạnh Lộc',
+      'Dự án: 
+Thông tin chi tiết: Chính chủ bán đất ngay sát bên Chung cư Thạnh Lộc. Khu dân cư sầm uất. Ra chợ Cầu Đồng 150m. Xung quanh Trường học các cấp tiện ích. Ra ngã tư ga vào Gò Vấp chỉ 1km. Chính chủ đăng giá bán, không thương lượng, chỉ bớt lộc chút.',
+      3900000000,
+      'Đường Thạnh Lộc 27, Phường An Phú Đông, Quận 12',
+      'Quận 12',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      59,
+      ARRAY['https://cdn.chotot.com/agrZgNk6HIwb46-GZlmsKQPHgMX-Z66pZL8Js1YLRp0/preset:view/plain/7ed631a110d9a0b2d40912c7cf097b1c-2977716935206918101.jpg','https://cdn.chotot.com/osTwbpoCvygYNQMDM6H8A0DjzsKsKZkAbvE7Nw2fd-Q/preset:view/plain/488c349941a7e21232dcbc7afb141965-2977716935257967045.jpg','https://cdn.chotot.com/5nUrVv1seDeJrup-2oULL4lEngUHEx2K_YVIf4-y8rw/preset:view/plain/1a7cc04b588ba448884cd6c15bfd0a8e-2977716936586026694.jpg','https://cdn.chotot.com/rvZKES2lc3nolr6wmsQmU3mm0w-UpoVkSwgHbY2ps38/preset:view/plain/16ccd26ce80c4875e557855376899bc0-2977716938398031558.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Nguyễn Thị Thơm',
+      '0971039043',
+      20000000,
+      NULL,
+      'sang-nhuong',
+      188,
+      NOW() - interval '14 days' - interval '18 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN LÔ ĐẤT CỰC ĐẸP - VIEW CÔNG VIÊN Bình Lợi, DT: 5m x 20m vuông vức.',
+      'Chính chủ  gửi bán lô đất cực đẹp - VIEW CÔNG VIÊN Bình Lợi, Phường 13, Bình Thạnh
+
+- Diện tích: 5m x 20m (100m²), sổ hồng chính chủ, pháp lý rõ ràng.
+=> Giá: 13.5 tỷ
+- Ưu điểm nổi bật:
++ Vị trí đắc địa, view công viên xanh mát, không gian sống lý tưởng.
++ Phù hợp xây nhà ở, đầu tư hoặc kinh doanh.
++ Giá trị tăng trưởng cao, tiềm năng sinh lời tốt.
++ Sổ hồng riêng, sẵn sàng công chứng ngay.
+
+=> Liên hệ ngay SĐT bên dưới hoặc zalo em để biết thêm chi tiết và xem đất thực tế anh chị nhé!',
+      13500000000,
+      'Đường Đặng Thùy Trâm, Phường Bình Lợi Trung, Quận Bình Thạnh',
+      'Quận Bình Thạnh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/noxbwh8OoFWKaU4wpJKLCk3AdgAzmCACOsCjT3CdHFk/preset:view/plain/02c02f7dcd7a3ae864a9fe7fc604dc2f-2969595644840028398.jpg','https://cdn.chotot.com/8F78dj9MKNF-dQQ0l_bUvJN7Z7lE6e4dNJPbXou2GXc/preset:view/plain/0c46d1dfe06966dae966b0fdb9905cfd-2969595721452133846.jpg','https://cdn.chotot.com/PIdA7iJvIZ8NclYFHYf_NSFluIWaPDhqm1x_waw_V5A/preset:view/plain/df7ca7445844a3c15b6444a0d9a09993-2969595721747638510.jpg','https://cdn.chotot.com/oPKrarpM8wq5DXiqOE7qZ4-6GtSGMnntZhoQg1fUFdQ/preset:view/plain/540928518751563016b6acac3201c914-2969595667622675893.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Mr Cường',
+      '0951291134',
+      90000000,
+      NULL,
+      'sang-nhuong',
+      125,
+      NOW() - interval '3 days' - interval '12 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'đất mặt tiền Lê Văn long hậu giáp nhà bè',
+      'Cần bán các vị trí đẹp mặt tiền kinh doanh 
+6x20, giá 6,5 tỷ 
+9x30, giá 12 tỷ 
+4,5x20, giá 4,3 tỷ 
+Đất đẹp phong thủy tốt, mua bán sang tên nhanh',
+      4300000000,
+      'Đường Lê Văn Lương, Xã Hiệp Phước, Huyện Nhà Bè',
+      'Huyện Nhà Bè',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      90,
+      ARRAY['https://cdn.chotot.com/L24MdZn06z1S--t5bHMEeq8nKoxiJLRezEc-RTF7n0Y/preset:view/plain/275235c39dd654fc8ce6469251690d0d-2957137084795505912.jpg','https://cdn.chotot.com/wZaYB3QesTFqvqjJrj8wy3x4Ul5R7_R0zJkbt3v0xfY/preset:view/plain/1423417225b25f30e80c7a5d78de4857-2957137085044220734.jpg','https://cdn.chotot.com/pvPKG4xdwB_a7PY1Jur3gPHBr-Wl4dJvHiIahjM9CMw/preset:view/plain/909674ec8dedb954e1cd1f158fcd96dd-2957137090181188856.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thái Nguyễn',
+      '0933400068',
+      28000000,
+      NULL,
+      'sang-nhuong',
+      474,
+      NOW() - interval '14 days' - interval '7 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN NỀN B11 - KDC VẠN PHÁT HƯNG TRƯỜNG LƯU - 4.3 TỶ/84M2',
+      'Dự án: 
+Thông tin chi tiết: Bán nền đất dự án Vạn Phát Hưng - Trường Lưu - P. Long trường Quận 9
+
+ DT: 83.4m2 (5 x 16.6) 
+
+ Hẻm 8m vỉa hè 1.2m 
+
+ Hướng Đông
+
+ Cách chợ Long Trường 1km 
+
+GIÁ 4.3 Tỷ TL
+
+LH *** Anh chị quan tâm liên hệ xem đất',
+      4300000000,
+      'Đường Trường Lưu, Phường Long Trường, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      84,
+      ARRAY['https://cdn.chotot.com/SDGer2ir6hHFt-m6oB_wYgPnEFgpcbE0-Kym0roCxBE/preset:view/plain/4822dbe5ab921f292bf7fc89839dd4d3-2977820853643913530.jpg','https://cdn.chotot.com/KEVhDy135PKmMdQ1TruMBj_7nkR5O4tgGVx2zbIbHpE/preset:view/plain/e98b257aa29fe52e1dd5edd10bc7efbd-2977820853123754298.jpg','https://cdn.chotot.com/Dq3bb6XVrQ_FBLRH8fXrPgU_N51-0_fZ9Shlk62VOHY/preset:view/plain/569cbda2d70d2fd4b27d785316ea50f2-2977820853979523386.jpg','https://cdn.chotot.com/CTue_poPhx4Bx7S2ie6_evP5NMxaDfbUL44N0gyl5Yc/preset:view/plain/37b8c12c642faf60cd30d5a9d3cf0501-2977820854735920838.jpg']::text[],
+      'approved',
+      true,
+      false,
+      'NGUYỄN TUẤN PHÁT',
+      '0961680426',
+      19000000,
+      NULL,
+      'sang-nhuong',
+      57,
+      NOW() - interval '10 days' - interval '20 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      '🌳LÔ ĐẤT NGAY CHỢ LONG TRƯỜNG 57m2 OTO ĐỔ CỬA CHỈ 3.74TỶ',
+      'Dự án: 
+Thông tin chi tiết: ✅Diện Tích: 4x15m xây được 4 tầng 
+✅Khu phân lô đồng bộ, đường 8m oto đổ cửa
+✅Dân trí cao an ninh tuyệt đối
+✅Pháp lí chuẩn công chứng ngay
+
+📞 Contact: *** (Mr.Thanh) tìm BĐS theo yêu cầu tất cả các quận TpHCM',
+      3740000000,
+      'Đường Nguyễn Duy Trinh, Phường Long Trường, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      57,
+      ARRAY['https://cdn.chotot.com/Fl_qGEjej_HWhvT63BWBUjDyisNWjPp7waiSKweonv8/preset:view/plain/57ad31944156da521f108fba648c76b7-2977693995196768379.jpg','https://cdn.chotot.com/_PnHBrSKnqv98RjkJCEhHOnq5W3VfI3biN1nXxP_TDU/preset:view/plain/c5481b11393def0b103d5d09c93fccfd-2977693995028930683.jpg','https://cdn.chotot.com/NILFFc2GmTlzviV2mTgMGUDAkfe-wa6umpMrtSzRN94/preset:view/plain/2be2b336206c9b0d121b786ab8c7232b-2977693995314182010.jpg','https://cdn.chotot.com/ofwXa0B9BSErGQUrDQu0DHzKcjvi7xvDUFhTLzV2iXg/preset:view/plain/2f159828293622af4433b7b797e4d612-2977693995190659272.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Nguyễn Thanh',
+      '0958852864',
+      30000000,
+      NULL,
+      'sang-nhuong',
+      263,
+      NOW() - interval '7 days' - interval '14 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN ĐẤT RẺ SÁT CHỢ THỚI TỨ HÓC MÔN GIÁ ĐẦU TIE SINH LỜI CHỈ 1Tỷ060TR',
+      'Vị trí : CÁCH SÂN BANH THỚI TỨ 1KM , CÁCH CHỢ THỚI TỨ 800m , ĐÔNG THẠNH , HÓC MÔN , TPHCM
+Diện tích : 100m2 
+Đường nhựa xe chạy thoải mái
+Giá bán : 1Tỷ060 ( cỏn thương lượng ) 
+Pháp lí : sổ hồng riêng 
+Tiện ích xung quanh
++ chợ , trường học , bệnh viện , siêu thị
++ giao thông thuận tiện , di chuyển dễ dàng đến các khu vực lân cận 
++ khu vực an ninh , dân cư đông đúc , thích hợp đầu tư 
+Liên hệ để trao đổi thêm thông tin',
+      1060000000,
+      'Đường Trịnh Thị Miếng, Xã Đông Thạnh, Huyện Hóc Môn',
+      'Huyện Hóc Môn',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/LYHsvWeJKy7HA4GM1gbABCHSkZk6KA8NoLzvKxgZM-I/preset:view/plain/b2a6f5f7d3e0877108d380044d2d8841-2977404916290728243.jpg','https://cdn.chotot.com/0DOzUUHtxUcovPeYxFW4wceVvYqTR4-Sfe-xUyDMvWM/preset:view/plain/d3f7641353cfe0e61ab97b00f060f732-2977404916819287750.jpg','https://cdn.chotot.com/YE9d0V-61ei1Af9PQsbzQnj3myY2umZaIuYBqmZeYH0/preset:view/plain/32629988b0729c86783ece9ff6062451-2977404915729480562.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thảo',
+      '0975540470',
+      7000000,
+      NULL,
+      'sang-nhuong',
+      410,
+      NOW() - interval '8 days' - interval '22 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Mấy Lô đất đẹp Ngang 5m Hẻm nhựa 12m KDC Hà Đô river side Lê Thị Riêng',
+      'Sót lại mấy lô đất KDC Hà Đô River side
+Giá chỉ từ 5.4  Tỷ bao rẻ nhất khu.
+Thuộc KDC Hà Đô River Side - P. Thới An Q12
+- Lê Thị Riêng. Trục Chính vào Khu biệt Thự
+👉 Lô 1 : Diện Tích : 5m x 16m. 
+Giá bán : 5.4 tỷ 
+👉 Lô 2 : Diện Tích : Từ 5m x 20m. Đến 5m x 22m. 
+Giá từ 5,6 tỷ đến 5,8 tỷ  ( Còn 04 Lô liền kề)
+👉 Lô 4 : Diện Tích : 5m x 23m. 
+Trục chính khu biệt thự. Tiện kd buôn bán. Vp công ty
+Giá bán : 6.65 tỷ 
+- Đường nhựa 12m có vỉa hè 2 bên. 
+- Vị trí siêu đẹp, Khu dân cư hạ tầng đồng bộ, điện âm. Liền Kề KDC Hà Đô. Khu có công viên bờ sông. Trường học. Siêu thị. Có bảo vệ 24/24. An ninh. 
+- Ngay Trung tâm hành chính Quận 12. Nhiều tiện ích xung quanh. Về Gò Vấp 5 Phút
+- Pháp lý : Sổ hồng riêng xây tự do
+Liên hệ : ( MIỄN TIẾP ĐĂNG TIN - QC )
+BĐS Nhà Phố Quận 12
+Chuyên ký gửi BĐS Chính chủ
+Tìm nhà đất cho khách theo yêu cầu
+Giá Cả chính chủ, Hình ảnh thật 100%
+Hỗ trợ thủ tục ngân hàng 70% giá trị
+UY TÍN-TRÁCH NHIỆM - CHUYÊN NGHIỆP',
+      5400000000,
+      'Đường Lê Thị Riêng, Phường Thới An, Quận 12',
+      'Quận 12',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      60,
+      ARRAY['https://cdn.chotot.com/NNnvIONqKs5CDL7M58MoWSahKAtHOvUvVe69ASPi1zc/preset:view/plain/05b05176094a12068c833be0cbd1aafa-2956709996651242365.jpg','https://cdn.chotot.com/F0H990rYk7Hv4Qy17BMxd09vr8yAtDoKvRJJoWemaew/preset:view/plain/ffbc98bdd1e81e022db8e2e8222fcc91-2956709996694726476.jpg','https://cdn.chotot.com/WS-QFBCdwPifoESCZZ_24IeLe-Vdp98pdvM9AxNsrTo/preset:view/plain/8f519ad3ce9dc3cf40d14045d189caf6-2956709998362583933.jpg','https://cdn.chotot.com/WUGzna3A15MjiZTHmRMVptAcZze64MD5bbgVSsya-ec/preset:view/plain/31a930132c17baa220f4f797518f9c08-2956709999478182785.jpg','https://cdn.chotot.com/m9Y-3pwfXqJereKPLXigKAbESIia9AOiTh6aEA_MDyM/preset:view/plain/9193458682b5a400c9005f68fe36efbe-2956709999637717885.jpg','https://cdn.chotot.com/LfInbzlnxsxnFBwJ7kyEKVVqukBGq1e0MU12Tl6wWkc/preset:view/plain/758da0763488f72fa59503086c4b36c1-2956710000778634109.jpg']::text[],
+      'approved',
+      false,
+      true,
+      'BĐS Nhà phố Quận 12',
+      '0957871391',
+      31000000,
+      NULL,
+      'sang-nhuong',
+      297,
+      NOW() - interval '6 days' - interval '22 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán 2 lô thổ cư xã Bình Chánh',
+      'Bán 2 lô 100, 200 m2 đã có sổ chính chủ
+không quy hoạch, xây dựng tự do
+Đường Đoàn Nguyễn Tuấn, T12 xã Bình Chánh',
+      2500000000,
+      'Đường Đoàn Nguyễn Tuấn, Xã Bình Chánh, Huyện Bình Chánh',
+      'Huyện Bình Chánh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/7XJZIAbjunX9Me8MtgiwfPwg8lwslmNfK4L7U_xA8uo/preset:view/plain/e06d9ebe999ed486b59bc03873e3c9f2-2977687508309227888.jpg','https://cdn.chotot.com/VDMno3NZAg5KGLBU-F7MzGrtkTgKZ_nvJayNnltPyGg/preset:view/plain/06ae18c0dc50a72c4d9ee8ede2f746a7-2977687507732511602.jpg','https://cdn.chotot.com/rKgM49rTaYUHSry41nIINl3EbQX4RfUvvEyWLqoo3F0/preset:view/plain/28ee7b22fb0b01176a6b0f501377d837-2977687532911058630.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Anh vũ',
+      '0955433463',
+      19000000,
+      NULL,
+      'sang-nhuong',
+      33,
+      NOW() - interval '6 days' - interval '18 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Đất thổ cư đường 156 Bình Mỹ, Chân cầu Rạch Tra Củ Chi',
+      'Dự án: 
+Thông tin chi tiết: Chính chủ bán lô đất thổ cư đường 156, Bình Mỹ, Củ Chi, ngay chân cầu Rạch tra. Khu dân cư đông đúc, gần trường học, bệnh viện, gần chợ, đường xe tải tránh nhau. Sổ hồng thổ cư 100%.',
+      3500000000,
+      'Hà Duy Phiên, Xã Bình Mỹ, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      115,
+      ARRAY['https://cdn.chotot.com/E8hnTApjs7Y6Rj2izqbDKqMmYH4Dxgr1b8AFnjsGSPE/preset:view/plain/a9c5e128fe8581cf3fb7347f5821e104-2974785229851124272.jpg','https://cdn.chotot.com/KhRFkwSlBt8S0HMaUivUkmE_yx51LSca-o54ypKIfBY/preset:view/plain/89392a3d0d9de229a94b5b6ab38d6c2c-2974785229857983327.jpg','https://cdn.chotot.com/-fjBqpl6AxOR_Xb4d4QiZG-HkEtRlT7SYtvHU4blAuE/preset:view/plain/992293e8a53469c2b27fa0f4258aefe0-2974785229919948465.jpg','https://cdn.chotot.com/XSGZDP1YxgZ0ExNDD8I8JYZ-OnCXP9IBcygEq4CyXCw/preset:view/plain/de96e8fd2ae121d0b4313124ca660b28-2974785229307230859.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thanh Thiên',
+      '0921332706',
+      18000000,
+      NULL,
+      'sang-nhuong',
+      343,
+      NOW() - interval '2 days' - interval '17 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      '490TR. BÁN GẤP MẶT TIỀN NGUYỄN THỊ LẮNG SÁT CHỢ TÂN PHÚ TRUNG- CỦ CHI',
+      'Bán gấp lô đất mặt tiền Nguyễn Thị Lắng , sát bên chợ Tân Phú Trung - Củ chi .
+
+Ngang 5m x dài 30m = 151m2 đã full thổ ( xây dựng tự do ) 
+
+Giá bán : 490 triệu, bao sang tên công chứng . 
+
+xung quanh dân cư đông đúc, nhiều dãy trọ , vì khu vực này tập hợp công nhân sinh sống khá nhiều . 
+
+Từ đất tới khu công nghiệp chỉ mất 5p, cách QL 22 chỉ 500m . 
+
+Sát chợ Tân Phú Trung , Gần trường học các cấp 1, 2, ...tiện ích tiện nghi đầy đủ trong bán kính 500m 
+
+Liên hệ em để xem sổ và đi xem đất miễn phí .',
+      490000000,
+      'Đường Nguyễn Thị Lắng, Xã Củ Chi, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      151,
+      ARRAY['https://cdn.chotot.com/HQAWHYk5mKuw0KzCIqgWz6GHh9qFUaQqy-pn8gte-Ho/preset:view/plain/4d99bea367a7498728ae26cccde6d234-2976812636274146073.jpg','https://cdn.chotot.com/r5w58leeUPNnBXLEtPX9Mxds-Xcty7CIkZ-7HzSSyks/preset:view/plain/73f97f82e33bfe37495bb7e3c3a0d5a1-2976812712293677849.jpg','https://cdn.chotot.com/7-mvNhNLP5H27P-DKYHB_0374WMvgKwd0Jp5Y0TOUQA/preset:view/plain/42e0517b7000ab1226bb43400b512db5-2976812678774931523.jpg']::text[],
+      'approved',
+      false,
+      true,
+      'Hồng Thanh',
+      '0956996325',
+      4000000,
+      NULL,
+      'sang-nhuong',
+      253,
+      NOW() - interval '7 days' - interval '17 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'ĐẤT 4.5X12.5M 56.6M2 ĐƯỜNG Ô TÔ KHU ĐẸP KẾ VẠN PHÚC ĐỒNG BỘ',
+      'Dự án: 
+Thông tin chi tiết: Đất khu đồng bộ sát Vạn Phúc
+Đường 5m ô tô
+Chủ cần xử lý công việc để lại cho khách thiện chí. Khách quan tâm cần thêm thông tin chi tiết vui lòng lh qua zalo sđt.xin cảm ơn',
+      5430000000,
+      'Đường Số 9 Khu Phố 5, Phường Hiệp Bình, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      56.5999,
+      ARRAY['https://cdn.chotot.com/rf_tSzzDOmz0DSrH_wE9s4bhSeuHn4ON5db3L1WPHeY/preset:view/plain/0403e7fcc7c8b535ad67f5e85e397d04-2977675610451040213.jpg','https://cdn.chotot.com/4BciiZYcCUR8rIOBAky2FF5a6gc8RhjKkroOV9ENbtI/preset:view/plain/b60d785a52279c148ef3e5ff414e2350-2977675610763091654.jpg','https://cdn.chotot.com/YWkODS943pS_kVgTYqO9B77PP4s6hQMYcUtUpfgUFq0/preset:view/plain/1519731fc22142ff56e7625a51b3f812-2977675610636634565.jpg','https://cdn.chotot.com/2-BS3vFK852k-0_2acXHpt_4RmZj-s23QpICPT4le3A/preset:view/plain/6af416081f27cb40059cf5a8a8509fa4-2977675609352158066.jpg','https://cdn.chotot.com/GedeJQe3TH1y340_4PZTIPBv66PHJhpCDMlL0HgChrA/preset:view/plain/47f04b005fc4a5a8c68adc38ebdf871d-2977675610182410363.jpg','https://cdn.chotot.com/jUS8sltsmU2feZPoN2H1c5Figa9Uqab_Et7QiDn4bzo/preset:view/plain/d28a4d01191b8c41c333c9abb31ed6cb-2977675610619791813.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Nguyễn Thanh  Hoàng',
+      '0994093434',
+      23000000,
+      NULL,
+      'sang-nhuong',
+      489,
+      NOW() - interval '9 days' - interval '1 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán Đất khu dân cư bình hưng 100m2 giá 1ty350 SHR',
+      'Dự án: 
+Thông tin chi tiết: 🏡 MỞ BÁN - ĐẤT NỀN KHU DÂN CƯ BÌNH HƯNG - MẶT TIỀN QUỐC LỘ 50 - GẦN BẾN XE QUẬN 8
+🔥 Chỉ còn 7 nền đẹp nhất, hạ tầng hoàn thiện, sổ hồng riêng từng nền – hỗ trợ vay ngân hàng lên đến 70%
+📍 Vị trí: Mặt tiền Đường Số 10 – liền kề Chợ Bình Hưng
+🌟 Kết nối nhanh: Quận 8, Quận 5, Quận 10 chỉ 15 phút di chuyển
+🏙️ Nằm trên trục hành lang kinh tế đô thị – gần khu công nghiệp & dân cư hiện hữu
+📐 Diện tích & Giá bán (đã có sổ):
+ • 4x20m (80m²): 1 tỷ 150 triệu
+ • 5x20m (100m²): 1 tỷ 250 triệu
+📌 Pháp lý:
+ • Sổ hồng riêng từng nền – xây dựng tự do
+ • Công chứng sang tên ngay – minh bạch rõ ràng
+🎁 ƯU ĐÃI ĐẶC BIỆT:
+💎 Tặng 10 chỉ vàng khi công chứng trong tháng này.
+✅ Tiện ích & Hạ tầng:
+ • Đường nhựa rộng 12–32m, vỉa hè lát gạch, cây xanh mát mẻ.
+ • Công viên, khu thể thao, camera an ninh 24/7.
+ • Gần trường học, bệnh viện, TTTM, chợ Bình Hưng.
+📞 Liên hệ ngay 
+☎ Hotline/Zalo ***
+📩 Nhận thông tin chi tiết & sổ mẫu qua Zala
+👉 Số lượng có hạn – liên hệ sớm để chọn vị trí đẹp nhất!
+Trân trọng!',
+      1350000000,
+      'Đường số 19, Xã Bình Hưng, Huyện Bình Chánh',
+      'Huyện Bình Chánh',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      100,
+      ARRAY['https://cdn.chotot.com/IDQ4x0r4XSvukERrEzOLqlK-h2WUsSy80P-tEViGXB0/preset:view/plain/692635c561628ded094e83081e683447-2974649933133695467.jpg','https://cdn.chotot.com/gtoz2MFRKHMniRl2gXe5HWHKUI2nGlb6Lc-AXUTol5M/preset:view/plain/1ed90f053c8c81238403c2305e101749-2974649932398071133.jpg','https://cdn.chotot.com/X714tQzlv4JXOLS5UwDsliSbh9YH_VlO6gqhjhiSioU/preset:view/plain/c027de4913c9f5bc7f23fcb6e12a5154-2974649932704546482.jpg','https://cdn.chotot.com/1SyD_j5nnY6eXoU18Aj42_IWQ6VqF-W_Jk6BtPeZAMA/preset:view/plain/f7d3cf0b9cece3330c9d591a0dd27671-2974649932726733146.jpg']::text[],
+      'approved',
+      true,
+      true,
+      'Thắng',
+      '0928806042',
+      5000000,
+      NULL,
+      'sang-nhuong',
+      80,
+      NOW() - interval '12 days' - interval '9 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán lô đất như hình',
+      'Ông anh cần tiền nên bán lô đất này. 5m ngang dài 36m. Tổng 181m2. Mặt tiền đường nhựa. Cách Cây Gõ 70m. Mua bán công chứng bi bằng ( sổ đỏ chủ kế bên giữ). Tiện làm vườn, nhà vườn. Phía sông sài gòn mát mẻ. Đã trồng trụ bê tông, rào kẽm gai xung quanh đất.
+Giá 450tr. Có thuong lượng.
+Xin cảm ơn đã xem tin',
+      450000000,
+      '1/ Cây Gõ, xã An Phú ( cũ). An nhơn Tây ( mới), Xã An Nhơn Tây, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      181,
+      ARRAY['https://cdn.chotot.com/CumNxu-7RGPUUSsGksbVMex_ttTH60xnStu6K1h9_kA/preset:view/plain/fb129093983a06b5488edb570fd34bbf-2960873659339405379.jpg','https://cdn.chotot.com/Mf1bl4AsJNCUnxHvRqXJthtIiYsFZ2exMdqmQ4dgB4A/preset:view/plain/5eca7db51e7f3b9d4a5b40dcca4bd8df-2960873651270075397.jpg','https://cdn.chotot.com/a7urskcSw85qL-2Zx7LAcpGEd0BdxcuIujo5j1gDo-g/preset:view/plain/bd3f388374d451fc8ff1c833e9792c03-2960873655632348165.jpg','https://cdn.chotot.com/P22b0l79jXOht7DowgaekIOE_vcgHwOlMSxx-dJH3EI/preset:view/plain/407a408a5eafe2af33a60f207f796c14-2960873657230966168.jpg','https://cdn.chotot.com/3McZ-ysRVQUqpKLL0QsSMQG_dHI5hofA-haPuJRcMZ0/preset:view/plain/a1295657b08a88615fc008371679ed49-2960873653819635779.jpg','https://cdn.chotot.com/FMh0ionc11RqHufZU3Zl1lE7wf0H3k07EWK_P0eEn00/preset:view/plain/29d345aae0c86c12f62b9a48805346c8-2960873660519366040.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Vo Bay',
+      '0984688738',
+      2000000,
+      NULL,
+      'sang-nhuong',
+      28,
+      NOW() - interval '3 days' - interval '15 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'cần bán 2300m2 đất nằm ngay thị trấn hóc môn',
+      'Cần bán 2300m2 ( có 300m2 đất ở đô thị) ( ngang 26m dài 72m nở hậu 28m)  đất  mặt tiền đường ngô quyền nay thuộc xã hóc môn, cách mặt tiền lê thị hà 90m, nằm ngay trung tâm hành chính hóc môn, ngay chợ, đầy đủ tất cả các tiện ích, vi trí đẹp nhiều tiềm năng, gần khu vinhome hóc môn đang xây dựng đại đô thị, thích hợp xây khách sạn nhà hàng , toà nhà văn phòng, quán cafe. ( ko tiếp quảng cảo xin cảm ơn)',
+      34900000000,
+      'Đường Ngô Quyền, Xã Hóc Môn, Huyện Hóc Môn',
+      'Huyện Hóc Môn',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      2300,
+      ARRAY['https://cdn.chotot.com/3TXj-jwlm5EsmoUSr-YEHA6Dja3f-119ho92cUSM2dw/preset:view/plain/d1b24c75b18465e067a2f20e066632d1-2977093074551861558.jpg','https://cdn.chotot.com/KWSAiJu_xepz2SLEc_VlD7A4wgvDz1Jkr2wf2a2MNT0/preset:view/plain/fe2ba8570daa505667fd6b618bf2b0f1-2977093074308792912.jpg','https://cdn.chotot.com/vvhim2SJjEdWOzoxlscLF1aQTpu-PwQKBV6CR5oA6Cc/preset:view/plain/fe2d53c4ecfe71d478844c7dc9682579-2977093074435915150.jpg','https://cdn.chotot.com/Z7yhL4dNOda5rYfOuifCNBtZyq3smZH2h9ak8MyaFgw/preset:view/plain/34acbf74dafcf762a53f2140b29dcc76-2977093075483263568.jpg']::text[],
+      'approved',
+      true,
+      true,
+      'nguyễn duy Dũng',
+      '0957828503',
+      234000000,
+      NULL,
+      'sang-nhuong',
+      56,
+      NOW() - interval '9 days' - interval '1 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Đất 1 Sẹc An Phú Đông - Ngang 4.6m Đẹp - Sát Vách Gò Vấp 3.x Tỷ',
+      'Dự án: 
+Thông tin chi tiết: Chủ cần thanh khoản nhanh lô đất vị trí cực đẹp, khu nhà lầu đồng bộ ngay cửa ngõ Quận 12.
+📍 Vị trí: Hẻm 1 sẹc thẳng tắp, sát Chợ Cầu Đồng. Bước chân sang Gò Vấp, di chuyển ra sân bay chỉ 15 phút.
+✨ Thông số đẹp: 4.6m x 11.1m (Ngang 4.6m cực thoáng, xây nhà rất bề thế). Diện tích 51.2m² vuông vức.
+🏡 Khu dân cư: Đồng bộ nhà cao tầng, dân trí cao, an ninh, hàng xóm cực kỳ thân thiện.
+⚖️ Pháp lý: Sổ hồng riêng chính chủ, đất sạch không quy hoạch, công chứng ngay.
+💰 Giá chào: 3.x tỷ (x tiểu học cho khách chốt nhanh).',
+      3300000000,
+      'Đường Thạnh Lộc 29, Phường An Phú Đông, Quận 12',
+      'Quận 12',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      51,
+      ARRAY['https://cdn.chotot.com/zG2U1Qa8fgK_lZyDHbKogcrq55AW6_rexbuiK9nXXCE/preset:view/plain/6a5535ef5ca7951128bb8536a381e7cb-2977677551400509126.jpg','https://cdn.chotot.com/CYfZh9TA1kmrshOf9fHQ7v91hGqmdYa3jGxW2PYNlRg/preset:view/plain/3b6221e872f8e23c6371c3e9e3fda26d-2977677551604579186.jpg','https://cdn.chotot.com/pEq7ex2yG0G9PI-DQUqtLkQYfbL_c4QvUjZt8GH7zH0/preset:view/plain/581fd77222256b68ec0e8c50aede9a7d-2977677551585124038.jpg']::text[],
+      'approved',
+      true,
+      false,
+      'Phùng Khắc Thắng',
+      '0979362432',
+      24000000,
+      NULL,
+      'sang-nhuong',
+      231,
+      NOW() - interval '9 days' - interval '10 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'CẦN BÁN LÔ 2 MT TIỀN TÂN AN HÔI CỦ CHI, 167M2 THỔ CƯ GIÁ 750TR',
+      'BÁN ĐẤT CỦ CHI – GIÁ TỐT 🔥
+📍 Vị trí: Xã Tân An Hội, Huyện Củ Chi, TP.HCM
+📄 Pháp lý: Sổ hồng riêng, sang tên ngay
+📐 Diện tích: 167,1 m²
+Đất ở nông thôn: 108,8 m²
+Đất trồng cây lâu năm: 58,3 m²
+🏡 Khu vực dân cư hiện hữu, phù hợp xây nhà ở hoặc đầu tư lâu dài
+🚗 Giao thông thuận tiện, dễ di chuyển về trung tâm
+LIÊN HỆ XEM ĐẤT TRỰC TIẾP. 
+MÔI GIỚI VUI LÒNG KHÔNG LÀM PHIỀN MẤT THỜI GIAN',
+      750000000,
+      '493, Xã Tân An Hội, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      167,
+      ARRAY['https://cdn.chotot.com/I0V4FOBdOckhbFfZw2JQOWoY3IRbr8LK1-n97tnIh8Y/preset:view/plain/04a05d520c9598fd199ce41510cf20e8-2977430287775948486.jpg','https://cdn.chotot.com/f5LGTbc6oeUM3z7IWOBvqshyd3-052pgQgHeAX-eRYI/preset:view/plain/f772177f52b5e439f3685de6b825fdf1-2977430301583924934.jpg','https://cdn.chotot.com/GDoucNbYWkte1A8q3TsmX4Hmtk5OUm9egqrUsfHDga4/preset:view/plain/8c4f21a06f4d5003c59468822f337bbb-2977430321438767986.jpg','https://cdn.chotot.com/NgtIaTCwyIr_evkJ5wVOoFf-PgszOOn88oAsUZ5kgXg/preset:view/plain/9830d248166a9b473c16e4d7766c35db-2977430495160868237.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'LÃO NGƯU',
+      '0979555868',
+      4000000,
+      NULL,
+      'sang-nhuong',
+      444,
+      NOW() - interval '0 days' - interval '21 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'BÁN CENTANA ĐIỀN PHÚC THÀNH TRƯỜNG LƯU 5,5 TỶ/93,7M2 SỔ HỒNG',
+      'Chủ gửi bán lô đất Centana Điền Phúc Thành, Trường Lưu, p Long Trường, Quận 9
+Dt 93,7m2-5,5 tỷ 
+Đường 9m vỉa hè rộng
+Giá 5,5 tỷ
+Sổ hồng bao sang tên
+LH Thuy chốt ngay',
+      5500000000,
+      'Centana Điền Phúc Thành Trường Lưu, Phường Long Trường, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      93.6999,
+      ARRAY['https://cdn.chotot.com/SCewo6uXJz5ZAMXmkdjcO8hh7HWJ6YXfbNzeLz0OZwk/preset:view/plain/5e58a938ae4033d8fb4031b84f246195-2960758173903504389.jpg','https://cdn.chotot.com/cnaY08XPwM0srhEC6sXjbN_Cglzj7TKHV2uggEPugBo/preset:view/plain/20ad56b6b1609bb788828cd7b7c02dbb-2960758174245831287.jpg','https://cdn.chotot.com/NDmzOh23H9SUZV0DFSm6mipv3wpm7LhmZIswGijblHg/preset:view/plain/c53cb65356a8d50e70b0abc84f0f7ded-2960758176499595331.jpg','https://cdn.chotot.com/IDgK8D4ehrrkQMW_FvdMivLJ0LXTYor4I-H9zVNRl3k/preset:view/plain/f377109c6ae3ab584fdbbb02485f7139-2960758176655098885.jpg','https://cdn.chotot.com/jaIi8gl6dS6rrWbBsNZZSzQaHTeOHEJUojY9XeX1eJQ/preset:view/plain/af9da31da0e77185ae25c724de7011c8-2960758176889795113.jpg','https://cdn.chotot.com/_B4QzLsiwqS8dw17B2DwbuupEO4lj4gEEF4QMQNYj08/preset:view/plain/608a9be0adc05bccf2d690a00912b9b6-2960758177141060620.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Thuỷ',
+      '0978605648',
+      31000000,
+      NULL,
+      'sang-nhuong',
+      189,
+      NOW() - interval '9 days' - interval '12 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán đất tặng nhà 2 mặt tiền đường Chiến Lược, 81m2, 5,3 tỷ, Bình Tân',
+      'Bán đất tặng nhà 2 mặt tiền đường Chiến Lược
+- Diện tích khủng : 4 x 20 ( CN: 80.4m2)
+Sổ đẹp như mơ CN DT sàn full 160.8m2
+-Kết cấu: 1trệt 1 lầu đang cho thuê 6tr/th 
+-Nhà cũ tiện xây sửa hoặc để cho thuê tiếp.
+-Vị trí đẹp HXH, 2 mặt hẻm thoáng mát. 
+👉Thích hợp mua giữ tiền, đón đầu đường Chiến Lược mở rộng, cống hộp sắp làm.
+
+Liên hệ ngay Trần Phương để được tư vấn miễn phí!',
+      5300000000,
+      'Đường Chiến Lược, Phường Bình Trị Đông, Quận Bình Tân',
+      'Quận Bình Tân',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      81,
+      ARRAY['https://cdn.chotot.com/gDjU_g-B6DdXsQC2e6iS-xe3Sk5F9WkL_tfd0tp93g0/preset:view/plain/6b28e38ec5446299d49f08fae4274e33-2977717430341000902.jpg','https://cdn.chotot.com/6C2qPQej_JOaidG0h5ZOm7yIvGbROfxNz2d5KJAvuJg/preset:view/plain/74686d52454d1a9b3f698503ee5a50dc-2977717430399369949.jpg','https://cdn.chotot.com/OrU1w3mAXpiyWyS1FzrzB3H3TOAco9GChbStCrPn55Y/preset:view/plain/b1f94544bbbdc260abc5620d3a5c4020-2977717430787750770.jpg']::text[],
+      'approved',
+      true,
+      true,
+      'Trần Hữu Hoài Phương',
+      '0970371671',
+      33000000,
+      NULL,
+      'sang-nhuong',
+      439,
+      NOW() - interval '6 days' - interval '6 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán đất 2 mặt hẻm ô tô đường 48 HBC – 4x16 – 5.5 tỷ',
+      'Đất 2 mặt hẻm ô tô đường 48 HBC – 4x16 – 5.5 tỷ
+ • DT: 63m² (4x16)
+ • 2 mặt hẻm ô tô
+ • Đất đẹp, xây ngay
+
+👉 Không quy hoạch
+👉 Không lỗi phong thủy
+👉 Hiếm trong khu
+
+📞 ***',
+      5500000000,
+      'Đường số 48, Phường Hiệp Bình, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      63,
+      ARRAY['https://cdn.chotot.com/MsEU6vtpiuaQLRHKj1nUqTAiXImLt-KwwpYjjHXevkM/preset:view/plain/3a47a4126fc2f2f7760a12a3e1eea17e-2976676887874553076.jpg','https://cdn.chotot.com/cai8JfcEBy4GMcKgGBPT6QgklamELIumPdjqlKW-neM/preset:view/plain/434b34fc98e90c134905ecd8fae853a8-2976676887654291154.jpg','https://cdn.chotot.com/ZtMF4F1Vpz-v8mTRow2yycYxH_nl7H1yWH4VLvraofY/preset:view/plain/0cd7c41f577c4a4b9a3621d9b1bbd335-2976676887620671186.jpg','https://cdn.chotot.com/qNdhQi8AVC2e4KV3IdsQXyGheFLOYJuvoJHDgwCIS34/preset:view/plain/b97975c3eb2944251158c279f74403f0-2976676887814941458.jpg','https://cdn.chotot.com/dP59KffDix2OuBdsG9ldOEsxPIxq7zZ2h4iHZe6Yg5o/preset:view/plain/c379ce6f99806dd2242714db9ffd191d-2976676887992059124.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Trí Khang',
+      '0934294379',
+      19000000,
+      NULL,
+      'sang-nhuong',
+      162,
+      NOW() - interval '6 days' - interval '18 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      'Bán đất Chính Chủ Thổ Vườn Phước Vĩnh An',
+      'Chính chủ cần bán lô đất 
+DT : 42x61,5(m)= 2.585,5m2.
+Đất ở :  1700m2, đất vườn : 885,5m2.
+Mặt tiền đường Bàu Giã, QHLG 20m.
+Hướng : Đông Nam
+Nền đất đã san lấp, có trồng cây ăn trái.
+Giao thông cực kỳ thuận lợi, ra QL22 5 phút, cao tốc TP.HCM - Mộc Bài 5 phút, 10 phút ra vành đai 3.
+LH chính chủ. Còn TL',
+      34900000000,
+      'Đường Bàu Giã, Xã Củ Chi, Huyện Củ Chi',
+      'Huyện Củ Chi',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      2585,
+      ARRAY['https://cdn.chotot.com/Ire076d6p-webjjlbl_5YcZJBpNhHfVnDSJIsshAyQs/preset:view/plain/cf1062a74b0af3e9f52f37ea03e4fe51-2973816011022728610.jpg','https://cdn.chotot.com/gZwjMITUgtEBraxBNJbmrlWq8UlwUPdAFwJL2BNPwgU/preset:view/plain/8741b05fb84c26604f7c41f074b6402b-2973816011675019038.jpg','https://cdn.chotot.com/uNd_726ZQd07AHFJgclC2glCDdWtNaL81xHwi5o1TpQ/preset:view/plain/c8b0b8098c5a21b8bafa932394b6f438-2973816010009030535.jpg']::text[],
+      'approved',
+      false,
+      true,
+      'Thìn',
+      '0925265380',
+      114000000,
+      NULL,
+      'sang-nhuong',
+      497,
+      NOW() - interval '10 days' - interval '0 hours',
+      NOW()
+    ),
+(
+      '6ff8caa1-d08e-442a-8a53-9e743316fb59',
+      '338m2 - KDC THỦ THIÊM VILLA- THỦ ĐỨC - TP HCM',
+      '💯 KHU BIỆT THỰ – CĂN HỘ DỊCH VỤ – TÒA NHÀ VĂN PHÒNG
+📐 Diện tích: 338m2
+📍 Thạnh Mỹ Lợi – gần Đặng Như Mai – Tạ Hiện – Trương Văn Bang
+💎 Khu vực quy hoạch đồng bộ, phù hợp xây biệt thự cao cấp, căn hộ dịch vụ, tòa nhà văn phòng.
+💎 Vị trí đẹp, kết nối nhanh trung tâm, tiềm năng khai thác và tăng giá tốt.',
+      55600000000,
+      'Hòa Bình, Phường Cát Lái, Thành phố Thủ Đức',
+      'Thành phố Thủ Đức',
+      'TP.HCM',
+      'TP.HCM',
+      'Văn phòng',
+      338,
+      ARRAY['https://cdn.chotot.com/EIz7-bEZ48pNJcppCHO0PnDsjV3av6AYidHTbVNyzkY/preset:view/plain/a3a2f43e5ef309f31cd872c856ea5510-2974394943509892730.jpg','https://cdn.chotot.com/jMe8_1VUM0EOoiDNjK0r5h0Evj2vHaH4TpK1MtK63xI/preset:view/plain/c0300ad280709e17f5dc79d1c2a2fb49-2974394943921766251.jpg']::text[],
+      'approved',
+      false,
+      false,
+      'Hoàng Sơn Hà',
+      '0954017429',
+      397000000,
+      NULL,
+      'sang-nhuong',
+      112,
+      NOW() - interval '10 days' - interval '21 hours',
+      NOW()
+    );

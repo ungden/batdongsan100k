@@ -1,0 +1,293 @@
+{
+  "generatedAt": "2026-04-01T06:41:52.645Z",
+  "readySources": [
+    "chotot_api",
+    "alonhadat",
+    "homedy",
+    "meeyland"
+  ],
+  "blockedSources": [
+    "batdongsan",
+    "muaban",
+    "nhatot"
+  ],
+  "sources": [
+    {
+      "key": "chotot_api",
+      "name": "Cho Tot Public API",
+      "strategy": "API",
+      "kind": "json",
+      "probeUrl": "https://gateway.chotot.com/v1/public/ad-listing?cg=1010&limit=5&o=0&st=s&region_v2=13000",
+      "homepage": "https://www.chotot.com/",
+      "probeStatus": 200,
+      "probeOk": true,
+      "finalUrl": "https://gateway.chotot.com/v1/public/ad-listing?cg=1010&limit=5&o=0&st=s&region_v2=13000",
+      "contentType": "application/json",
+      "robotsStatus": 200,
+      "robotsSnippet": "User-agent: * Allow: / Sitemap: https://www.chotot.com/sitemap-index.xml Disallow: /user/ Disallow: /*chatroom* Disallow: /notfound.htm Disallow: /*undefined* Disallow: /register Disallow: /newad Disallow: /reward Disall",
+      "verdict": "ready",
+      "reason": "Simple HTTP fetch returns parseable listing data.",
+      "sampleCount": 5,
+      "samples": [
+        {
+          "title": "Căn hộ 1PN 51m2 full nội thất, giá từ 1 tỷ 550tr, thanh toán từ 180tr.",
+          "price": "1,47 tỷ",
+          "area": "51 m2",
+          "location": "Huyện Bình Chánh, TP Hồ Chí Minh",
+          "url": "https://www.chotot.com/mua-ban-bat-dong-san/131530297.htm"
+        },
+        {
+          "title": "CĂN HỘ BÌNH CHÁNH CHIẾT KHẤU CỰC KHỦNG ĐẾN 8.5%",
+          "price": "1,5 tỷ",
+          "area": "50 m2",
+          "location": "Huyện Bình Chánh, TP Hồ Chí Minh",
+          "url": "https://www.chotot.com/mua-ban-bat-dong-san/128551393.htm"
+        },
+        {
+          "title": "Bán nhanh căn CĂN GÓC tại Ehome 3 2PN, 2WC , tặng nội thất, 2,67 tỷ",
+          "price": "2,67 tỷ",
+          "area": "62 m2",
+          "location": "Quận Bình Tân, TP Hồ Chí Minh",
+          "url": "https://www.chotot.com/mua-ban-bat-dong-san/131109810.htm"
+        },
+        {
+          "title": "Nhà Bán Chính Chủ Phạm Thế Hiển 2PN 2NVS Có sân rộng xe hơi tới chổ",
+          "price": "4,5 tỷ",
+          "area": "40 m2",
+          "location": "Quận 8, TP Hồ Chí Minh",
+          "url": "https://www.chotot.com/mua-ban-bat-dong-san/130957669.htm"
+        },
+        {
+          "title": "Hot! Chủ gửi bán căn góc chung cư Splendor 82m2, 4 tỷ 100",
+          "price": "4,1 tỷ",
+          "area": "82 m2",
+          "location": "Quận Gò Vấp, TP Hồ Chí Minh",
+          "url": "https://www.chotot.com/mua-ban-bat-dong-san/131521558.htm"
+        }
+      ],
+      "blockedBy": null
+    },
+    {
+      "key": "alonhadat",
+      "name": "Alonhadat",
+      "strategy": "HTML SSR",
+      "kind": "html",
+      "probeUrl": "https://alonhadat.com.vn/can-ban-nha-dat/ha-noi",
+      "homepage": "https://alonhadat.com.vn/",
+      "probeStatus": 200,
+      "probeOk": true,
+      "finalUrl": "https://alonhadat.com.vn/can-ban-nha-dat/ha-noi",
+      "contentType": "text/html; charset=utf-8",
+      "robotsStatus": 200,
+      "robotsSnippet": "User-agent: * Disallow: /publish/handler/* Disallow: /publish/form/* Disallow: /nha-dat/can-mua/* Disallow: /nha-dat/can-thue/* Sitemap: https://alonhadat.com.vn/sitemap.xml",
+      "verdict": "ready",
+      "reason": "Simple HTTP fetch returns parseable listing data.",
+      "sampleCount": 5,
+      "samples": [
+        {
+          "title": "7.35 tỷ 33m2 5 tầng Tạ Quang Bửu Bách Khoa HBT",
+          "price": "7,35 tỷ",
+          "area": "33 m²",
+          "location": "Phố Tạ Quang Bửu, Phường Bạch Mai, Hà Nội",
+          "url": "https://alonhadat.com.vn/em-can-ban-nha-mat-ngo-pho-ta-quang-buu-bach-khoa-hai-ba-trung-ngay-nga-ba-dai-co-viet--18365921.html"
+        },
+        {
+          "title": "ĐẤT MẶT BIỂN NINH CƠ 15TRIỆU/M2 QUẤT LÂM ,ĐẶC KHU KINH TẾ BIỂN LỚN NHẤT VIỆT NAM",
+          "price": "1,5 tỷ",
+          "area": "100 m²",
+          "location": "Phố Thái Hà, Phường Đống Đa, Hà Nội",
+          "url": "https://alonhadat.com.vn/trung-tam-dac-khu-kinh-te-ninh-co-phu-hop-khach-san-nha-nghi-nha-hang-175m2-mt10m-18290178.html"
+        },
+        {
+          "title": "CẦN BÁN GẤP GIÁ NÀO CŨNG CHỐT 6T TM MỚI LÔ GÓC 8PKK 47M2 x 6T PHÚ DIỄN GIÁ CHỈ 10.3 Tỷ",
+          "price": "10,3 tỷ",
+          "area": "47 m²",
+          "location": "Đường Phú Diễn, Phường Phú Diễn, Hà Nội",
+          "url": "https://alonhadat.com.vn/ban-nha-ccmn-6-tang-thang-may-moi-lo-goc-8pkk-47m2-x-6t-gan-pho-duc-dien-gia-chi-8-99-ty-16530705.html"
+        },
+        {
+          "title": "12Tỷ9. BÁN NHÀ PHỐ THÀNH THÁI DT55m2*7T T.MÁY NGÕ NÔNG, GẦN PHỐ,FULL NỘI THẤT,PCCC,52tr/th",
+          "price": "12,9 tỷ",
+          "area": "55 m²",
+          "location": "Đường Thành Thái, Phường Cầu Giấy, Hà Nội",
+          "url": "https://alonhadat.com.vn/ban-nha-thanh-thai-dt56m2-7t-thang-may-nha-moi-full-noi-that-cho-thue-55tr-th-13-5-ty-18356738.html"
+        },
+        {
+          "title": "CHỈ 10,7 TỶ BÁN NHÀ HỒ TÙNG MẬU DT50m2*6T TMAY NHÀ MỚI 11 CĂN HỘ KK FULL ĐỒ, GẦN PHỐ LOGOC",
+          "price": "10,7 tỷ",
+          "area": "50 m²",
+          "location": "Đường Hồ Tùng Mậu, Phường Phú Diễn, Hà Nội",
+          "url": "https://alonhadat.com.vn/chi-10-7-ty-ban-nha-ho-tung-mau-dt50m2-6t-tmay-nha-moi-11-can-ho-kk-full-do-gan-pho-logoc-18379420.html"
+        }
+      ],
+      "blockedBy": null
+    },
+    {
+      "key": "homedy",
+      "name": "Homedy",
+      "strategy": "HTML SSR",
+      "kind": "html",
+      "probeUrl": "https://homedy.com/ban-nha-dat",
+      "homepage": "https://homedy.com/",
+      "probeStatus": 200,
+      "probeOk": true,
+      "finalUrl": "https://homedy.com/ban-nha-dat",
+      "contentType": "text/html; charset=utf-8",
+      "robotsStatus": 200,
+      "robotsSnippet": "User-agent: * Allow: / User-Agent: AhrefsBot Disallow: / User-agent: GPTBot Disallow: / User-agent: Amazonbot Disallow: / User-agent: TurnitinBot Disallow: / Disallow: /*amp* Disallow: /*-bg* Disall",
+      "verdict": "ready",
+      "reason": "Simple HTTP fetch returns parseable listing data.",
+      "sampleCount": 5,
+      "samples": [
+        {
+          "title": "Giỏ hàng biệt thự King Crown Thảo Điền – 334m², 390m², 467m², hồ bơi",
+          "price": "140 Tỷ",
+          "area": "334m²",
+          "location": "Hồ Chí Minh 1 tuần trước",
+          "url": "https://homedy.com/ban-nha-biet-thu-lien-ke-king-crown-village/gio-hang-thao-dien-334m-390m-467m-ho-boi-es3195682"
+        },
+        {
+          "title": "Nhà phố LA Home Long An xây sẵn 3 tầng 153m2 | 4,4 tỷ - Trả 1,1 tỷ trong 2 năm đầu. Tặng 81 triệu",
+          "price": "4,4 tỷ",
+          "area": "153m2",
+          "location": null,
+          "url": "https://homedy.com/ban-nha-pho-thuong-mai-shophouse-la-home/long-an-xay-san-3-tang-153m2-44-ty-tra-11-trong-2-nam-dau-81-trieu-es3192979"
+        },
+        {
+          "title": "Bán đất Cụm Công Nghiệp EZ.Park Hà Tĩnh I – giá 55 USD/m² – tách lô từ 0,45 ha (4.500 m²)",
+          "price": "55 USD",
+          "area": "4.500 m²",
+          "location": null,
+          "url": "https://homedy.com/ban-dat-huyen-duc-tho-ha-tinh/cum-cong-nghiep-ez-park-i-gia-55-usd-m-tach-lo-tu-045-4-500-es3195028"
+        },
+        {
+          "title": "Bán đất khu công nghiệp EZ.Park Bắc Ninh I, giá 135 USD/m², vị trí chiến lược, phù hợp xây nhà máy",
+          "price": "135 USD",
+          "area": "895700 m2",
+          "location": "Hà Nội Quy mô giai... Thỏa thuận 895700 m2 Huyện Việt Yên, Bắc Giang 2 tuần trước",
+          "url": "https://homedy.com/ban-dat-huyen-viet-yen-bac-giang/khu-cong-nghiep-ez-park-ninh-i-gia-135-usd-m-vi-tri-chien-luoc-phu-hop-xay-nha-may-es3195015"
+        },
+        {
+          "title": "Bán hoặc cho thuê đất khu công nghiệp EZ.Park Đắk Lắk I– lô từ 1ha – pháp lý đầy đủ",
+          "price": null,
+          "area": "3130300 m2",
+          "location": null,
+          "url": "https://homedy.com/ban-dat-huyen-cu-mgar-dak-lak/hoac-cho-thue-khu-cong-nghiep-ez-park-i-lo-tu-1ha-phap-ly-day-du-es3195007"
+        }
+      ],
+      "blockedBy": null
+    },
+    {
+      "key": "meeyland",
+      "name": "Meey Land",
+      "strategy": "HTML SSR",
+      "kind": "html",
+      "probeUrl": "https://meeyland.com/mua-ban-nha-dat-a4",
+      "homepage": "https://meeyland.com/",
+      "probeStatus": 200,
+      "probeOk": true,
+      "finalUrl": "https://meeyland.com/mua-ban-nha-dat-a4",
+      "contentType": "text/html; charset=utf-8",
+      "robotsStatus": 200,
+      "robotsSnippet": "User-agent: * Allow: / Disallow: /tin-tuc/api/* Disallow: /images/* Disallow: /fonts/* Disallow: /_next/* Disallow: /api/* Disallow: /meeychat/* Disallow: /livechat/* Disallow: /zoom/* Disallow: /u",
+      "verdict": "ready",
+      "reason": "Simple HTTP fetch returns parseable listing data.",
+      "sampleCount": 5,
+      "samples": [
+        {
+          "title": "Electron7+ Xác thựcBán đất Nghi Phong – vị trí đẹp, giá yêu thương9.5 Tp. Vinh, T. Nghệ An 2,88 tỷ15 tr/m² 192 m² HPHoàng Việt Hùng-Khối PTTTChính chủ",
+          "price": "2,88 tỷ",
+          "area": "192 m²",
+          "location": "Tp. Vinh, T. Nghệ An ",
+          "url": "https://meeyland.com/ban-dat-vinh-nghe-an-i1112/303177027"
+        },
+        {
+          "title": "Electron13+ Quỹ chuyển nhượng giá rẻ sắp bàn giao cạnh sam sung Thái Nguyên9.4 Tp. Phổ Yên, T. Thái Nguyên Thương lượng 61 m² 2 2 HBHoàng Kim BĐSMôi giới",
+          "price": null,
+          "area": "61 m²",
+          "location": "Tp. Phổ Yên, T. Thái Nguyên Thương lượng ",
+          "url": "https://meeyland.com/ban-can-ho-chung-cu-pho-yen-thai-nguyen-i1422/306925983"
+        },
+        {
+          "title": "Electron3+ Vị trí đầu tư siêu trắc địa mặt đường Quốc Lộ 1A7.4 Tp. Hà Tĩnh, T. Hà Tĩnh 60 tỷ25,97 tr/m² 2.310 m² PTPhùng Văn TrungMôi giới",
+          "price": "60 tỷ",
+          "area": "2.310 m²",
+          "location": "Tp. Hà Tĩnh, T. Hà Tĩnh ",
+          "url": "https://meeyland.com/ban-dat-ha-tinh-ha-tinh-i1122/306897318"
+        },
+        {
+          "title": "Electron3+ Vị trí đầu tư siêu trắc địa mặt đường Bình Minh, view biển Cửa Lò7.3 Tx. Cửa Lò, T. Nghệ An 35 tỷ64,81 tr/m² 540 m² 65 PTPhùng Văn TrungChính chủ",
+          "price": "35 tỷ",
+          "area": "540 m²",
+          "location": "T. Nghệ An ",
+          "url": "https://meeyland.com/ban-biet-thu-lien-ke-cua-lo-nghe-an-i1422/306897111"
+        },
+        {
+          "title": "Ruby3+ Bán đất view hồ, đang kinh doanh quán cafe đông khách8.2 H. Lục Ngạn, T. Bắc Giang 9,29 tỷ27,56 tr/m² 337 m² ntnguyễn văn tàiChính chủ",
+          "price": "9,29 tỷ",
+          "area": "337 m²",
+          "location": "H. Lục Ngạn, T. Bắc Giang ",
+          "url": "https://meeyland.com/ban-dat-luc-ngan-bac-giang-i1122/307011595"
+        }
+      ],
+      "blockedBy": null
+    },
+    {
+      "key": "batdongsan",
+      "name": "Batdongsan.com.vn",
+      "strategy": "Needs browser bypass",
+      "kind": "html",
+      "probeUrl": "https://batdongsan.com.vn/ban-nha-dat",
+      "homepage": "https://batdongsan.com.vn/",
+      "probeStatus": 403,
+      "probeOk": false,
+      "finalUrl": "https://batdongsan.com.vn/ban-nha-dat",
+      "contentType": "text/html; charset=UTF-8",
+      "robotsStatus": 200,
+      "robotsSnippet": "User-agent: * Allow: / Disallow: /microservice-architecture-router/ Disallow: /microservice-architecture-router-mobile Disallow: /HandlerWeb/UserHandler.ashx?type=mobile&redirectUrl= Sitemap: https://batdongsan.com.vn",
+      "verdict": "blocked",
+      "reason": "Blocked by Cloudflare challenge on plain HTTP fetch.",
+      "sampleCount": 0,
+      "samples": [],
+      "blockedBy": "cloudflare"
+    },
+    {
+      "key": "muaban",
+      "name": "Muaban.net",
+      "strategy": "Needs browser bypass",
+      "kind": "html",
+      "probeUrl": "https://muaban.net/bat-dong-san",
+      "homepage": "https://muaban.net/",
+      "probeStatus": 403,
+      "probeOk": false,
+      "finalUrl": "https://muaban.net/bat-dong-san",
+      "contentType": "text/html; charset=UTF-8",
+      "robotsStatus": 403,
+      "robotsSnippet": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"",
+      "verdict": "blocked",
+      "reason": "Blocked by Cloudflare challenge on plain HTTP fetch.",
+      "sampleCount": 0,
+      "samples": [],
+      "blockedBy": "cloudflare"
+    },
+    {
+      "key": "nhatot",
+      "name": "Nha Tot",
+      "strategy": "Needs browser bypass",
+      "kind": "html",
+      "probeUrl": "https://www.nhatot.com/",
+      "homepage": "https://www.nhatot.com/",
+      "probeStatus": 403,
+      "probeOk": false,
+      "finalUrl": "https://www.nhatot.com/",
+      "contentType": "text/html; charset=UTF-8",
+      "robotsStatus": 200,
+      "robotsSnippet": "User-agent: * Allow: / Sitemap: https://www.nhatot.com/sitemap-index.xml Disallow: /notfound.htm Disallow: /*undefined* Disallow: /*tin-dang-tuong-tu* Disallow: /user/ Disallow: /*chatroom* Disallow: /*q= Disallow: /*chi",
+      "verdict": "blocked",
+      "reason": "Blocked by Cloudflare challenge on plain HTTP fetch.",
+      "sampleCount": 0,
+      "samples": [],
+      "blockedBy": "cloudflare"
+    }
+  ]
+}

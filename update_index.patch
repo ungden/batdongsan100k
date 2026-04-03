@@ -1,0 +1,68 @@
+--- mobile/app/(tabs)/index.tsx
++++ mobile/app/(tabs)/index.tsx
+@@ -28,6 +28,24 @@
+ 
+ // Helper function to map Supabase database listing to our app's Property interface
+ export function mapSupabaseListingToProperty(dbItem: any): Property {
++  let parsedImages = ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6'];
++  if (typeof dbItem.images === 'string') {
++    try {
++      parsedImages = JSON.parse(dbItem.images) || parsedImages;
++    } catch (e) {
++      console.error('Error parsing images:', e);
++    }
++  } else if (Array.isArray(dbItem.images) && dbItem.images.length > 0) {
++    parsedImages = dbItem.images;
++  }
++  let parsedFeatures = [];
++  if (typeof dbItem.features === 'string') {
++    try {
++      parsedFeatures = JSON.parse(dbItem.features) || [];
++    } catch (e) {
++      console.error('Error parsing features:', e);
++    }
++  } else if (Array.isArray(dbItem.features)) {
++    parsedFeatures = dbItem.features;
++  }
++
+   return {
+     id: dbItem.id,
+     title: dbItem.title || '',
+@@ -44,8 +62,8 @@
+     bathrooms: dbItem.bathrooms || 0,
+     area: dbItem.area || 0,
+     description: dbItem.description || '',
+-    images: dbItem.images && dbItem.images.length > 0 ? dbItem.images : ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6'],
+-    features: dbItem.features || [],
++    images: parsedImages,
++    features: parsedFeatures,
+     agent: {
+       id: dbItem.agent_id || 'system',
+       name: 'Admin',
+@@ -75,7 +93,7 @@
+       try {
+         setLoading(true);
+         // Fetch featured (latest VIP or just latest)
+-        const { data: featuredData } = await supabase
++        const { data: featuredData, error: featuredError } = await supabase
+           .from('listings')
+           .select('*')
+           .eq('status', 'published')
+@@ -83,12 +101,15 @@
+           .order('sort_date', { ascending: false })
+           .limit(5);
+ 
++        if (featuredError) console.error('Featured query error:', featuredError);
++
+         // Fetch popular (most views or just random)
+-        const { data: nearbyData } = await supabase
++        const { data: nearbyData, error: nearbyError } = await supabase
+           .from('listings')
+           .select('*')
+           .eq('status', 'published')
+           .order('priority_level', { ascending: false })
+           .order('sort_date', { ascending: false })
+           .limit(10);
++
++        if (nearbyError) console.error('Nearby query error:', nearbyError);
+ 

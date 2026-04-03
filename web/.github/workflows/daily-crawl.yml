@@ -1,0 +1,53 @@
+name: Daily Crawl Sync
+
+on:
+  schedule:
+    - cron: '15 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  crawl-and-insert:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        source:
+          - chotot_api
+          - alonhadat
+          - homedy
+          - mogi
+          - odt
+          - muonnha
+          - cafeland
+          - meeyland
+    defaults:
+      run:
+        working-directory: crawler
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: crawler/package-lock.json
+
+      - name: Install crawler dependencies
+        run: npm ci
+
+      - name: Run source sync
+        run: npm run sync:daily -- --sources=${{ matrix.source }} --max-age-days=30 --max-pages=20 --image-limit=4 --delay-ms=120
+
+      - name: Upload crawl artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-crawl-${{ matrix.source }}
+          path: crawler/output/daily-sync-*
+          retention-days: 7

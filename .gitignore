@@ -1,0 +1,21 @@
+node_modules/
+.next/
+dist/
+build/
+.expo/
+expo.log
+*.log
+.DS_Store
+coverage/
+web/node_modules/
+mobile/node_modules/
+crawler/node_modules/
+output/
+.env
+.env.*
+!.env.example
+
+# Env files
+.env
+.env.*
+!.env.example

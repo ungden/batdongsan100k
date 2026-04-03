@@ -1,0 +1,7 @@
+{
+  "name": "batdongsan100k-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "cd web && npm run build"
+  }
+}

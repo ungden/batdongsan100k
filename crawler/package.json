@@ -1,0 +1,22 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "probe:sources": "node probe-sources.mjs",
+    "probe:sources:write": "node probe-sources.mjs --write",
+    "crawl:multi": "node multi-source-crawl.mjs",
+    "insert:multi": "node insert-multi-source.mjs",
+    "sync:daily": "node daily-sync.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.101.0",
+    "cheerio": "^1.2.0",
+    "node-fetch": "^2.7.0"
+  }
+}

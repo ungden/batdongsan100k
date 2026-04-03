@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none">
+  <path d="M4 24L20 8L36 24V44H26V32H14V44H4V24Z" fill="white"/>
+  <path d="M20 8L36 24" stroke="#8af5be" stroke-width="3" stroke-linecap="round"/>
+  <path d="M20 8L4 24" stroke="#8af5be" stroke-width="3" stroke-linecap="round"/>
+  <rect x="16" y="16" width="8" height="8" rx="1" fill="#8af5be" opacity="0.8"/>
+  <text x="44" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="900" fill="white" letter-spacing="-0.5">Titan</text>
+  <text x="112" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="900" fill="#8af5be" letter-spacing="-0.5">Home</text>
+  <text x="44" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.7)" letter-spacing="2">BAT DONG SAN</text>
+</svg>
