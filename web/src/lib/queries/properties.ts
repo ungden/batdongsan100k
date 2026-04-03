@@ -23,7 +23,7 @@ function formatListingPrice(price: number) {
 }
 
 function mapListingCategory(row: Record<string, unknown>): Property['category'] {
-  if ((row.category as string) === 'rent') return 'rent'
+  if ((row.transaction_type as string) === 'cho-thue') return 'rent'
   return 'sale'
 }
 
@@ -120,8 +120,8 @@ export async function getPublishedProperties(
     }
     if (filters?.city) query = query.or(`city.eq.${filters.city},province.eq.${filters.city}`)
     if (filters?.district) query = query.ilike('district', `%${filters.district}%`)
-    if (filters?.category === 'rent') query = query.eq('category', 'rent')
-    if (filters?.category === 'sale') query = query.eq('category', 'sale')
+    if (filters?.category === 'rent') query = query.eq('transaction_type', 'cho-thue')
+    if (filters?.category === 'sale') query = query.in('transaction_type', ['ban', 'mua-ban', 'sang-nhuong'])
     if (filters?.areaMin) query = query.gte('area', filters.areaMin)
     if (filters?.areaMax) query = query.lte('area', filters.areaMax)
     if (filters?.priceMin) query = query.gte('price', filters.priceMin)
@@ -272,14 +272,14 @@ export async function getProjectSummaries(limit = 12) {
       .from('projects')
       .select(`
         id, name, slug, city, district, cover_image,
-        properties(id, price, price_unit)
+        listings(id, price, price_unit)
       `)
       .limit(limit)
 
     if (error) throw error
 
     return data.map((proj: any) => {
-      const validListings = proj.properties || []
+      const validListings = proj.listings || []
       const propertyCount = validListings.length
       
       const sortedByPrice = [...validListings].sort((a, b) => a.price - b.price)
@@ -311,7 +311,7 @@ export async function getProjectListingsBySlug(slug: string, limit = 12): Promis
     if (!project) return []
 
     const result = await getPublishedProperties({ q: '' }, limit)
-    const { data } = await supabase.from('listings').select('*, agent:agents(*)').eq('project_id', project.id).in('status', ['active', 'approved', 'published']).limit(limit)
+    const { data } = await supabase.from('listings').select('*').eq('project_id', project.id).in('status', ['active', 'approved', 'published']).limit(limit)
     return (data || []).map(mapToProperty)
   } catch {
     return []
