@@ -310,7 +310,6 @@ export async function getProjectListingsBySlug(slug: string, limit = 12): Promis
     const { data: project } = await supabase.from('projects').select('id').eq('slug', slug).single()
     if (!project) return []
 
-    const result = await getPublishedProperties({ q: '' }, limit)
     const { data } = await supabase.from('listings').select('*').eq('project_id', project.id).in('status', ['active', 'approved', 'published']).limit(limit)
     return (data || []).map(mapToProperty)
   } catch {
