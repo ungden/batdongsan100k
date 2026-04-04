@@ -5,13 +5,22 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const CITY_OPTIONS = ['Hồ Chí Minh', 'Hà Nội', 'Đà Nẵng', 'Hải Phòng', 'Cần Thơ', 'Đồng Nai', 'Bình Dương', 'Khánh Hòa'];
-const PRICE_OPTIONS = [
+const SALE_PRICE_OPTIONS = [
   { value: '', label: 'Tất cả mức giá' },
   { value: '0-3000000000', label: 'Dưới 3 tỷ' },
   { value: '3000000000-5000000000', label: '3 - 5 tỷ' },
   { value: '5000000000-10000000000', label: '5 - 10 tỷ' },
   { value: '10000000000-30000000000', label: '10 - 30 tỷ' },
   { value: '30000000000-0', label: 'Trên 30 tỷ' },
+];
+const RENT_PRICE_OPTIONS = [
+  { value: '', label: 'Tất cả mức giá' },
+  { value: '0-3000000', label: 'Dưới 3 triệu/tháng' },
+  { value: '3000000-5000000', label: '3 - 5 triệu/tháng' },
+  { value: '5000000-10000000', label: '5 - 10 triệu/tháng' },
+  { value: '10000000-20000000', label: '10 - 20 triệu/tháng' },
+  { value: '20000000-50000000', label: '20 - 50 triệu/tháng' },
+  { value: '50000000-0', label: 'Trên 50 triệu/tháng' },
 ];
 const AREA_OPTIONS = [
   { value: '', label: 'Tất cả diện tích' },
@@ -206,12 +215,12 @@ export default function ListingsSidebar() {
             <label className="text-xs font-label font-bold uppercase tracking-wider text-on-surface-variant">
               Mức giá
             </label>
-            <select 
+            <select
               value={price}
               onChange={(e) => updateQuery({ price: e.target.value })}
               className="w-full px-4 py-3 bg-surface-container-low border-none rounded-lg text-sm"
             >
-              {PRICE_OPTIONS.map((option) => <option key={option.label} value={option.value}>{option.label}</option>)}
+              {(category === 'rent' ? RENT_PRICE_OPTIONS : SALE_PRICE_OPTIONS).map((option) => <option key={option.label} value={option.value}>{option.label}</option>)}
             </select>
           </div>
 

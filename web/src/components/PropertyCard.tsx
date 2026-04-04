@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Property } from "@/lib/types";
@@ -8,6 +7,7 @@ interface PropertyCardProps {
   property: Property;
   isVip?: boolean;
   priority?: boolean;
+  layout?: 'grid' | 'list';
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -72,14 +72,14 @@ function formatPrice(price: number, category: string): string {
   }
 }
 
-export default function PropertyCard({ property, isVip = false, priority = false, layout = 'grid' }: PropertyCardProps & { layout?: 'grid' | 'list' }) {
+export default function PropertyCard({ property, isVip = false, priority = false, layout = 'grid' }: PropertyCardProps) {
   const isActuallyVip = isVip || property.isFeatured || (property.priorityLevel && property.priorityLevel > 0);
   const title = cleanTitle(property.title);
   const isRent = property.category === "rent";
   const priceText = formatPrice(property.price, property.category);
   const typeLabel = TYPE_LABELS[property.type] || property.type;
   const typeBg = TYPE_COLORS[property.type] || "bg-slate-600";
-  const imgSrc = property.images?.[0] || "/placeholder.svg";
+  const imgSrc = property.images?.[0] || "/placeholder.jpg";
 
   if (layout === 'list') {
     return (

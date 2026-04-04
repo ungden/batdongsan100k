@@ -19,11 +19,11 @@ export default async function PropertiesPage({
   const offset = (page - 1) * PAGE_SIZE
   const supabase = await createClient()
 
-  const allowedSortFields = new Set(['title', 'price', 'views', 'created_at', 'category'])
+  const allowedSortFields = new Set(['title', 'price', 'views_count', 'created_at', 'category'])
   const safeSortField = allowedSortFields.has(sortField) ? sortField : 'created_at'
 
   let query = supabase
-    .from('listings')
+    .from('properties')
     .select('*', { count: 'estimated' })
     .order(safeSortField, { ascending: sortOrder === 'asc' })
 

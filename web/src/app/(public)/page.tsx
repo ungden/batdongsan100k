@@ -1,16 +1,13 @@
-export const dynamic = "force-dynamic";
+// ISR: cache 5 phút, tự động revalidate
+export const revalidate = 300;
 
 import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "@/components/SearchBar";
 import PropertyCard from "@/components/PropertyCard";
 import {
-  getVipProperties,
-  getRentProperties,
-  getPropertiesByType,
-  getPropertiesCount,
-  getAgentsCount,
-  getPublishedProperties,
+  getHomepageProperties,
+  getCounts,
   getProjectSummaries,
 } from "@/lib/queries/properties";
 import { getPublishedPosts } from "@/lib/queries/posts";
@@ -27,34 +24,29 @@ const cities = [
 ];
 
 export default async function HomePage() {
+  // 14 queries → 4 queries
   const [
-    vipProperties,
-    saleLatestResult,
-    rentLatestResult,
-    rentHot,
-    chungCuProperties,
-    nhaPhoProperties,
-    datNenProperties,
+    homeProps,
     projectSummaries,
-    propertiesCount,
-    agentsCount,
-    posts,
+    counts,
+    postsResult,
   ] = await Promise.all([
-    getVipProperties(6),
-    getPublishedProperties({ category: "sale" }, 8),
-    getPublishedProperties({ category: "rent" }, 8),
-    getRentProperties(4),
-    getPropertiesByType("chung-cu", 4),
-    getPropertiesByType("nha-pho", 4),
-    getPropertiesByType("dat-nen", 4),
+    getHomepageProperties(),
     getProjectSummaries(4),
-    getPropertiesCount(),
-    getAgentsCount(),
+    getCounts(),
     getPublishedPosts(3),
   ]);
+  const posts = postsResult.posts;
 
-  const saleLatest = saleLatestResult.properties;
-  const rentLatest = rentLatestResult.properties;
+  const {
+    vip: vipProperties,
+    saleLatest, rentLatest, rentHot,
+    chungCu: chungCuProperties,
+    nhaPho: nhaPhoProperties,
+    datNen: datNenProperties,
+    rentPhongTro, rentChungCu, rentVanPhong,
+  } = homeProps;
+  const { propertiesCount, agentsCount } = counts;
 
   return (
     <>
@@ -67,6 +59,8 @@ export default async function HomePage() {
             className="w-full h-full object-cover brightness-[0.8]"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZARNu-Z18UL0UEoqJbP-cVCB82rsK10RSggP6zPbNFCodm1Ig_pKHVEq99BPtUIeKLeq1ggFgl9m7_k3J-NsVbuEjkTetcM29z7mlCO8Wna-zjEuClrEkj7lupAAS4AmglP1CDLS5TSOtK_mxnuXvnF9HlSh5qHsp3HRTcUl27IwN4h4sGz84iELzTShEvtGBj9aa4O7fpK9ETl2GlJ4pINs3wHkl0SYp_5tnlSebBT8EYPM65S9K6VKkvMEc9jiUzE8Bhr57IvY"
             alt="Modern high-rise luxury apartment building"
+            sizes="100vw"
+            priority
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-8 py-20 text-white">
@@ -141,7 +135,7 @@ export default async function HomePage() {
             {vipProperties.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {vipProperties.map((property, index) => (
-                  <PropertyCard key={property.id} property={property} isVip priority={index < 4} />
+                  <PropertyCard key={property.id} property={property} isVip priority={index < 2} />
                 ))}
               </div>
             ) : (
@@ -176,7 +170,7 @@ export default async function HomePage() {
             {saleLatest.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {saleLatest.map((property, index) => (
-                  <PropertyCard key={property.id} property={property} priority={index < 4} />
+                  <PropertyCard key={property.id} property={property} priority={index < 2} />
                 ))}
               </div>
             ) : (
@@ -234,7 +228,7 @@ export default async function HomePage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {chungCuProperties.map((property, index) => (
-                    <PropertyCard key={property.id} property={property} priority={index < 4} />
+                    <PropertyCard key={property.id} property={property} priority={index < 2} />
                   ))}
                 </div>
               </div>
@@ -254,7 +248,7 @@ export default async function HomePage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {nhaPhoProperties.map((property, index) => (
-                    <PropertyCard key={property.id} property={property} priority={index < 4} />
+                    <PropertyCard key={property.id} property={property} priority={index < 2} />
                   ))}
                 </div>
               </div>
@@ -274,7 +268,7 @@ export default async function HomePage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {datNenProperties.map((property, index) => (
-                    <PropertyCard key={property.id} property={property} priority={index < 4} />
+                    <PropertyCard key={property.id} property={property} priority={index < 2} />
                   ))}
                 </div>
               </div>
@@ -296,7 +290,7 @@ export default async function HomePage() {
               <div className="w-20 h-1 bg-[#006c47] mt-2 rounded-full"></div>
             </div>
             <Link
-              href="/projects"
+              href="/market-overview"
               className="text-[#006c47] font-semibold flex items-center gap-1 hover:gap-2 transition-all text-sm"
             >
               Xem tất cả
@@ -374,7 +368,7 @@ export default async function HomePage() {
             {rentHot.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {rentHot.map((property, index) => (
-                  <PropertyCard key={property.id} property={property} priority={index < 4} />
+                  <PropertyCard key={property.id} property={property} priority={index < 2} />
                 ))}
               </div>
             ) : (
@@ -409,13 +403,108 @@ export default async function HomePage() {
             {rentLatest.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {rentLatest.map((property, index) => (
-                  <PropertyCard key={property.id} property={property} priority={index < 4} />
+                  <PropertyCard key={property.id} property={property} priority={index < 2} />
                 ))}
               </div>
             ) : (
               <p className="text-on-surface-variant text-center py-8">
                 Chưa có tin cho thuê mới.
               </p>
+            )}
+          </div>
+        </section>
+
+        {/* --- Rent By Type --- */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-on-surface flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-[#ea580c]"></span>
+                Theo loại hình cho thuê
+              </h3>
+              <div className="w-16 h-1 bg-[#ea580c]/30 mt-2 rounded-full"></div>
+            </div>
+
+            {/* Type Tabs */}
+            <div className="flex gap-3 mb-8">
+              <Link
+                href="/listings?category=rent&type=phong-tro"
+                className="px-5 py-2 rounded-full bg-[#ea580c] text-white text-sm font-semibold hover:bg-[#c2410c] transition-colors"
+              >
+                Phòng trọ
+              </Link>
+              <Link
+                href="/listings?category=rent&type=chung-cu"
+                className="px-5 py-2 rounded-full bg-orange-50 text-orange-700 text-sm font-semibold hover:bg-orange-100 transition-colors"
+              >
+                Chung cư
+              </Link>
+              <Link
+                href="/listings?category=rent&type=van-phong"
+                className="px-5 py-2 rounded-full bg-orange-50 text-orange-700 text-sm font-semibold hover:bg-orange-100 transition-colors"
+              >
+                Văn phòng
+              </Link>
+            </div>
+
+            {/* Phong Tro */}
+            {rentPhongTro.length > 0 && (
+              <div className="mb-10">
+                <div className="flex justify-between items-center mb-4">
+                  <h4 className="font-semibold text-on-surface">🏠 Phòng trọ cho thuê</h4>
+                  <Link
+                    href="/listings?category=rent&type=phong-tro"
+                    className="text-sm text-[#ea580c] font-medium hover:underline"
+                  >
+                    Xem thêm →
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {rentPhongTro.map((property, index) => (
+                    <PropertyCard key={property.id} property={property} priority={index < 2} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Chung Cu Cho Thue */}
+            {rentChungCu.length > 0 && (
+              <div className="mb-10">
+                <div className="flex justify-between items-center mb-4">
+                  <h4 className="font-semibold text-on-surface">🏢 Chung cư cho thuê</h4>
+                  <Link
+                    href="/listings?category=rent&type=chung-cu"
+                    className="text-sm text-[#ea580c] font-medium hover:underline"
+                  >
+                    Xem thêm →
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {rentChungCu.map((property, index) => (
+                    <PropertyCard key={property.id} property={property} priority={index < 2} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Van Phong */}
+            {rentVanPhong.length > 0 && (
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <h4 className="font-semibold text-on-surface">🏬 Văn phòng cho thuê</h4>
+                  <Link
+                    href="/listings?category=rent&type=van-phong"
+                    className="text-sm text-[#ea580c] font-medium hover:underline"
+                  >
+                    Xem thêm →
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {rentVanPhong.map((property, index) => (
+                    <PropertyCard key={property.id} property={property} priority={index < 2} />
+                  ))}
+                </div>
+              </div>
             )}
           </div>
         </section>

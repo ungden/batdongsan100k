@@ -2,11 +2,32 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import PropertyCard from "@/components/PropertyCard";
 import { getPublishedProperties } from "@/lib/queries/properties";
 import ListingsSidebar from "@/components/ListingsSidebar";
 
 const ITEMS_PER_PAGE = 12;
+
+const TYPE_LABELS: Record<string, string> = {
+  'chung-cu': 'Chung cư', 'nha-pho': 'Nhà phố', 'biet-thu': 'Biệt thự',
+  'dat-nen': 'Đất nền', 'phong-tro': 'Phòng trọ', 'van-phong': 'Văn phòng', 'kho-xuong': 'Kho xưởng',
+};
+
+export async function generateMetadata({ searchParams }: ListingsPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const isRent = params.category === 'rent';
+  const typeLabel = params.type ? TYPE_LABELS[params.type] || params.type : '';
+  const parts = [
+    isRent ? 'Cho thuê' : 'Mua bán',
+    typeLabel,
+    params.city ? `tại ${params.city}` : 'toàn quốc',
+  ].filter(Boolean);
+  const title = parts.join(' ');
+  const description = `Danh sách ${title.toLowerCase()}. Cập nhật mới nhất, giá tốt nhất. Tìm kiếm dễ dàng theo khu vực, mức giá, diện tích.`;
+
+  return { title, description, openGraph: { title, description } };
+}
 
 interface ListingsPageProps {
   searchParams: Promise<{

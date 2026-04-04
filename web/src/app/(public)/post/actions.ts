@@ -28,30 +28,39 @@ export async function submitPropertyAction(
     return { success: false, error: 'Vui lòng nhập đầy đủ thông tin bắt buộc' }
   }
 
-  try {
-    const categoryMap: Record<string, string> = {
-      'chung-cu': 'apartment',
-      'nha-pho': 'house',
-      'biet-thu': 'house',
-      'dat-nen': 'land',
-      'phong-tro': 'room',
-    }
+  // Generate slug from title
+  const slug = title
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    + '-' + Date.now().toString(36)
 
-    const { error } = await supabase.from('listings').insert({
-      user_id: user.id,
+  // Price is entered in tỷ for sale, triệu for rent
+  const price = category === 'rent'
+    ? priceRaw * 1_000_000
+    : priceRaw * 1_000_000_000
+
+  try {
+    const { error } = await supabase.from('properties').insert({
       title,
-      price: priceRaw * 1000000000,
-      category: categoryMap[type] || 'house',
-      transaction_type: category === 'rent' ? 'cho-thue' : 'mua-ban',
+      slug,
+      price,
+      price_formatted: String(priceRaw),
+      price_unit: category === 'rent' ? 'trieu/thang' : (priceRaw >= 1 ? 'ty' : 'trieu'),
+      type,
+      category,
+      status: 'pending_review',
       address: address || '',
       district: district || '',
       city: city || '',
       area,
       description: description || '',
-      images: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6'],
-      status: 'pending',
-      contact_name: user.user_metadata?.full_name || user.email,
-      contact_phone: '',
+      images: [],
+      features: [],
+      created_by: user.id,
     })
 
     if (error) {

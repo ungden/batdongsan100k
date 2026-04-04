@@ -1,5 +1,8 @@
+export const revalidate = 1800; // ISR 30 phút
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getPropertyBySlug, getSimilarProperties, incrementViewCount } from "@/lib/queries/properties";
 import ContactForm from "./ContactForm";
 import MapWrapper from "./MapWrapper";
@@ -18,6 +21,33 @@ const TYPE_LABELS: Record<string, string> = {
 
 interface PropertyDetailPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PropertyDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const property = await getPropertyBySlug(slug);
+  if (!property) return { title: 'Không tìm thấy' };
+
+  const typeLabel = TYPE_LABELS[property.type] || property.type;
+  const location = [property.district, property.city].filter(Boolean).join(', ');
+  const isRent = property.category === 'rent';
+  const priceText = property.price >= 1_000_000_000
+    ? `${(property.price / 1_000_000_000).toFixed(1).replace(/\.0$/, '')} tỷ`
+    : property.price >= 1_000_000
+      ? `${Math.round(property.price / 1_000_000)} triệu${isRent ? '/tháng' : ''}`
+      : 'Liên hệ';
+  const title = `${property.title} | ${priceText}`;
+  const description = `${isRent ? 'Cho thuê' : 'Bán'} ${typeLabel} ${location}. Giá ${priceText}. Diện tích ${property.area}m². ${property.bedrooms ? property.bedrooms + ' phòng ngủ. ' : ''}${property.description?.slice(0, 120) || ''}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: property.images?.[0] ? [{ url: property.images[0], width: 800, height: 600 }] : undefined,
+    },
+  };
 }
 
 export default async function PropertyDetailPage({

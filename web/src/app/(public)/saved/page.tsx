@@ -11,28 +11,36 @@ export default async function SavedPage() {
     redirect('/login');
   }
 
-  // Fetch saved listings joined with listing details
-  const { data: savedItems, error } = await supabase
+  // Fetch saved listing IDs
+  const { data: savedRows } = await supabase
     .from('saved_listings')
-    .select(`
-      created_at,
-      listing_id,
-      listings (*)
-    `)
+    .select('listing_id, created_at')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
+
+  // Fetch actual properties for those IDs
+  const savedIds = (savedRows || []).map(r => r.listing_id).filter(Boolean);
+  let properties: any[] = [];
+  if (savedIds.length > 0) {
+    const { data } = await supabase
+      .from('properties')
+      .select('id, title, slug, price, price_unit, type, category, address, district, city, area, bedrooms, bathrooms, images, is_featured, created_at')
+      .in('id', savedIds)
+      .eq('status', 'published');
+    properties = data || [];
+  }
 
   // Get user profile
   const { data: profile } = await supabase
     .from('profiles')
-    .select('*')
+    .select('full_name, avatar_url')
     .eq('id', user.id)
     .single();
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
       <div className="flex flex-col md:flex-row gap-8">
-        
+
         {/* Sidebar */}
         <div className="w-full md:w-64 shrink-0">
           <div className="bg-white rounded-2xl shadow-sm border border-outline-variant/20 p-6 sticky top-24">
@@ -68,60 +76,60 @@ export default async function SavedPage() {
           <div className="bg-white rounded-2xl shadow-sm border border-outline-variant/20 p-6">
             <h1 className="text-2xl font-bold text-on-surface mb-6">Tin đã lưu</h1>
 
-            {error ? (
-              <div className="p-4 bg-error-container text-on-error-container rounded-lg">
-                Không thể tải danh sách tin đã lưu.
-              </div>
-            ) : savedItems && savedItems.length > 0 ? (
+            {properties.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {savedItems.map((item: any) => {
-                  const listing = item.listings;
-                  if (!listing) return null;
-                  
-                  return (
-                    <div key={listing.id} className="group bg-white border border-outline-variant/20 rounded-2xl overflow-hidden hover:shadow-xl transition-all flex flex-col h-full relative">
-                      {/* Image */}
-                      <div className="relative h-48 overflow-hidden">
-                        <Image
-                          src={listing.images && listing.images.length > 0 ? listing.images[0] : "/placeholder.jpg"}
-                          alt={listing.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
-                          {listing.transaction_type === 'cho-thue' ? 'Cho thuê' : 'Bán'}
-                        </div>
-                        {/* Remove from saved button (would need client component to actually function) */}
-                        <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 text-error flex items-center justify-center shadow-sm">
-                          <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
-                        </button>
+                {properties.map((listing: any) => (
+                  <div key={listing.id} className="group bg-white border border-outline-variant/20 rounded-2xl overflow-hidden hover:shadow-xl transition-all flex flex-col h-full relative">
+                    {/* Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={listing.images?.length > 0 ? listing.images[0] : "/placeholder.jpg"}
+                        alt={listing.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                        {listing.category === 'rent' ? 'Cho thuê' : 'Bán'}
+                      </div>
+                      <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 text-error flex items-center justify-center shadow-sm">
+                        <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+                      </button>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5 flex flex-col flex-grow">
+                      <div className="text-xl font-bold text-error mb-2">
+                        {listing.category === 'rent'
+                          ? `${Math.round(listing.price / 1000000)} Triệu/tháng`
+                          : listing.price >= 1000000000
+                            ? `${(listing.price / 1000000000).toFixed(1).replace('.0', '')} Tỷ`
+                            : `${Math.round(listing.price / 1000000)} Triệu`}
+                      </div>
+                      <Link href={`/property/${listing.slug}`} className="font-bold text-on-surface leading-tight mb-2 hover:text-primary transition-colors line-clamp-2">
+                        {listing.title}
+                      </Link>
+                      <div className="text-sm text-on-surface-variant flex items-center gap-1 mb-4 line-clamp-1">
+                        <span className="material-symbols-outlined text-[16px]">location_on</span>
+                        {[listing.district, listing.city].filter(Boolean).join(', ') || listing.address}
                       </div>
 
-                      {/* Content */}
-                      <div className="p-5 flex flex-col flex-grow">
-                        <div className="text-xl font-bold text-error mb-2">
-                          {(listing.price / 1000000000).toFixed(1).replace('.0', '')} Tỷ
-                        </div>
-                        <Link href={`/property/${listing.id}`} className="font-bold text-on-surface leading-tight mb-2 hover:text-primary transition-colors line-clamp-2">
-                          {listing.title}
-                        </Link>
-                        <div className="text-sm text-on-surface-variant flex items-center gap-1 mb-4 line-clamp-1">
-                          <span className="material-symbols-outlined text-[16px]">location_on</span>
-                          {listing.district && listing.city ? `${listing.district}, ${listing.city}` : listing.address}
-                        </div>
-                        
-                        <div className="mt-auto pt-4 border-t border-outline-variant/20 flex gap-4 text-sm text-on-surface-variant">
-                          {listing.area && (
-                            <span className="flex items-center gap-1">
-                              <span className="material-symbols-outlined text-[16px]">straighten</span>
-                              {listing.area} m²
-                            </span>
-                          )}
-                        </div>
+                      <div className="mt-auto pt-4 border-t border-outline-variant/20 flex gap-4 text-sm text-on-surface-variant">
+                        {listing.area > 0 && (
+                          <span className="flex items-center gap-1">
+                            <span className="material-symbols-outlined text-[16px]">straighten</span>
+                            {listing.area} m²
+                          </span>
+                        )}
+                        {listing.bedrooms > 0 && (
+                          <span className="flex items-center gap-1">
+                            <span className="material-symbols-outlined text-[16px]">bed</span>
+                            {listing.bedrooms} PN
+                          </span>
+                        )}
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="text-center py-12 bg-surface-container-lowest rounded-xl border border-dashed border-outline-variant">
@@ -132,7 +140,7 @@ export default async function SavedPage() {
             )}
           </div>
         </div>
-        
+
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    minimumCacheTTL: 2592000, // 30 ngày - ảnh BĐS ít thay đổi
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: "https",
@@ -20,7 +22,20 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.chotot.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
+  },
+  poweredByHeader: false,
+  compress: true,
+  experimental: {
+    optimizePackageImports: ['leaflet', 'react-leaflet'],
   },
 };
 

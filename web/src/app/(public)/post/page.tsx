@@ -12,6 +12,7 @@ const steps = [
 
 export default function PostPropertyPage() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [category, setCategory] = useState<'sale' | 'rent'>('sale');
   const [state, formAction, isPending] = useActionState(submitPropertyAction, null);
 
   return (
@@ -71,6 +72,37 @@ export default function PostPropertyPage() {
               <h2 className="text-2xl font-bold tracking-tight">Thông Tin Chung</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Category selector */}
+              <div className="md:col-span-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
+                  Hình thức *
+                </label>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setCategory('sale')}
+                    className={`flex-1 py-3 rounded-lg font-bold text-sm transition-all ${
+                      category === 'sale'
+                        ? 'bg-[#001e40] text-white'
+                        : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'
+                    }`}
+                  >
+                    Mua bán
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCategory('rent')}
+                    className={`flex-1 py-3 rounded-lg font-bold text-sm transition-all ${
+                      category === 'rent'
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'
+                    }`}
+                  >
+                    Cho thuê
+                  </button>
+                </div>
+                <input type="hidden" name="category" value={category} />
+              </div>
               <div className="md:col-span-2">
                 <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
                   Tiêu đề tin đăng *
@@ -81,6 +113,8 @@ export default function PostPropertyPage() {
                   placeholder="VD: Căn hộ cao cấp Vinhomes Central Park 2PN full nội thất"
                   type="text"
                   required
+                  minLength={10}
+                  maxLength={200}
                 />
               </div>
               <div>
@@ -93,22 +127,26 @@ export default function PostPropertyPage() {
                   <option value="dat-nen">Đất nền</option>
                   <option value="biet-thu">Biệt thự</option>
                   <option value="phong-tro">Phòng trọ</option>
+                  <option value="van-phong">Văn phòng</option>
+                  <option value="kho-xuong">Kho / Xưởng</option>
                 </select>
               </div>
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
-                  Giá niêm yết (VND)
+                  {category === 'rent' ? 'Giá thuê (triệu/tháng)' : 'Giá bán (tỷ)'}
                 </label>
                 <div className="relative">
                   <input
                     name="price"
                     className="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg py-4 px-6 transition-all"
-                    placeholder="5000000000"
+                    placeholder={category === 'rent' ? '10' : '5'}
                     type="number"
+                    step="any"
+                    min="0.01"
                     required
                   />
                   <span className="absolute right-6 top-1/2 -translate-y-1/2 font-bold text-outline text-sm">
-                    Tỷ
+                    {category === 'rent' ? 'Triệu/tháng' : 'Tỷ'}
                   </span>
                 </div>
               </div>
@@ -273,11 +311,10 @@ export default function PostPropertyPage() {
             </ul>
           </div>
 
-          {/* Hidden fields for bedrooms/bathrooms/direction/category */}
+          {/* Hidden fields for bedrooms/bathrooms/direction */}
           <input type="hidden" name="bedrooms" value="0" />
           <input type="hidden" name="bathrooms" value="0" />
           <input type="hidden" name="direction" value="" />
-          <input type="hidden" name="category" value="sale" />
 
           {/* Error Message */}
           {state?.error && (

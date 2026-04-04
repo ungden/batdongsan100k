@@ -13,12 +13,12 @@ export async function createPaymentOrderAction(listingId: string, packageId: str
 
   // 1. Verify listing belongs to user
   const { data: listing, error: listingError } = await supabase
-    .from('listings')
-    .select('id, user_id')
+    .from('properties')
+    .select('id, created_by')
     .eq('id', listingId)
     .single()
 
-  if (listingError || !listing || listing.user_id !== user.id) {
+  if (listingError || !listing || listing.created_by !== user.id) {
     throw new Error('Tin đăng không tồn tại hoặc không thuộc quyền sở hữu của bạn.');
   }
 
@@ -52,12 +52,10 @@ export async function createPaymentOrderAction(listingId: string, packageId: str
     if (insertError) throw new Error('Đã có lỗi xảy ra khi tạo gói.');
 
     const { error: updateError } = await supabase
-      .from('listings')
+      .from('properties')
       .update({
         is_vip: pkg.priority > 0,
-        priority_level: pkg.priority,
-        vip_expires_at: expiresAt.toISOString(),
-        sort_date: new Date().toISOString()
+        is_priority: pkg.priority > 0,
       })
       .eq('id', listingId)
     if (updateError) throw new Error('Đã có lỗi xảy ra khi cập nhật tin.');

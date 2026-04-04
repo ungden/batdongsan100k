@@ -15,12 +15,12 @@ export default async function UpgradeListingPage({ params }: { params: Promise<{
 
   // 1. Fetch listing details
   const { data: listing, error: listingError } = await supabase
-    .from('listings')
-    .select('id, title, price, area, district, city, images, status, user_id, priority_level, vip_expires_at')
+    .from('properties')
+    .select('id, title, price, area, district, city, images, status, created_by, is_priority, is_vip')
     .eq('id', id)
     .single();
 
-  if (listingError || !listing || listing.user_id !== user.id) {
+  if (listingError || !listing || listing.created_by !== user.id) {
     notFound();
   }
 
@@ -66,7 +66,7 @@ export default async function UpgradeListingPage({ params }: { params: Promise<{
           <div className="mt-2 text-sm">
             <span className="text-outline">Trạng thái hiện tại: </span>
             <span className="font-bold text-primary">
-              {listing.priority_level > 0 ? `Đang dùng Gói VIP (${new Date(listing.vip_expires_at).toLocaleDateString('vi-VN')})` : 'Tin thường (Cơ bản)'}
+              {listing.is_vip ? 'Đang dùng Gói VIP' : 'Tin thường (Cơ bản)'}
             </span>
           </div>
         </div>
@@ -110,16 +110,16 @@ export default async function UpgradeListingPage({ params }: { params: Promise<{
             <form action={createPaymentOrderAction.bind(null, listing.id, pkg.id)}>
               <button 
                 type="submit"
-                disabled={listing.priority_level >= pkg.priority && pkg.priority > 0}
+                disabled={listing.is_vip && pkg.priority > 0}
                 className={`w-full py-3 rounded-lg font-bold transition-all ${
-                  listing.priority_level >= pkg.priority && pkg.priority > 0
+                  listing.is_vip && pkg.priority > 0
                     ? 'bg-surface-container text-on-surface-variant cursor-not-allowed'
                     : pkg.priority > 0 
                       ? 'bg-primary text-white hover:bg-primary/90 shadow-md hover:-translate-y-1' 
                       : 'bg-surface-container-high text-on-surface hover:bg-surface-container-highest'
                 }`}
               >
-                {listing.priority_level >= pkg.priority && pkg.priority > 0 ? 'Đang sử dụng' : 'Chọn gói này'}
+                {listing.is_vip && pkg.priority > 0 ? 'Đang sử dụng' : 'Chọn gói này'}
               </button>
             </form>
           </div>

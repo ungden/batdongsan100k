@@ -13,13 +13,11 @@ export default async function DashboardPage() {
 
   // Fetch user's listings
   const { data: listings, error } = await supabase
-    .from('listings')
-    .select('*')
-    .eq('user_id', user.id)
-    .order('is_vip', { ascending: false })
-      .order('priority_level', { ascending: false })
-      .order('sort_date', { ascending: false, nullsFirst: false })
-      .order('created_at', { ascending: false });
+    .from('properties')
+    .select('id, title, slug, price, price_unit, type, category, address, district, city, area, images, status, is_featured, is_vip, created_at')
+    .eq('created_by', user.id)
+    .order('is_featured', { ascending: false })
+    .order('created_at', { ascending: false });
 
   // Get user profile
   const { data: profile } = await supabase
@@ -89,13 +87,13 @@ export default async function DashboardPage() {
                         className="object-cover"
                       />
                       <div className="absolute top-2 left-2 px-2 py-1 bg-surface/90 backdrop-blur rounded text-xs font-bold text-primary">
-                        {listing.status === 'approved' ? 'Đã duyệt' : listing.status === 'pending' ? 'Chờ duyệt' : 'Bị từ chối'}
+                        {listing.status === 'published' ? 'Đã duyệt' : listing.status === 'pending_review' ? 'Chờ duyệt' : listing.status === 'draft' ? 'Nháp' : listing.status}
                       </div>
                     </div>
                     
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
-                        <Link href={`/property/${listing.id}`} className="font-bold text-lg text-on-surface hover:text-primary transition-colors line-clamp-2">
+                        <Link href={`/property/${listing.slug || listing.id}`} className="font-bold text-lg text-on-surface hover:text-primary transition-colors line-clamp-2">
                           {listing.title}
                         </Link>
                         <p className="text-sm text-on-surface-variant mt-1 flex items-center gap-1">
@@ -106,10 +104,14 @@ export default async function DashboardPage() {
                       
                       <div className="flex justify-between items-end mt-4">
                         <div className="font-bold text-error">
-                          {(listing.price / 1000000000).toFixed(1).replace('.0', '')} Tỷ
+                          {listing.category === 'rent'
+                            ? `${Math.round(listing.price / 1000000)} Triệu/tháng`
+                            : listing.price >= 1000000000
+                              ? `${(listing.price / 1000000000).toFixed(1).replace('.0', '')} Tỷ`
+                              : `${Math.round(listing.price / 1000000)} Triệu`}
                         </div>
                         <div className="flex gap-2">
-                          {listing.status === 'approved' && (
+                          {listing.status === 'published' && (
                             <Link href={`/dashboard/upgrade/${listing.id}`} className="px-3 py-1.5 bg-primary/10 text-primary hover:bg-primary/20 font-bold rounded-lg transition-colors flex items-center gap-1 text-sm tooltip-trigger" title="Nâng cấp VIP">
                               <span className="material-symbols-outlined text-[16px]">rocket_launch</span>
                               Nâng cấp
@@ -118,7 +120,11 @@ export default async function DashboardPage() {
                           <Link href={`/dashboard/edit/${listing.id}`} className="p-1.5 text-primary hover:bg-primary/10 rounded-full transition-colors flex items-center tooltip-trigger" title="Sửa tin">
                             <span className="material-symbols-outlined text-[20px]">edit</span>
                           </Link>
-                          <button className="p-1.5 text-error hover:bg-error/10 rounded-full transition-colors flex items-center" title="Xóa tin">
+                          <button
+                            className="p-1.5 text-outline/50 rounded-full flex items-center cursor-not-allowed"
+                            title="Tính năng sắp ra mắt"
+                            disabled
+                          >
                             <span className="material-symbols-outlined text-[20px]">delete</span>
                           </button>
                         </div>

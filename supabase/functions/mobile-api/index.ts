@@ -20,29 +20,21 @@ type Body = {
   area?: number;
   address?: string;
   type?: string;
+  category?: string;
   features?: string[];
 };
 
 const PROJECT_NAMES = [
-  'Vinhomes Riverside',
-  'Vinhomes Ocean Park',
-  'Vinhomes Grand Park',
-  'Landmark 81',
-  'Masteri Thảo Điền',
-  'Masteri Centre Point',
-  'The Sun Avenue',
-  'Aqua City',
-  'Ecopark Grand',
-  'Lakeview City',
-  'Tây Hồ Tây',
-  'Empire City',
-  'Sunwah Pearl',
-  'The Rivus',
-  'Holm',
-  'Sadeco',
-  'Belleville',
-  'Verosa Park',
-  'The Marq',
+  'Vinhomes Grand Park', 'Vinhomes Smart City', 'Vinhomes Central Park',
+  'Vinhomes Ocean Park', 'Vinhomes Golden River', 'Vinhomes Riverside',
+  'Masteri Thảo Điền', 'Masteri Centre Point', 'Masteri An Phú',
+  'Celadon City', 'Saigon Pearl', 'Diamond Island', 'Richstar',
+  'Sky Garden', 'The Manor', 'Lexington Residence', 'Dream Home',
+  'Midtown', 'Eco Green', 'The Gold View', 'Centana', 'Botanica',
+  'Feliz En Vista', 'Sunrise City', 'Sunrise Riverside',
+  'The Sun Avenue', 'Mizuki Park', 'Landmark 81', 'Aqua City',
+  'Empire City', 'Sunwah Pearl', 'Phú Mỹ Hưng', 'Sala',
+  'Tây Hồ Tây', 'Royal City', 'Times City',
 ];
 
 function detectProjectCondition() {
@@ -84,21 +76,16 @@ Deno.serve(async (req) => {
     if (action === 'get_home_feed') {
       const [featuredResult, nearbyResult] = await Promise.all([
         adminClient
-          .from('listings')
-          .select('*')
-          .in('status', ['active', 'approved', 'published'])
-          .order('is_vip', { ascending: false })
-          .order('priority_level', { ascending: false })
-          .order('sort_date', { ascending: false, nullsFirst: false })
+          .from('properties')
+          .select('id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, created_at')
+          .eq('status', 'published')
+          .order('is_featured', { ascending: false })
           .order('created_at', { ascending: false })
           .limit(5),
         adminClient
-          .from('listings')
-          .select('*')
-          .in('status', ['active', 'approved', 'published'])
-          .order('is_vip', { ascending: false })
-          .order('priority_level', { ascending: false })
-          .order('sort_date', { ascending: false, nullsFirst: false })
+          .from('properties')
+          .select('id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, created_at')
+          .eq('status', 'published')
           .order('created_at', { ascending: false })
           .limit(10),
       ]);
@@ -108,24 +95,18 @@ Deno.serve(async (req) => {
     }
 
     if (action === 'search_listings') {
-      let query = adminClient.from('listings').select('*').in('status', ['active', 'approved', 'published']);
+      let query = adminClient
+        .from('properties')
+        .select('id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, created_at')
+        .eq('status', 'published');
       if (body.keyword?.trim()) {
         query = query.or(`title.ilike.%${body.keyword.trim()}%,address.ilike.%${body.keyword.trim()}%,district.ilike.%${body.keyword.trim()}%,city.ilike.%${body.keyword.trim()}%`);
       }
       if (body.typeFilter) {
-        const typeMap: Record<string, string> = {
-          'chung-cu': 'apartment',
-          'nha-pho': 'house',
-          'biet-thu': 'house',
-          'dat-nen': 'land',
-          'phong-tro': 'room',
-        };
-        query = query.eq('category', typeMap[body.typeFilter] || 'house');
+        query = query.eq('type', body.typeFilter);
       }
       const { data, error } = await query
-        .order('is_vip', { ascending: false })
-        .order('priority_level', { ascending: false })
-        .order('sort_date', { ascending: false, nullsFirst: false })
+        .order('is_featured', { ascending: false })
         .order('created_at', { ascending: false })
         .limit(20);
       if (error) throw error;
@@ -135,27 +116,25 @@ Deno.serve(async (req) => {
     if (action === 'get_listing_detail') {
       if (!body.listingId) return json({ success: false, error: 'listingId is required' }, 400);
       const { data, error } = await adminClient
-        .from('listings')
-        .select('*')
+        .from('properties')
+        .select('*, agent:agents(id, name, phone, avatar)')
         .eq('id', body.listingId)
-        .in('status', ['active', 'approved', 'published'])
+        .eq('status', 'published')
         .single();
       if (error) throw error;
       return json({ success: true, data });
     }
 
     if (action === 'get_projects' || action === 'get_project_detail') {
-      let query = adminClient
-        .from('listings')
-        .select('*')
-        .in('status', ['active', 'approved', 'published'])
+      const { data, error } = await adminClient
+        .from('properties')
+        .select('id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, created_at')
+        .eq('status', 'published')
         .or(detectProjectCondition())
-        .order('is_vip', { ascending: false })
-        .order('priority_level', { ascending: false })
+        .order('is_featured', { ascending: false })
         .order('created_at', { ascending: false })
         .limit(action === 'get_projects' ? 60 : 120);
 
-      const { data, error } = await query;
       if (error) throw error;
       return json({ success: true, data: data || [] });
     }
@@ -214,7 +193,7 @@ Deno.serve(async (req) => {
     if (action === 'get_profile_stats') {
       const currentUser = requireUser();
       const [{ count: listingCount }, { count: favoriteCount }] = await Promise.all([
-        adminClient.from('listings').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id),
+        adminClient.from('properties').select('*', { count: 'exact', head: true }).eq('created_by', currentUser.id),
         adminClient.from('saved_listings').select('*', { count: 'exact', head: true }).eq('user_id', currentUser.id),
       ]);
       return json({ success: true, data: { listingCount: listingCount || 0, favoriteCount: favoriteCount || 0 } });
@@ -223,12 +202,9 @@ Deno.serve(async (req) => {
     if (action === 'get_my_listings') {
       const currentUser = requireUser();
       const { data, error } = await adminClient
-        .from('listings')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .order('is_vip', { ascending: false })
-        .order('priority_level', { ascending: false })
-        .order('sort_date', { ascending: false, nullsFirst: false })
+        .from('properties')
+        .select('id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, area, images, status, created_at')
+        .eq('created_by', currentUser.id)
         .order('created_at', { ascending: false });
       if (error) throw error;
       return json({ success: true, data });
@@ -236,37 +212,40 @@ Deno.serve(async (req) => {
 
     if (action === 'create_listing') {
       const currentUser = requireUser();
-      if (!body.title || !body.price || !body.area || !body.address || !body.type) {
+      if (!body.title || !body.price || !body.area || !body.type) {
         return json({ success: false, error: 'Missing required fields' }, 400);
       }
 
-      const categoryMap: Record<string, string> = {
-        'chung-cu': 'apartment',
-        'nha-pho': 'house',
-        'biet-thu': 'house',
-        'dat-nen': 'land',
-        'phong-tro': 'room',
-      };
+      const category = body.category || 'sale';
+      const slug = body.title
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        + '-' + Date.now().toString(36);
 
       const { data, error } = await adminClient
-        .from('listings')
+        .from('properties')
         .insert({
-          user_id: currentUser.id,
           title: body.title,
+          slug,
+          price: category === 'rent' ? body.price * 1_000_000 : body.price * 1_000_000_000,
+          price_unit: category === 'rent' ? 'trieu/thang' : 'ty',
+          type: body.type,
+          category,
+          status: 'pending_review',
           description: body.description || '',
-          price: body.price,
           area: body.area,
-          address: body.address,
-          district: body.address,
-          city: body.address.includes('Hà Nội') ? 'Hà Nội' : 'Hồ Chí Minh',
-          category: categoryMap[body.type] || 'house',
-          transaction_type: 'mua-ban',
-          status: 'pending',
-          images: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6'],
-          contact_name: currentUser.user_metadata?.full_name || currentUser.email,
-          contact_phone: '',
+          address: body.address || '',
+          district: '',
+          city: '',
+          images: [],
+          features: body.features || [],
+          created_by: currentUser.id,
         })
-        .select('*')
+        .select('id, title, slug, status')
         .single();
       if (error) throw error;
       return json({ success: true, data });
@@ -277,11 +256,11 @@ Deno.serve(async (req) => {
       if (!body.listingId || !body.packageId) return json({ success: false, error: 'listingId and packageId are required' }, 400);
 
       const { data: listing, error: listingError } = await adminClient
-        .from('listings')
-        .select('id, user_id')
+        .from('properties')
+        .select('id, created_by')
         .eq('id', body.listingId)
         .single();
-      if (listingError || !listing || listing.user_id !== currentUser.id) return json({ success: false, error: 'Listing not found' }, 404);
+      if (listingError || !listing || listing.created_by !== currentUser.id) return json({ success: false, error: 'Listing not found' }, 404);
 
       const { data: pkg, error: pkgError } = await adminClient
         .from('packages')
@@ -300,11 +279,9 @@ Deno.serve(async (req) => {
           expires_at: expiresAt,
           is_active: true,
         });
-        await adminClient.from('listings').update({
+        await adminClient.from('properties').update({
           is_vip: pkg.priority > 0,
-          priority_level: pkg.priority,
-          vip_expires_at: expiresAt,
-          sort_date: new Date().toISOString(),
+          is_priority: pkg.priority > 0,
         }).eq('id', body.listingId);
         return json({ success: true, data: { id: 'free-package', status: 'paid', amount: 0, plan: pkg.name, order_code: 'FREE' } });
       }

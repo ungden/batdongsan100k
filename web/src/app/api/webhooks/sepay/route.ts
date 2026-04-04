@@ -82,12 +82,10 @@ export async function POST(req: NextRequest) {
       is_active: true
     });
 
-    // 4.3 Update listings table
-    await supabase.from('listings').update({
+    // 4.3 Update properties table
+    await supabase.from('properties').update({
       is_vip: pkg.priority > 0,
-      priority_level: pkg.priority,
-      vip_expires_at: expiresAt.toISOString(),
-      sort_date: new Date().toISOString() // push to top
+      is_priority: pkg.priority > 0,
     }).eq('id', order.listing_id);
 
     return NextResponse.json({ success: true, message: 'Order processed and listing upgraded' });

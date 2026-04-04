@@ -510,20 +510,25 @@ async function fetchText(url) {
     try {
       const response = await fetch(url, {
         redirect: "follow",
+        signal: AbortSignal.timeout(30000),
         headers: {
           "user-agent": USER_AGENT,
           accept: "text/html,application/json;q=0.9,*/*;q=0.8",
           "accept-language": "vi,en-US;q=0.9,en;q=0.8",
+          "accept-encoding": "identity",
           "cache-control": "no-cache",
         },
       });
+
+      let text = "";
+      try { text = await response.text(); } catch { /* gzip/decode error — skip */ }
 
       return {
         status: response.status,
         ok: response.ok,
         contentType: response.headers.get("content-type") || "",
         finalUrl: response.url,
-        text: await response.text(),
+        text,
       };
     } catch (error) {
       lastError = error;
@@ -534,7 +539,8 @@ async function fetchText(url) {
     }
   }
 
-  throw lastError;
+  console.error(`  fetchText failed after 3 attempts: ${url.slice(0, 80)} — ${lastError?.message || 'unknown'}`);
+  return { status: 0, ok: false, contentType: "", finalUrl: url, text: "" };
 }
 
 function isCloudflareBlock(text) {
@@ -561,6 +567,22 @@ function filterImageUrls(urls, hosts) {
       if (!url) return false;
       if (url.startsWith("data:")) return false;
       return hosts.some((host) => url.includes(host));
+    }).map(getHighResUrl)
+  );
+}
+
+// Broader image filter - accepts any reasonable property image URL
+// Used for sources whose CDN may change
+function filterPropertyImages(urls) {
+  const junkPatterns = /logo|icon|avatar|favicon|placeholder|spinner|loading|arrow|btn|button|banner|ads?[\-_\/]|pixel|tracking|1x1|spacer|emoji|badge/i;
+  return unique(
+    urls.filter((url) => {
+      if (!url || url.startsWith("data:")) return false;
+      if (!url.startsWith("http")) return false;
+      if (junkPatterns.test(url)) return false;
+      // Must look like an image URL
+      if (!/\.(jpe?g|png|webp|avif)/i.test(url) && !url.includes("/image") && !url.includes("/photo") && !url.includes("/Product") && !url.includes("/store")) return false;
+      return true;
     }).map(getHighResUrl)
   );
 }
@@ -808,12 +830,12 @@ function parseHomedyDetail(detailUrl, html, category, preview) {
   const sourcePostedText = normalizeWhitespace(preview.postedText || preview.listingText || text);
   const publishedAt = parsePublishedAt(sourcePostedText);
   const priceMeta = parsePrice(text, category);
-  const images = filterImageUrls(
-    $("img")
-      .map((_, element) => absoluteUrl(detailUrl, $(element).attr("data-src") || $(element).attr("src") || ""))
-      .get(),
-    ["img.homedy.com/store/images/"],
-  ).slice(0, 12);
+  const allImgUrls = $("img")
+    .map((_, element) => absoluteUrl(detailUrl, $(element).attr("data-src") || $(element).attr("src") || ""))
+    .get();
+  // Try strict filter first, fallback to broad filter
+  let images = filterImageUrls(allImgUrls, ["img.homedy.com/store/images/", "img.homedy.com"]).slice(0, 12);
+  if (!images.length) images = filterPropertyImages(allImgUrls).slice(0, 12);
   const addressMatch = metaDescription.match(/bán tại\s+(.+?)(?:\.|\-|\|)/i) || metaDescription.match(/cho thuê tại\s+(.+?)(?:\.|\-|\|)/i);
   const address = addressMatch ? normalizeWhitespace(addressMatch[1]) : preview.address || null;
 
@@ -1055,12 +1077,14 @@ function parseMuonnhaDetail(detailUrl, html, category, preview) {
   const sourcePostedText = normalizeWhitespace(preview.postedText || text);
   const publishedAt = parsePublishedAt(sourcePostedText);
   const priceMeta = parsePrice(text, category);
-  const images = filterImageUrls(
-    $("img")
-      .map((_, element) => absoluteUrl(detailUrl, $(element).attr("data-src") || $(element).attr("src") || ""))
-      .get(),
-    ["static.muonnha.com.vn/Product/"],
-  ).slice(0, 12);
+  const allImgUrls = $("img")
+    .map((_, element) => absoluteUrl(detailUrl, $(element).attr("data-src") || $(element).attr("src") || ""))
+    .get();
+  let images = filterImageUrls(allImgUrls, ["static.muonnha.com.vn/Product/", "muonnha.com.vn"]).slice(0, 12);
+  if (!images.length) images = filterPropertyImages(allImgUrls).slice(0, 12);
+  // Try to extract address from meta description
+  const addressMatch = metaDescription.match(/(?:tại|ở)\s+(.+?)(?:\.|\-|\||,\s*giá)/i);
+  const address = addressMatch ? normalizeWhitespace(addressMatch[1]) : preview.address || null;
 
   return buildListingRecord({
     source: "muonnha",
@@ -1073,7 +1097,7 @@ function parseMuonnhaDetail(detailUrl, html, category, preview) {
     priceRaw: priceMeta.priceRaw,
     type: inferType(`${pageTitle} ${metaDescription}`),
     category,
-    address: null,
+    address,
     area: parseAreaNumber(text),
     bedrooms: parseBedrooms(text),
     bathrooms: parseBathrooms(text),
@@ -1096,12 +1120,15 @@ function parseCafelandDetail(detailUrl, html, category, preview) {
   const sourcePostedText = normalizeWhitespace(preview.postedText || bodyText);
   const publishedAt = parsePublishedAt(sourcePostedText);
   const priceMeta = parsePrice(text, category);
-  const images = filterImageUrls(
-    $("img")
-      .map((_, element) => absoluteUrl(detailUrl, $(element).attr("data-src") || $(element).attr("src") || ""))
-      .get(),
-    ["nhadat.cafeland.vn", "static2.cafeland.vn"],
-  ).filter((url) => !url.includes("logo") && !url.includes("img_empty") && !url.includes("icon-post")).slice(0, 12);
+  const allImgUrls = $("img")
+    .map((_, element) => absoluteUrl(detailUrl, $(element).attr("data-src") || $(element).attr("src") || ""))
+    .get();
+  let images = filterImageUrls(allImgUrls, ["nhadat.cafeland.vn", "static2.cafeland.vn", "cafeland.vn"])
+    .filter((url) => !url.includes("logo") && !url.includes("img_empty") && !url.includes("icon-post")).slice(0, 12);
+  if (!images.length) images = filterPropertyImages(allImgUrls).slice(0, 12);
+  // Try to extract address from meta description or body
+  const addressMatch = metaDescription.match(/(?:tại|ở|địa chỉ:?)\s+(.+?)(?:\.|\-|\||,\s*giá|,\s*diện)/i);
+  const address = addressMatch ? normalizeWhitespace(addressMatch[1]) : preview.address || null;
 
   return buildListingRecord({
     source: "cafeland",
@@ -1114,7 +1141,7 @@ function parseCafelandDetail(detailUrl, html, category, preview) {
     priceRaw: priceMeta.priceRaw,
     type: inferType(`${pageTitle} ${metaDescription}`),
     category,
-    address: null,
+    address,
     area: parseAreaNumber(text),
     bedrooms: parseBedrooms(text),
     bathrooms: parseBathrooms(text),
@@ -1195,20 +1222,24 @@ async function crawlHomedyOrMeeyland(source, args) {
     });
     let recentOnPage = 0;
 
+    let skipStats = { noHtml: 0, tooOld: 0, noImages: 0 };
     for (const candidate of candidates) {
       if (listings.length >= perSourceLimit) break;
       const detailHtml = await fetchHtmlDetail(candidate.href);
       requestCount += 1;
-      if (!detailHtml) continue;
+      if (!detailHtml) { skipStats.noHtml++; continue; }
 
       const record = source.key === "homedy"
         ? parseHomedyDetail(candidate.href, detailHtml, source.category, candidate)
         : parseMeeylandDetail(candidate.href, detailHtml, source.category, candidate);
-      if (!isRecentEnough(record.published_at ? new Date(record.published_at) : null, args.maxAgeDays)) continue;
+      if (!isRecentEnough(record.published_at ? new Date(record.published_at) : null, args.maxAgeDays)) { skipStats.tooOld++; continue; }
       recentOnPage += 1;
-      if (!record.images.length) continue;
+      if (!record.images.length) { skipStats.noImages++; continue; }
       listings.push(record);
       await sleep(args.delayMs);
+    }
+    if (candidates.length > 0) {
+      console.log(`  [${source.key}] page ${page}: ${candidates.length} candidates, ${listings.length} kept | skipped: html=${skipStats.noHtml} old=${skipStats.tooOld} noImg=${skipStats.noImages}`);
     }
 
     if (args.crawlAllRecent) {
@@ -1247,18 +1278,22 @@ async function crawlConfiguredExternalSource(source, args) {
     });
     let recentOnPage = 0;
 
+    let skipStats = { noHtml: 0, noParse: 0, tooOld: 0, noImages: 0 };
     for (const candidate of candidates) {
       if (listings.length >= perSourceLimit) break;
       const detailHtml = await fetchHtmlDetail(candidate.href);
       requestCount += 1;
-      if (!detailHtml) continue;
+      if (!detailHtml) { skipStats.noHtml++; continue; }
       const record = parseExternalDetail(source, candidate.href, detailHtml, candidate);
-      if (!record) continue;
-      if (!isRecentEnough(record.published_at ? new Date(record.published_at) : null, args.maxAgeDays)) continue;
+      if (!record) { skipStats.noParse++; continue; }
+      if (!isRecentEnough(record.published_at ? new Date(record.published_at) : null, args.maxAgeDays)) { skipStats.tooOld++; continue; }
       recentOnPage += 1;
-      if (!record.images.length) continue;
+      if (!record.images.length) { skipStats.noImages++; continue; }
       listings.push(record);
       await sleep(args.delayMs);
+    }
+    if (candidates.length > 0) {
+      console.log(`  [${source.key}] page ${page}: ${candidates.length} candidates, ${listings.length} kept | skipped: html=${skipStats.noHtml} parse=${skipStats.noParse} old=${skipStats.tooOld} noImg=${skipStats.noImages}`);
     }
 
     if (args.crawlAllRecent) {

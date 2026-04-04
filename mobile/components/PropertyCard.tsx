@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Property } from '../lib/types';
 import { COLORS } from '../lib/colors';
+import { toggleSavedProperty, isPropertySaved } from '../lib/saved-properties';
 
 interface PropertyCardProps {
   property: Property;
@@ -22,6 +23,17 @@ export default function PropertyCard({
   variant = 'vertical',
 }: PropertyCardProps) {
   const router = useRouter();
+  const [saved, setSaved] = useState(false);
+
+  // Check saved status on first render
+  React.useEffect(() => {
+    isPropertySaved(property.id).then(setSaved);
+  }, [property.id]);
+
+  const handleToggleSave = useCallback(async () => {
+    const nowSaved = await toggleSavedProperty(property.id);
+    setSaved(nowSaved);
+  }, [property.id]);
   const safeImages = Array.isArray(property.images) && property.images.length > 0
     ? property.images.filter((item) => typeof item === 'string' && item.length > 0)
     : [];
@@ -57,8 +69,8 @@ export default function PropertyCard({
             </View>
           )}
           {/* Heart button */}
-          <TouchableOpacity style={styles.heartButton}>
-            <Ionicons name="heart-outline" size={22} color="#fff" />
+          <TouchableOpacity style={styles.heartButton} onPress={handleToggleSave}>
+            <Ionicons name={saved ? "heart" : "heart-outline"} size={22} color={saved ? "#ef4444" : "#fff"} />
           </TouchableOpacity>
         </View>
         <View style={styles.featuredContent}>
@@ -130,8 +142,8 @@ export default function PropertyCard({
             <Text style={styles.priceBadgeText}>{priceLabel}</Text>
           </View>
           {/* Heart icon */}
-          <TouchableOpacity style={styles.heartButtonSmall}>
-            <Ionicons name="heart-outline" size={18} color="#fff" />
+          <TouchableOpacity style={styles.heartButtonSmall} onPress={handleToggleSave}>
+            <Ionicons name={saved ? "heart" : "heart-outline"} size={18} color={saved ? "#ef4444" : "#fff"} />
           </TouchableOpacity>
         </View>
         <View style={styles.horizontalContent}>

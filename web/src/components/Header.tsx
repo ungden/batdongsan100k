@@ -9,8 +9,8 @@ import { createClient } from "@/lib/supabase/client";
 const menuItems = [
   { label: "Mua bán", href: "/listings" },
   { label: "Cho thuê", href: "/listings?category=rent" },
-  { label: "Dự án", href: "/projects" },
-  { label: "Tin tức", href: "#" },
+  { label: "Dự án", href: "/market-overview" },
+  { label: "Tin tức", href: "/news" },
 ];
 
 export default function Header() {
@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-4 w-full">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8 py-3 w-full gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image src="/icon.svg" alt="TitanHome" width={32} height={32} className="w-8 h-8" />
@@ -70,7 +70,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6">
           {menuItems.map((item) => (
             <Link
               key={item.label}
@@ -87,7 +87,7 @@ export default function Header() {
         </div>
 
         {/* Desktop Search Bar */}
-        <div className="hidden lg:flex flex-1 max-w-sm mx-8">
+        <div className="hidden lg:flex flex-1 max-w-xs mx-4">
           <form onSubmit={handleSearch} className="relative w-full flex items-center">
             <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-[20px] pointer-events-none">
               search

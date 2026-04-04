@@ -22,50 +22,47 @@ export default async function AgentProfilePage({ params }: { params: Promise<{ i
 
   // Fetch properties published by this agent
   const { data: listings } = await supabase
-    .from('listings')
-    .select('*')
-    .eq('agent_id', id)
-    .eq('status', 'approved')
-    .order('is_vip', { ascending: false })
-      .order('is_priority', { ascending: false })
-      .order('created_at', { ascending: false });
+    .from('properties')
+    .select('id, title, slug, price, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, created_at, updated_at')
+    .or(`agent_id.eq.${id},created_by.eq.${id}`)
+    .eq('status', 'published')
+    .order('is_featured', { ascending: false })
+    .order('created_at', { ascending: false });
 
   const mappedListings: Property[] = (listings || []).map((dbItem: any) => {
     let priceFormatted = '';
     let priceUnit: 'tỷ' | 'triệu' | 'triệu/tháng' = 'tỷ';
-  
+
     if (dbItem.price) {
-      if (dbItem.category === 'rent' || dbItem.transaction_type === 'cho-thue') {
+      if (dbItem.category === 'rent') {
         priceUnit = 'triệu/tháng';
         priceFormatted = (dbItem.price / 1000000).toFixed(0);
+      } else if (dbItem.price >= 1000000000) {
+        priceUnit = 'tỷ';
+        priceFormatted = (dbItem.price / 1000000000).toFixed(1).replace('.0', '');
       } else {
-        if (dbItem.price >= 1000000000) {
-          priceUnit = 'tỷ';
-          priceFormatted = (dbItem.price / 1000000000).toFixed(1).replace('.0', '');
-        } else {
-          priceUnit = 'triệu';
-          priceFormatted = (dbItem.price / 1000000).toFixed(0);
-        }
+        priceUnit = 'triệu';
+        priceFormatted = (dbItem.price / 1000000).toFixed(0);
       }
     }
-  
+
     return {
       id: dbItem.id,
       title: dbItem.title || '',
-      slug: dbItem.id,
+      slug: dbItem.slug || dbItem.id,
       price: dbItem.price || 0,
       priceFormatted,
       priceUnit,
-      type: dbItem.category === 'apartment' ? 'chung-cu' : 'nha-pho',
-      category: dbItem.category === 'rent' || dbItem.transaction_type === 'cho-thue' ? 'rent' : 'sale',
+      type: dbItem.type || 'nha-pho',
+      category: dbItem.category || 'sale',
       address: dbItem.address || '',
       district: dbItem.district || '',
       city: dbItem.city || '',
-      bedrooms: 0,
-      bathrooms: 0,
+      bedrooms: dbItem.bedrooms || 0,
+      bathrooms: dbItem.bathrooms || 0,
       area: dbItem.area || 0,
-      description: dbItem.description || '',
-      images: dbItem.images && dbItem.images.length > 0 ? dbItem.images : ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6'],
+      description: '',
+      images: dbItem.images?.length > 0 ? dbItem.images : [],
       features: [],
       agent: {
         id: profile.id,
@@ -78,7 +75,7 @@ export default async function AgentProfilePage({ params }: { params: Promise<{ i
       authorId: profile.id,
       createdAt: dbItem.created_at,
       updatedAt: dbItem.updated_at,
-      isFeatured: dbItem.is_vip || false,
+      isFeatured: dbItem.is_featured || dbItem.is_vip || false,
     };
   });
 

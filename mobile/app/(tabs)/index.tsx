@@ -104,19 +104,9 @@ export function mapSupabaseListingToProperty(dbItem: any): Property {
     .map((item: string) => normalizeFeatureLabel(item));
 
   const formattedPrice = formatListingPrice(dbItem.price || 0, dbItem.price_unit);
-  const normalizedType = (() => {
-    if (dbItem.type) return dbItem.type;
-    if (dbItem.category === 'apartment') return 'chung-cu';
-    if (dbItem.category === 'house') return 'nha-pho';
-    if (dbItem.category === 'land') return 'dat-nen';
-    if (dbItem.category === 'room') return 'phong-tro';
-    return 'nha-pho';
-  })();
-  const normalizedCategory = (() => {
-    if (dbItem.transaction_type === 'cho-thue') return 'rent';
-    if (dbItem.category === 'rent') return 'rent';
-    return 'sale';
-  })();
+  // properties table uses type (chung-cu, nha-pho, etc.) and category (sale, rent) directly
+  const normalizedType = dbItem.type || 'nha-pho';
+  const normalizedCategory = dbItem.category === 'rent' ? 'rent' : 'sale';
 
   return {
     id: dbItem.id,
@@ -137,14 +127,14 @@ export function mapSupabaseListingToProperty(dbItem: any): Property {
     images: parsedImages,
     features: parsedFeatures,
     agent: {
-      id: dbItem.agent_id || dbItem.user_id || dbItem.created_by || 'system',
-      name: dbItem.contact_name || 'TitanHome',
-      phone: dbItem.contact_phone || '0901234567',
+      id: dbItem.agent_id || dbItem.created_by || 'system',
+      name: dbItem.agent?.name || 'TitanHome',
+      phone: dbItem.agent?.phone || '',
       email: 'contact@titanhome.vn',
-      avatar: 'https://i.pravatar.cc/150?u=system',
+      avatar: dbItem.agent?.avatar || 'https://i.pravatar.cc/150?u=system',
     },
     status: dbItem.status || 'published',
-    authorId: dbItem.created_by || dbItem.user_id || '',
+    authorId: dbItem.created_by || '',
     createdAt: dbItem.created_at || new Date().toISOString(),
     updatedAt: dbItem.updated_at || new Date().toISOString(),
     isFeatured: dbItem.is_featured || dbItem.is_vip || false,

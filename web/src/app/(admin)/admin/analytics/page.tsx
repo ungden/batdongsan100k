@@ -10,14 +10,14 @@ export default async function AnalyticsPage() {
     { count: totalListings },
     { count: totalUsers },
   ] = await Promise.all([
-    supabase.from('listings').select('id, title, views, category, city').in('status', ['approved', 'published']),
+    supabase.from('properties').select('id, title, views_count, category, city').eq('status', 'published'),
     supabase.from('contact_requests').select('*', { count: 'estimated', head: true }),
-    supabase.from('listings').select('*', { count: 'estimated', head: true }),
+    supabase.from('properties').select('*', { count: 'estimated', head: true }),
     supabase.from('profiles').select('*', { count: 'estimated', head: true }),
   ])
 
-  const totalViews = (listings || []).reduce((sum, item) => sum + Number(item.views || 0), 0)
-  const topListings = [...(listings || [])].sort((a, b) => Number(b.views || 0) - Number(a.views || 0)).slice(0, 10)
+  const totalViews = (listings || []).reduce((sum, item) => sum + Number(item.views_count || 0), 0)
+  const topListings = [...(listings || [])].sort((a, b) => Number(b.views_count || 0) - Number(a.views_count || 0)).slice(0, 10)
 
   const categoryCounts: Record<string, number> = {}
   const cityCounts: Record<string, number> = {}
@@ -70,7 +70,7 @@ export default async function AnalyticsPage() {
                 <tr key={item.id} className={`border-b border-gray-50 ${index % 2 === 1 ? 'bg-gray-50/50' : ''}`}>
                   <td className="px-4 py-3 text-on-surface/50 font-medium">{index + 1}</td>
                   <td className="px-4 py-3 font-medium text-on-surface">{item.title}</td>
-                  <td className="px-4 py-3 text-on-surface/70">{item.views ?? 0}</td>
+                  <td className="px-4 py-3 text-on-surface/70">{item.views_count ?? 0}</td>
                   <td className="px-4 py-3 text-on-surface/70">{categoryLabels[item.category || 'khac'] || item.category}</td>
                   <td className="px-4 py-3 text-on-surface/70">{item.city || '—'}</td>
                 </tr>

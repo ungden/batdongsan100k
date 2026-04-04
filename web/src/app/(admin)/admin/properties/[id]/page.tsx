@@ -51,7 +51,7 @@ export default function EditPropertyPage() {
 
   useEffect(() => {
     const supabase = createClient()
-    supabase.from('listings').select('*').eq('id', params.id).single().then(({ data }) => {
+    supabase.from('properties').select('*').eq('id', params.id).single().then(({ data }) => {
       setListing(data as ListingData | null)
       setLoading(false)
     })

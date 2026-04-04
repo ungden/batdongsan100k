@@ -105,17 +105,19 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                minLength={6}
+                minLength={8}
                 className="w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                placeholder="Tạo mật khẩu (tối thiểu 6 ký tự)"
+                placeholder="Tạo mật khẩu (tối thiểu 8 ký tự)"
               />
+              <p className="text-xs text-on-surface-variant mt-1.5">Mật khẩu phải có ít nhất 8 ký tự</p>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-primary-gradient text-on-primary font-bold rounded-lg shadow-md hover:shadow-lg hover:translate-y-[-1px] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              className="w-full py-3 bg-primary-gradient text-on-primary font-bold rounded-lg shadow-md hover:shadow-lg hover:translate-y-[-1px] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
             >
+              {loading && <span className="material-symbols-outlined text-lg animate-spin">progress_activity</span>}
               {loading ? 'Đang xử lý...' : 'Đăng ký tài khoản'}
             </button>
           </form>

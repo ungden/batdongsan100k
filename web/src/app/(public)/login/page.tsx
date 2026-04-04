@@ -25,7 +25,7 @@ export default function LoginPage() {
       });
 
       if (authError) {
-        setError(authError.message);
+        setError('Email hoặc mật khẩu không đúng. Vui lòng thử lại.');
         return;
       }
 
@@ -83,17 +83,20 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-primary-gradient text-on-primary font-bold rounded-lg shadow-md hover:shadow-lg hover:translate-y-[-1px] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              className="w-full py-3 bg-primary-gradient text-on-primary font-bold rounded-lg shadow-md hover:shadow-lg hover:translate-y-[-1px] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2"
             >
+              {loading && <span className="material-symbols-outlined text-lg animate-spin">progress_activity</span>}
               {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-on-surface-variant">
-            Chưa có tài khoản?{' '}
-            <Link href="/register" className="text-primary font-semibold hover:underline">
-              Đăng ký ngay
-            </Link>
+          <div className="mt-6 flex flex-col items-center gap-3 text-sm">
+            <div className="text-on-surface-variant">
+              Chưa có tài khoản?{' '}
+              <Link href="/register" className="text-primary font-semibold hover:underline">
+                Đăng ký ngay
+              </Link>
+            </div>
           </div>
         </div>
       </div>
