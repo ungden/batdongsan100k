@@ -18,6 +18,19 @@ export interface ProjectSummary {
   avgArea: number
   status: string
   amenities: string[]
+  // Rich project info
+  priceRange: string | null
+  completionDate: string | null
+  legalStatus: string | null
+  handoverStandard: string | null
+  totalUnits: number | null
+  soldUnits: number | null
+  floors: number | null
+  blocks: number | null
+  apartmentTypes: string[]
+  totalAreaHa: number | null
+  rentalYield: number | null
+  badges: string[]
 }
 
 export interface ProjectDetail extends ProjectSummary {
@@ -54,6 +67,18 @@ function mapProject(row: any): ProjectSummary {
     avgArea: Number(row.avg_area || 0),
     status: row.status || 'selling',
     amenities: row.amenities || [],
+    priceRange: row.price_range || null,
+    completionDate: row.completion_date || null,
+    legalStatus: row.legal_status || null,
+    handoverStandard: row.handover_standard || null,
+    totalUnits: row.total_units || null,
+    soldUnits: row.sold_units || null,
+    floors: row.floors || null,
+    blocks: row.blocks || null,
+    apartmentTypes: row.apartment_types || [],
+    totalAreaHa: row.total_area_ha ? Number(row.total_area_ha) : null,
+    rentalYield: row.rental_yield ? Number(row.rental_yield) : null,
+    badges: row.badges || [],
   }
 }
 

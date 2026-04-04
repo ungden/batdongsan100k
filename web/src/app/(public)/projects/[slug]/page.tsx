@@ -92,13 +92,119 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Project Info Card */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 mb-8">
+        <div className="bg-white rounded-2xl border border-outline-variant/20 p-6 md:p-8">
+          {/* Badges */}
+          {project.badges.length > 0 && (
+            <div className="flex gap-2 mb-4">
+              {project.badges.includes('hot') && <span className="bg-rose-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Hot</span>}
+              {project.badges.includes('featured') && <span className="bg-amber-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Nổi bật</span>}
+              {project.badges.includes('new') && <span className="bg-emerald-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Mới</span>}
+            </div>
+          )}
+
+          {/* Description */}
+          {project.description && (
+            <p className="text-on-surface-variant leading-relaxed mb-6">{project.description}</p>
+          )}
+
+          {/* Info Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 text-sm">
+            {project.developer && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Chủ đầu tư</div>
+                <div className="font-bold text-on-surface">{project.developer}</div>
+              </div>
+            )}
+            {project.priceRange && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Khoảng giá</div>
+                <div className="font-bold text-primary">{project.priceRange}</div>
+              </div>
+            )}
+            {project.legalStatus && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Pháp lý</div>
+                <div className="font-bold text-emerald-600 flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[14px]">verified</span>
+                  {project.legalStatus}
+                </div>
+              </div>
+            )}
+            {project.completionDate && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Bàn giao</div>
+                <div className="font-bold text-on-surface">{project.completionDate}</div>
+              </div>
+            )}
+            {project.totalUnits && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Quy mô</div>
+                <div className="font-bold text-on-surface">{project.totalUnits.toLocaleString('vi-VN')} căn</div>
+              </div>
+            )}
+            {project.floors && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Số tầng</div>
+                <div className="font-bold text-on-surface">{project.floors} tầng{project.blocks ? ` / ${project.blocks} block` : ''}</div>
+              </div>
+            )}
+            {project.totalAreaHa && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Diện tích dự án</div>
+                <div className="font-bold text-on-surface">{project.totalAreaHa} ha</div>
+              </div>
+            )}
+            {project.handoverStandard && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Tiêu chuẩn bàn giao</div>
+                <div className="font-bold text-on-surface">{project.handoverStandard}</div>
+              </div>
+            )}
+            {project.rentalYield && (
+              <div>
+                <div className="text-xs text-on-surface-variant font-medium mb-1">Lợi nhuận cho thuê</div>
+                <div className="font-bold text-secondary">{project.rentalYield}%/năm</div>
+              </div>
+            )}
+          </div>
+
+          {/* Apartment Types */}
+          {project.apartmentTypes.length > 0 && (
+            <div className="mt-6 pt-4 border-t border-outline-variant/15">
+              <div className="text-xs text-on-surface-variant font-medium mb-2">Loại căn hộ</div>
+              <div className="flex flex-wrap gap-2">
+                {project.apartmentTypes.map((t) => (
+                  <span key={t} className="bg-primary/5 text-primary text-xs font-bold px-3 py-1 rounded-full">{t}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sold Progress */}
+          {project.totalUnits && project.soldUnits && (
+            <div className="mt-6 pt-4 border-t border-outline-variant/15">
+              <div className="flex justify-between text-xs mb-2">
+                <span className="text-on-surface-variant font-medium">Tiến độ bán hàng</span>
+                <span className="font-bold text-on-surface">{Math.round((project.soldUnits / project.totalUnits) * 100)}%</span>
+              </div>
+              <div className="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+                <div className="h-full bg-secondary rounded-full" style={{ width: `${Math.min(100, (project.soldUnits / project.totalUnits) * 100)}%` }} />
+              </div>
+              <div className="text-[11px] text-on-surface-variant mt-1">{project.soldUnits.toLocaleString('vi-VN')} / {project.totalUnits.toLocaleString('vi-VN')} căn đã bán</div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Stats Cards */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-10">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
             <span className="material-symbols-outlined text-primary text-2xl mb-1">home_work</span>
             <div className="text-2xl font-black text-on-surface">{project.propertyCount}</div>
-            <div className="text-[11px] text-on-surface-variant font-medium">Sản phẩm</div>
+            <div className="text-[11px] text-on-surface-variant font-medium">Tin đăng</div>
           </div>
           <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
             <span className="material-symbols-outlined text-emerald-600 text-2xl mb-1">trending_up</span>

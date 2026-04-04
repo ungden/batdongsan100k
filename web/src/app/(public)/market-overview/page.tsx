@@ -49,7 +49,7 @@ export default async function MarketOverviewPage({ searchParams }: PageProps) {
     getMarketKPIs(),
   ]);
 
-  const viewMode = params.view || "grid";
+  const viewMode = params.view || "table";
 
   return (
     <div className="min-h-screen bg-surface pt-24 pb-16">
@@ -133,11 +133,11 @@ export default async function MarketOverviewPage({ searchParams }: PageProps) {
                 <thead>
                   <tr className="bg-surface-container-lowest border-b border-outline-variant/20">
                     <th className="text-left px-6 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">Dự án</th>
+                    <th className="text-left px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant hidden md:table-cell">Chủ đầu tư</th>
                     <th className="text-left px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">Vị trí</th>
-                    <th className="text-right px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">Giá/m²</th>
-                    <th className="text-right px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">Giá thấp nhất</th>
-                    <th className="text-center px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">Số SP</th>
-                    <th className="text-center px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">DT TB</th>
+                    <th className="text-center px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant hidden lg:table-cell">Pháp lý</th>
+                    <th className="text-right px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">Giá</th>
+                    <th className="text-center px-4 py-4 font-bold text-xs uppercase tracking-wider text-on-surface-variant">Quy mô</th>
                     <th className="px-4 py-4"></th>
                   </tr>
                 </thead>
@@ -154,20 +154,29 @@ export default async function MarketOverviewPage({ searchParams }: PageProps) {
                           <span className="font-bold text-on-surface group-hover:text-primary transition-colors">{project.name}</span>
                         </Link>
                       </td>
-                      <td className="px-4 py-4 text-on-surface-variant">{project.district}, {project.city}</td>
-                      <td className="px-4 py-4 text-right font-semibold text-on-surface">
-                        {project.avgPricePerSqm > 0 ? formatPricePerSqm(project.avgPricePerSqm) : "—"}
+                      <td className="px-4 py-4 text-on-surface-variant hidden md:table-cell">{project.developer || "—"}</td>
+                      <td className="px-4 py-4 text-on-surface-variant text-xs">{project.district}, {project.city}</td>
+                      <td className="px-4 py-4 text-center hidden lg:table-cell">
+                        {project.legalStatus ? (
+                          <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                            <span className="material-symbols-outlined text-[12px]">verified</span>
+                            {project.legalStatus}
+                          </span>
+                        ) : <span className="text-on-surface-variant text-xs">—</span>}
                       </td>
-                      <td className="px-4 py-4 text-right font-bold text-primary">
-                        {project.minPrice > 0 ? formatPrice(project.minPrice) : "Liên hệ"}
+                      <td className="px-4 py-4 text-right">
+                        <div className="font-bold text-primary text-sm">{project.priceRange || (project.minPrice > 0 ? formatPrice(project.minPrice) : "Liên hệ")}</div>
+                        {project.avgPricePerSqm > 0 && <div className="text-[11px] text-on-surface-variant">{formatPricePerSqm(project.avgPricePerSqm)}</div>}
                       </td>
                       <td className="px-4 py-4 text-center">
-                        <span className="inline-flex items-center justify-center bg-primary/10 text-primary text-xs font-bold rounded-full px-2.5 py-1 min-w-[32px]">
-                          {project.propertyCount}
-                        </span>
-                      </td>
-                      <td className="px-4 py-4 text-center text-on-surface-variant">
-                        {project.avgArea > 0 ? `${Math.round(project.avgArea)} m²` : "—"}
+                        {project.totalUnits ? (
+                          <div>
+                            <div className="text-xs font-bold text-on-surface">{project.totalUnits.toLocaleString('vi-VN')} căn</div>
+                            {project.floors && <div className="text-[11px] text-on-surface-variant">{project.floors} tầng</div>}
+                          </div>
+                        ) : (
+                          <span className="inline-flex items-center justify-center bg-primary/10 text-primary text-xs font-bold rounded-full px-2.5 py-1">{project.propertyCount} SP</span>
+                        )}
                       </td>
                       <td className="px-4 py-4">
                         <Link href={`/projects/${project.slug}`} className="text-primary hover:underline text-xs font-bold">

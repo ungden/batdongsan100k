@@ -17,7 +17,7 @@ export default function MarketFilters({ projectCount }: { projectCount: number }
   const [localQ, setLocalQ] = useState(searchParams.get("q") || "");
 
   const currentStatus = searchParams.get("status") || "";
-  const currentView = searchParams.get("view") || "grid";
+  const currentView = searchParams.get("view") || "table";
 
   const updateQuery = useCallback(
     (updates: Record<string, string>) => {
