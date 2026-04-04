@@ -8,6 +8,7 @@ on:
 jobs:
   crawl-and-insert:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: crawler
@@ -29,7 +30,8 @@ jobs:
         run: npm ci
 
       - name: Run daily sync
-        run: npm run sync:daily -- --max-age-days=30 --max-pages=60 --image-limit=4
+        run: npm run sync:daily -- --max-age-days=30 --max-pages=30 --image-limit=4
+        timeout-minutes: 40
 
       - name: Upload crawl artifacts
         uses: actions/upload-artifact@v4
