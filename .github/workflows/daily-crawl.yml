@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Run daily sync
-        run: npm run sync:daily -- --max-age-days=30 --max-pages=30 --image-limit=4
+        run: npm run sync:daily -- --max-age-days=30 --max-pages=15 --image-limit=4
         timeout-minutes: 40
 
       - name: Upload crawl artifacts

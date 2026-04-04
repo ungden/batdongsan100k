@@ -51,6 +51,7 @@ async function main() {
     "--crawl-all-recent",
     `--max-age-days=${args.maxAgeDays}`,
     `--max-pages=${args.maxPages}`,
+    `--per-source=100`,
     `--image-limit=${args.imageLimit}`,
     `--delay-ms=${args.delayMs}`,
     `--out-dir=${outDir}`,
