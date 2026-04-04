@@ -543,6 +543,44 @@ async function fetchText(url) {
   return { status: 0, ok: false, contentType: "", finalUrl: url, text: "" };
 }
 
+// Extract real property description from page, filtering out SEO boilerplate
+function extractDescription($, metaDescription, bodyText, preview) {
+  // Try common description selectors first
+  const selectors = [
+    '.property-description', '.description', '.detail-description',
+    '.content-detail', '.post-content', '[class*="description"]',
+    '[class*="mota"]', '[class*="mo-ta"]', '[class*="noi-dung"]',
+    '.text-content', '.detail-content',
+  ];
+  for (const sel of selectors) {
+    const el = $(sel).first();
+    if (el.length) {
+      const text = normalizeWhitespace(el.text());
+      if (text.length > 30) return text.slice(0, 2000);
+    }
+  }
+
+  // Fallback: use bodyText but filter out boilerplate patterns
+  const boilerplate = /meeyland có \d+ ảnh|alonhadat|chotot\.com|mogi\.vn|đăng tin rao|môi giới đăng tin|mã tin rao|nguồn:|dang ngay:|url goc:/i;
+
+  // Try metaDescription if it's not boilerplate
+  if (metaDescription && metaDescription.length > 30 && !boilerplate.test(metaDescription)) {
+    return metaDescription.slice(0, 2000);
+  }
+
+  // Try preview text
+  if (preview?.text && preview.text.length > 30 && !boilerplate.test(preview.text)) {
+    return preview.text.slice(0, 2000);
+  }
+
+  // Last resort: cleaned bodyText
+  if (bodyText && bodyText.length > 50) {
+    return bodyText.replace(boilerplate, '').slice(0, 2000);
+  }
+
+  return '';
+}
+
 function isCloudflareBlock(text) {
   const lowered = String(text || "").toLowerCase();
   return lowered.includes("just a moment") || lowered.includes("cf-browser-verification");
@@ -856,7 +894,7 @@ function parseHomedyDetail(detailUrl, html, category, preview) {
     bathrooms: parseBathrooms(text),
     floor: parseFloor(text),
     direction: parseDirection(text),
-    description: metaDescription || preview.text,
+    description: extractDescription($, metaDescription, bodyText, preview),
     images,
     features: parseFeatureList(text),
     publishedAt,
@@ -868,7 +906,8 @@ function parseMeeylandDetail(detailUrl, html, category, preview) {
   const $ = cheerio.load(html);
   const pageTitle = normalizeWhitespace($("title").first().text()).replace(/\s*\|.*$/, "");
   const metaDescription = normalizeWhitespace($("meta[name='description']").attr("content") || "");
-  const text = `${preview.text || ""} ${metaDescription}`;
+  const bodyText = normalizeWhitespace($("body").text()).slice(0, 4000);
+  const text = `${preview.text || ""} ${metaDescription} ${bodyText}`;
   const sourcePostedText = normalizeWhitespace(preview.postedText || text);
   const explicitPublishedAt = parsePublishedAt(sourcePostedText);
   const embeddedDates = [
@@ -901,7 +940,7 @@ function parseMeeylandDetail(detailUrl, html, category, preview) {
     bathrooms: parseBathrooms(text),
     floor: parseFloor(text),
     direction: parseDirection(text),
-    description: metaDescription || preview.text,
+    description: extractDescription($, metaDescription, bodyText, preview),
     images,
     features: parseFeatureList(text),
     publishedAt,
@@ -1019,7 +1058,7 @@ function parseMogiDetail(detailUrl, html, category, preview) {
     bathrooms: parseBathrooms(text),
     floor: parseFloor(text),
     direction: parseDirection(text),
-    description: metaDescription || bodyText,
+    description: extractDescription($, metaDescription, bodyText, preview),
     images,
     features: parseFeatureList(text),
     publishedAt,
@@ -1061,7 +1100,7 @@ function parseOdtDetail(detailUrl, html, category, preview) {
     bathrooms: parseBathrooms(text),
     floor: parseFloor(text),
     direction: parseDirection(text),
-    description: metaDescription || bodyText,
+    description: extractDescription($, metaDescription, bodyText, preview),
     images,
     features: parseFeatureList(text),
     publishedAt,
@@ -1073,7 +1112,8 @@ function parseMuonnhaDetail(detailUrl, html, category, preview) {
   const $ = cheerio.load(html);
   const pageTitle = normalizeWhitespace($("title").first().text()).replace(/^Bán\s+căn hộ chung cư\s+/i, "");
   const metaDescription = normalizeWhitespace($("meta[name='description']").attr("content") || "");
-  const text = `${preview.text || ""} ${metaDescription}`;
+  const bodyText = normalizeWhitespace($("body").text()).slice(0, 4000);
+  const text = `${preview.text || ""} ${metaDescription} ${bodyText}`;
   const sourcePostedText = normalizeWhitespace(preview.postedText || text);
   const publishedAt = parsePublishedAt(sourcePostedText);
   const priceMeta = parsePrice(text, category);
@@ -1103,7 +1143,7 @@ function parseMuonnhaDetail(detailUrl, html, category, preview) {
     bathrooms: parseBathrooms(text),
     floor: parseFloor(text),
     direction: parseDirection(text),
-    description: metaDescription || preview.text,
+    description: extractDescription($, metaDescription, bodyText, preview),
     images,
     features: parseFeatureList(text),
     publishedAt,
@@ -1147,7 +1187,7 @@ function parseCafelandDetail(detailUrl, html, category, preview) {
     bathrooms: parseBathrooms(text),
     floor: parseFloor(text),
     direction: parseDirection(text),
-    description: metaDescription || preview.text,
+    description: extractDescription($, metaDescription, bodyText, preview),
     images,
     features: parseFeatureList(text),
     publishedAt,
