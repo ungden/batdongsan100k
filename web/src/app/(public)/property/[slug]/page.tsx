@@ -8,6 +8,8 @@ import ContactForm from "./ContactForm";
 import MapWrapper from "./MapWrapper";
 import Image from "next/image";
 import SaveButton from "@/components/SaveButton";
+import SocialShare from "@/components/SocialShare";
+import CompareButton from "@/components/CompareButton";
 
 const TYPE_LABELS: Record<string, string> = {
   'biet-thu': 'Biệt Thự',
@@ -150,9 +152,11 @@ export default async function PropertyDetailPage({
               <h1 className="text-4xl font-extrabold text-on-surface tracking-tight leading-tight">
                 {property.title}
               </h1>
-              <div className="pt-2">
-                <SaveButton 
-                  propertyId={property.id} 
+              <div className="flex items-center gap-2 pt-2">
+                <CompareButton property={property} />
+                <SocialShare title={property.title} />
+                <SaveButton
+                  propertyId={property.id}
                   showText={true}
                   className="px-4 py-2 bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 rounded-full flex gap-2 font-medium"
                 />

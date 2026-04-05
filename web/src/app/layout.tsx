@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeContext";
+import { CompareProvider } from "@/components/CompareContext";
+import CompareBar from "@/components/CompareBar";
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
@@ -93,7 +96,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-surface text-on-surface font-[var(--font-be-vietnam-pro)] selection:bg-primary/20">
-        {children}
+        <ThemeProvider>
+          <CompareProvider>
+            {children}
+            <CompareBar />
+          </CompareProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

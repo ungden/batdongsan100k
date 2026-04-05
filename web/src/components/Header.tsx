@@ -6,10 +6,14 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
+import ThemeToggle from "./ThemeToggle";
+import NotificationBell from "./NotificationBell";
+
 const menuItems = [
   { label: "Mua bán", href: "/listings" },
   { label: "Cho thuê", href: "/listings?category=rent" },
   { label: "Dự án", href: "/market-overview" },
+  { label: "Công cụ", href: "/calculator" },
   { label: "Tin tức", href: "/news" },
 ];
 
@@ -58,7 +62,7 @@ export default function Header() {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm">
+    <nav className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8 py-3 w-full gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -103,10 +107,9 @@ export default function Header() {
         </div>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-4">
-          <button className="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-all">
-            language
-          </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          {user && <NotificationBell />}
           
           {user ? (
             <div className="relative">
@@ -123,7 +126,7 @@ export default function Header() {
 
               {/* Dropdown Menu */}
               {userDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-outline-variant/20 py-2 z-50">
+                <div className="absolute right-0 mt-2 w-48 bg-surface rounded-lg shadow-xl border border-outline-variant/20 py-2 z-50">
                   <Link href="/dashboard" onClick={() => setUserDropdownOpen(false)} className="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low">Quản lý tin đăng</Link>
                   <Link href="/saved" onClick={() => setUserDropdownOpen(false)} className="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low">Tin đã lưu</Link>
                   <hr className="my-2 border-outline-variant/20" />
@@ -160,7 +163,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-outline-variant/20">
+        <div className="lg:hidden bg-surface/95 backdrop-blur-xl border-t border-outline-variant/20">
           <div className="px-8 py-4 space-y-1">
             <form onSubmit={handleSearch} className="relative w-full flex items-center mb-6">
               <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-[20px] pointer-events-none">
