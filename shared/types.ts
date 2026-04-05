@@ -80,6 +80,8 @@ export const CITIES = [
   'Khánh Hòa',
   'Hải Phòng',
   'Cần Thơ',
+  'Bà Rịa Vũng Tàu',
+  'Long An',
 ];
 
 export const FEATURES_LIST = [

@@ -13,6 +13,71 @@ const DEFAULT_MAX_AGE_DAYS = 30;
 const DEFAULT_MAX_PAGES = 60;
 const DEFAULT_STALE_PAGE_THRESHOLD = 2;
 
+// ============================================================
+// City name normalization map
+// Canonical names must match SearchBar.tsx and shared/types.ts
+// ============================================================
+const CITY_ALIASES = new Map([
+  // HCM
+  ["TP Hồ Chí Minh", "Hồ Chí Minh"],
+  ["Tp. Hồ Chí Minh", "Hồ Chí Minh"],
+  ["Tp.Hồ Chí Minh", "Hồ Chí Minh"],
+  ["TP.Hồ Chí Minh", "Hồ Chí Minh"],
+  ["TPHCM", "Hồ Chí Minh"],
+  ["Thành phố Hồ Chí Minh", "Hồ Chí Minh"],
+  // HN
+  ["TP Hà Nội", "Hà Nội"],
+  ["Tp. Hà Nội", "Hà Nội"],
+  ["Tp.Hà Nội", "Hà Nội"],
+  ["TP.Hà Nội", "Hà Nội"],
+  ["Thành phố Hà Nội", "Hà Nội"],
+  // Other cities
+  ["Tp. Đà Nẵng", "Đà Nẵng"],
+  ["TP Đà Nẵng", "Đà Nẵng"],
+  ["Tp. Cần Thơ", "Cần Thơ"],
+  ["TP Cần Thơ", "Cần Thơ"],
+  ["Tp. Hải Phòng", "Hải Phòng"],
+  ["TP Hải Phòng", "Hải Phòng"],
+  // Provinces with "T. " prefix
+  ["T. Bình Dương", "Bình Dương"],
+  ["T. Đồng Nai", "Đồng Nai"],
+  ["T. Khánh Hòa", "Khánh Hòa"],
+  ["T. Bà Rịa - Vũng Tàu", "Bà Rịa Vũng Tàu"],
+  ["T. Long An", "Long An"],
+  ["T. Thừa Thiên Huế", "Thừa Thiên Huế"],
+  ["T. Lâm Đồng", "Lâm Đồng"],
+  ["T. Bắc Ninh", "Bắc Ninh"],
+  ["T. Bến Tre", "Bến Tre"],
+  ["T. Đắk Lắk", "Đắk Lắk"],
+  ["T. Bình Định", "Bình Định"],
+  ["T. Quảng Ninh", "Quảng Ninh"],
+  ["T. Thái Bình", "Thái Bình"],
+  ["T. Thanh Hóa", "Thanh Hóa"],
+  ["T. Vĩnh Phúc", "Vĩnh Phúc"],
+  ["T. Phú Thọ", "Phú Thọ"],
+  ["T. Nghệ An", "Nghệ An"],
+  ["T. Hà Nam", "Hà Nam"],
+  ["T. Thái Nguyên", "Thái Nguyên"],
+  ["T. Tây Ninh", "Tây Ninh"],
+  ["T. Hưng Yên", "Hưng Yên"],
+  ["T. Nam Định", "Nam Định"],
+  ["T. Tiền Giang", "Tiền Giang"],
+  ["T. Hải Dương", "Hải Dương"],
+  ["T. Phú Yên", "Phú Yên"],
+  ["T. An Giang", "An Giang"],
+  ["T. Đồng Tháp", "Đồng Tháp"],
+  ["T. Bình Thuận", "Bình Thuận"],
+]);
+
+function normalizeCity(rawCity) {
+  const city = (rawCity || "").trim();
+  if (!city) return "";
+  if (CITY_ALIASES.has(city)) return CITY_ALIASES.get(city);
+  // Reject garbage values (full addresses, descriptions)
+  if (city.startsWith("Địa chỉ:") || city.length > 50) return "";
+  return city;
+}
+
 const CHOTOT_CATEGORIES = [
   { cg: 1010, label: "Căn hộ/Chung cư", type: "chung-cu" },
   { cg: 1020, label: "Nhà ở", type: "nha-pho" },
@@ -645,7 +710,7 @@ function buildListingRecord(raw) {
     status: "published",
     address: location.address,
     district: raw.district || location.district,
-    city: raw.city || location.city,
+    city: normalizeCity(raw.city || location.city),
     bedrooms: raw.bedrooms || 0,
     bathrooms: raw.bathrooms || 0,
     area: raw.area || 0,

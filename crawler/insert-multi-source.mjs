@@ -67,6 +67,30 @@ function withSourceTrail(description, source, externalUrl, postedDate) {
   return lines.filter(Boolean).join("\n\n").slice(0, 5000);
 }
 
+// ============================================================
+// City name normalization (must match multi-source-crawl.mjs)
+// ============================================================
+const CITY_ALIASES = new Map([
+  ["TP Hồ Chí Minh", "Hồ Chí Minh"], ["Tp. Hồ Chí Minh", "Hồ Chí Minh"],
+  ["TPHCM", "Hồ Chí Minh"], ["Thành phố Hồ Chí Minh", "Hồ Chí Minh"],
+  ["TP Hà Nội", "Hà Nội"], ["Tp. Hà Nội", "Hà Nội"],
+  ["Thành phố Hà Nội", "Hà Nội"],
+  ["Tp. Đà Nẵng", "Đà Nẵng"], ["Tp. Cần Thơ", "Cần Thơ"],
+  ["Tp. Hải Phòng", "Hải Phòng"],
+  ["T. Bình Dương", "Bình Dương"], ["T. Đồng Nai", "Đồng Nai"],
+  ["T. Khánh Hòa", "Khánh Hòa"], ["T. Bà Rịa - Vũng Tàu", "Bà Rịa Vũng Tàu"],
+  ["T. Long An", "Long An"], ["T. Thừa Thiên Huế", "Thừa Thiên Huế"],
+  ["T. Lâm Đồng", "Lâm Đồng"], ["T. Bắc Ninh", "Bắc Ninh"],
+]);
+
+function normalizeCity(rawCity) {
+  const city = (rawCity || "").trim();
+  if (!city) return "";
+  if (CITY_ALIASES.has(city)) return CITY_ALIASES.get(city);
+  if (city.startsWith("Địa chỉ:") || city.length > 50) return "";
+  return city;
+}
+
 function normalizePriceUnit(unit) {
   const value = normalizeWhitespace(unit).toLowerCase();
   if (!value) return "trieu";
@@ -159,7 +183,7 @@ async function insertListings(supabase, listings, dryRun) {
       status: "published",
       address: listing.address || "",
       district: listing.district || "",
-      city: listing.city || "",
+      city: normalizeCity(listing.city),
       bedrooms: listing.bedrooms || 0,
       bathrooms: listing.bathrooms || 0,
       area: listing.area || 0,
@@ -173,8 +197,11 @@ async function insertListings(supabase, listings, dryRun) {
       ),
       images: (listing.images || []).slice(0, 12),
       features: Array.from(
-        new Set([...(listing.features || []), `Nguon: ${listing.source}`, `Dang: ${listing.posted_label || listing.posted_date || "khong-ro"}`]),
+        new Set(listing.features || []),
       ).slice(0, 20),
+      source: listing.source || null,
+      external_url: listing.external_url || null,
+      external_id: listing.external_id || null,
       agent_id: listing.contact_phone ? agentMap.get(listing.contact_phone) || null : null,
       is_featured: Boolean(listing.is_latest),
       views_count: Math.max(0, Number(listing.freshness_rank || 0)),
