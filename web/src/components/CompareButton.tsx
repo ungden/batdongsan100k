@@ -31,7 +31,7 @@ export default function CompareButton({ property }: { property: Property }) {
       <span className="material-symbols-outlined text-[16px]">
         {active ? "check_circle" : "compare_arrows"}
       </span>
-      {active ? "Dang so sanh" : "So sanh"}
+      {active ? "Đang so sánh" : "So sánh"}
     </button>
   )
 }

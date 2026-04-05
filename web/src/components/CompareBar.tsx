@@ -26,7 +26,7 @@ export default function CompareBar() {
             ))}
           </div>
           <span className="text-sm text-on-surface-variant sm:hidden">
-            {items.length} BDS dang so sanh
+            {items.length} BĐS đang so sánh
           </span>
         </div>
 
@@ -35,13 +35,13 @@ export default function CompareBar() {
             onClick={clearAll}
             className="rounded-lg px-3 py-1.5 text-sm text-on-surface-variant hover:bg-surface-container"
           >
-            Xoa het
+            Xóa hết
           </button>
           <Link
             href="/compare"
             className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary/90"
           >
-            So sanh ngay
+            So sánh ngay
           </Link>
         </div>
       </div>

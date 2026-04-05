@@ -7,8 +7,8 @@ const MortgageCalculator = dynamic(() => import("@/components/calculator/Mortgag
 const ROICalculator = dynamic(() => import("@/components/calculator/ROICalculator"), { ssr: false })
 
 const TABS = [
-  { key: "mortgage", label: "Tinh tra gop", icon: "account_balance" },
-  { key: "roi", label: "Phan tich dau tu", icon: "trending_up" },
+  { key: "mortgage", label: "Tính trả góp", icon: "account_balance" },
+  { key: "roi", label: "Phân tích đầu tư", icon: "trending_up" },
 ] as const
 
 export default function CalculatorPage() {
@@ -17,8 +17,8 @@ export default function CalculatorPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-on-surface">Cong cu tinh toan</h1>
-        <p className="mt-1 text-on-surface-variant">Tinh toan tra gop va phan tich hieu qua dau tu bat dong san</p>
+        <h1 className="text-3xl font-bold text-on-surface">Công cụ tính toán</h1>
+        <p className="mt-1 text-on-surface-variant">Tính toán trả góp và phân tích hiệu quả đầu tư bất động sản</p>
       </div>
 
       {/* Tabs */}

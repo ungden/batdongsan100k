@@ -5,8 +5,8 @@ import Image from "next/image"
 import { useCompare } from "@/components/CompareContext"
 
 const TYPE_LABELS: Record<string, string> = {
-  "chung-cu": "Chung cu", "nha-pho": "Nha pho", "biet-thu": "Biet thu",
-  "dat-nen": "Dat nen", "phong-tro": "Phong tro", "van-phong": "Van phong", "kho-xuong": "Kho/Nha xuong",
+  "chung-cu": "Chung cư", "nha-pho": "Nhà phố", "biet-thu": "Biệt thự",
+  "dat-nen": "Đất nền", "phong-tro": "Phòng trọ", "van-phong": "Văn phòng", "kho-xuong": "Kho/Nhà xưởng",
 }
 
 function bestValue(items: { value: number; id: string }[], mode: "min" | "max") {
@@ -22,10 +22,10 @@ export default function ComparePage() {
     return (
       <div className="mx-auto max-w-4xl px-4 py-20 text-center">
         <span className="material-symbols-outlined mb-4 text-6xl text-on-surface-variant/40">compare_arrows</span>
-        <h1 className="mb-2 text-2xl font-bold text-on-surface">Chua co BDS nao de so sanh</h1>
-        <p className="mb-6 text-on-surface-variant">Them BDS vao danh sach so sanh tu trang tim kiem.</p>
+        <h1 className="mb-2 text-2xl font-bold text-on-surface">Chưa có BĐS nào để so sánh</h1>
+        <p className="mb-6 text-on-surface-variant">Thêm BĐS vào danh sách so sánh từ trang tìm kiếm.</p>
         <Link href="/listings" className="rounded-xl bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90">
-          Tim bat dong san
+          Tìm bất động sản
         </Link>
       </div>
     )
@@ -35,20 +35,20 @@ export default function ComparePage() {
   const areaBest = bestValue(items.map((p) => ({ value: p.area, id: p.id })), "max")
 
   const rows: { label: string; key: string; render: (p: typeof items[0]) => string; best?: string }[] = [
-    { label: "Gia", key: "price", render: (p) => p.priceFormatted ? `${p.priceFormatted} ${p.priceUnit}` : "Lien he", best: priceBest },
-    { label: "Dien tich", key: "area", render: (p) => p.area > 0 ? `${p.area} m2` : "-", best: areaBest },
-    { label: "Phong ngu", key: "bedrooms", render: (p) => p.bedrooms > 0 ? `${p.bedrooms} PN` : "-" },
-    { label: "Phong tam", key: "bathrooms", render: (p) => p.bathrooms > 0 ? `${p.bathrooms} WC` : "-" },
-    { label: "Loai hinh", key: "type", render: (p) => TYPE_LABELS[p.type] || p.type },
-    { label: "Huong", key: "direction", render: (p) => p.direction || "-" },
-    { label: "Quan/Huyen", key: "district", render: (p) => p.district || "-" },
-    { label: "Thanh pho", key: "city", render: (p) => p.city || "-" },
-    { label: "Dia chi", key: "address", render: (p) => p.address || "-" },
+    { label: "Giá", key: "price", render: (p) => p.priceFormatted ? `${p.priceFormatted} ${p.priceUnit}` : "Liên hệ", best: priceBest },
+    { label: "Diện tích", key: "area", render: (p) => p.area > 0 ? `${p.area} m²` : "-", best: areaBest },
+    { label: "Phòng ngủ", key: "bedrooms", render: (p) => p.bedrooms > 0 ? `${p.bedrooms} PN` : "-" },
+    { label: "Phòng tắm", key: "bathrooms", render: (p) => p.bathrooms > 0 ? `${p.bathrooms} WC` : "-" },
+    { label: "Loại hình", key: "type", render: (p) => TYPE_LABELS[p.type] || p.type },
+    { label: "Hướng", key: "direction", render: (p) => p.direction || "-" },
+    { label: "Quận/Huyện", key: "district", render: (p) => p.district || "-" },
+    { label: "Thành phố", key: "city", render: (p) => p.city || "-" },
+    { label: "Địa chỉ", key: "address", render: (p) => p.address || "-" },
   ]
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-bold text-on-surface">So sanh bat dong san</h1>
+      <h1 className="mb-6 text-2xl font-bold text-on-surface">So sánh bất động sản</h1>
 
       <div className="overflow-x-auto rounded-2xl border border-outline-variant">
         <table className="w-full min-w-[600px]">
@@ -65,7 +65,7 @@ export default function ComparePage() {
                       {p.title}
                     </Link>
                     <button onClick={() => removeItem(p.id)} className="text-xs text-error hover:underline">
-                      Xoa
+                      Xóa
                     </button>
                   </div>
                 </th>

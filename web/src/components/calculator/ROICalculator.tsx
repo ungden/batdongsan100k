@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts"
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Cell } from "recharts"
 
 function formatVND(value: number) {
-  if (value >= 1e9) return `${(value / 1e9).toFixed(1).replace(/\.0$/, "")} ty`
-  if (value >= 1e6) return `${(value / 1e6).toFixed(0)} tr`
-  return `${value.toLocaleString("vi-VN")} d`
+  if (value >= 1e9) return `${(value / 1e9).toFixed(1).replace(/\.0$/, "")} tỷ`
+  if (value >= 1e6) return `${(value / 1e6).toFixed(0)} triệu`
+  return `${value.toLocaleString("vi-VN")} đ`
 }
 
 export default function ROICalculator() {
@@ -39,7 +39,6 @@ export default function ROICalculator() {
       const yearlyRent = (price * Math.pow(1 + appreciation / 100, y - 1)) * (rentalYield / 100)
       const yearlyPayment = monthly * 12
 
-      // Simplified remaining loan (linear approximation)
       const principalPaid = y <= term ? (loan / term) : 0
       remainingLoan = Math.max(0, remainingLoan - principalPaid)
 
@@ -53,7 +52,7 @@ export default function ROICalculator() {
       })
     }
 
-    // 5-year comparison with other investments
+    // 5-year comparison
     const totalInvestment = downAmount
     const bdsReturn = price * Math.pow(1 + appreciation / 100, 5) - price + (price * rentalYield / 100) * 5
     const stockReturn = totalInvestment * Math.pow(1.12, 5) - totalInvestment
@@ -61,10 +60,10 @@ export default function ROICalculator() {
     const savingsReturn = totalInvestment * Math.pow(1.05, 5) - totalInvestment
 
     const comparison = [
-      { name: "BDS", value: Math.round(bdsReturn / 1e6), roi: ((bdsReturn / totalInvestment) * 100).toFixed(0) },
-      { name: "Chung khoan", value: Math.round(stockReturn / 1e6), roi: ((stockReturn / totalInvestment) * 100).toFixed(0) },
-      { name: "Vang", value: Math.round(goldReturn / 1e6), roi: ((goldReturn / totalInvestment) * 100).toFixed(0) },
-      { name: "Tiet kiem", value: Math.round(savingsReturn / 1e6), roi: ((savingsReturn / totalInvestment) * 100).toFixed(0) },
+      { name: "BĐS", value: Math.round(bdsReturn / 1e6), roi: ((bdsReturn / totalInvestment) * 100).toFixed(0) },
+      { name: "Chứng khoán", value: Math.round(stockReturn / 1e6), roi: ((stockReturn / totalInvestment) * 100).toFixed(0) },
+      { name: "Vàng", value: Math.round(goldReturn / 1e6), roi: ((goldReturn / totalInvestment) * 100).toFixed(0) },
+      { name: "Tiết kiệm", value: Math.round(savingsReturn / 1e6), roi: ((savingsReturn / totalInvestment) * 100).toFixed(0) },
     ]
 
     const totalROI5y = ((bdsReturn / totalInvestment) * 100)
@@ -77,37 +76,37 @@ export default function ROICalculator() {
     <div className="space-y-8">
       {/* Inputs */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <SliderInput label="Gia BDS" value={price} onChange={setPrice} min={500e6} max={50e9} step={100e6} format={formatVND} />
-        <SliderInput label="Tra truoc (%)" value={downPct} onChange={setDownPct} min={10} max={70} step={5} format={(v) => `${v}%`} />
-        <SliderInput label="Lai suat (%/nam)" value={rate} onChange={setRate} min={4} max={15} step={0.5} format={(v) => `${v}%`} />
-        <SliderInput label="Ky han vay (nam)" value={term} onChange={setTerm} min={5} max={30} step={1} format={(v) => `${v} nam`} />
-        <SliderInput label="Ty suat cho thue (%/nam)" value={rentalYield} onChange={setRentalYield} min={1} max={12} step={0.5} format={(v) => `${v}%`} />
-        <SliderInput label="Tang gia BDS (%/nam)" value={appreciation} onChange={setAppreciation} min={0} max={15} step={1} format={(v) => `${v}%`} />
+        <SliderInput label="Giá BĐS" value={price} onChange={setPrice} min={500e6} max={50e9} step={100e6} format={formatVND} />
+        <SliderInput label="Trả trước (%)" value={downPct} onChange={setDownPct} min={10} max={70} step={5} format={(v) => `${v}%`} />
+        <SliderInput label="Lãi suất (%/năm)" value={rate} onChange={setRate} min={4} max={15} step={0.5} format={(v) => `${v}%`} />
+        <SliderInput label="Kỳ hạn vay (năm)" value={term} onChange={setTerm} min={5} max={30} step={1} format={(v) => `${v} năm`} />
+        <SliderInput label="Tỷ suất cho thuê (%/năm)" value={rentalYield} onChange={setRentalYield} min={1} max={12} step={0.5} format={(v) => `${v}%`} />
+        <SliderInput label="Tăng giá BĐS (%/năm)" value={appreciation} onChange={setAppreciation} min={0} max={15} step={1} format={(v) => `${v}%`} />
       </div>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <KPI label="Tra gop/thang" value={formatVND(result.monthly)} />
-        <KPI label="Thu nhap thue/thang" value={formatVND(result.monthlyRent)} />
-        <KPI label="Dong tien rong/thang" value={formatVND(result.monthlyCashFlow)}
+        <KPI label="Trả góp/tháng" value={formatVND(result.monthly)} />
+        <KPI label="Thu nhập thuê/tháng" value={formatVND(result.monthlyRent)} />
+        <KPI label="Dòng tiền ròng/tháng" value={formatVND(result.monthlyCashFlow)}
           positive={result.monthlyCashFlow >= 0} />
-        <KPI label="ROI 5 nam" value={`${result.totalROI5y.toFixed(0)}%`} highlight />
+        <KPI label="ROI 5 năm" value={`${result.totalROI5y.toFixed(0)}%`} highlight />
       </div>
 
       {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* 10-year forecast */}
         <div className="rounded-2xl border border-outline-variant bg-surface-container-low p-4">
-          <h4 className="mb-3 text-sm font-semibold text-on-surface">Du bao 10 nam (trieu VND)</h4>
+          <h4 className="mb-3 text-sm font-semibold text-on-surface">Dự báo 10 năm (triệu VNĐ)</h4>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={result.years}>
-                <XAxis dataKey="year" tick={{ fontSize: 11 }} tickFormatter={(v) => `Nam ${v}`} />
+                <XAxis dataKey="year" tick={{ fontSize: 11 }} tickFormatter={(v) => `Năm ${v}`} />
                 <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `${v}tr`} />
-                <Tooltip formatter={(v) => `${v} trieu`} />
+                <Tooltip formatter={(v) => `${v} triệu`} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Bar dataKey="equity" name="Von chu so huu" fill="#001e40" radius={[3, 3, 0, 0]} />
-                <Bar dataKey="rentalIncome" name="Thu nhap thue/nam" fill="#006c47" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="equity" name="Vốn chủ sở hữu" fill="#001e40" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="rentalIncome" name="Thu nhập thuê/năm" fill="#006c47" radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -115,14 +114,14 @@ export default function ROICalculator() {
 
         {/* Investment comparison */}
         <div className="rounded-2xl border border-outline-variant bg-surface-container-low p-4">
-          <h4 className="mb-3 text-sm font-semibold text-on-surface">So sanh kenh dau tu (5 nam, trieu VND)</h4>
+          <h4 className="mb-3 text-sm font-semibold text-on-surface">So sánh kênh đầu tư (5 năm, triệu VNĐ)</h4>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={result.comparison} layout="vertical">
                 <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v) => `${v}tr`} />
                 <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={80} />
-                <Tooltip formatter={(v) => `${v} trieu`} />
-                <Bar dataKey="value" name="Loi nhuan" fill="#001e40" radius={[0, 4, 4, 0]}>
+                <Tooltip formatter={(v) => `${v} triệu`} />
+                <Bar dataKey="value" name="Lợi nhuận" fill="#001e40" radius={[0, 4, 4, 0]}>
                   {result.comparison.map((_, i) => (
                     <Cell key={i} fill={i === 0 ? "#006c47" : "#001e40"} />
                   ))}
@@ -142,9 +141,6 @@ export default function ROICalculator() {
     </div>
   )
 }
-
-// Need to import Cell
-import { Cell } from "recharts"
 
 function SliderInput({ label, value, onChange, min, max, step, format }: {
   label: string; value: number; onChange: (v: number) => void; min: number; max: number; step: number; format: (v: number) => string

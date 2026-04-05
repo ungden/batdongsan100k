@@ -22,13 +22,13 @@ const TYPE_ICONS: Record<string, string> = {
 
 function timeAgo(date: string) {
   const seconds = Math.floor((Date.now() - new Date(date).getTime()) / 1000)
-  if (seconds < 60) return "Vua xong"
+  if (seconds < 60) return "Vừa xong"
   const minutes = Math.floor(seconds / 60)
-  if (minutes < 60) return `${minutes} phut truoc`
+  if (minutes < 60) return `${minutes} phút trước`
   const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `${hours} gio truoc`
+  if (hours < 24) return `${hours} giờ trước`
   const days = Math.floor(hours / 24)
-  return `${days} ngay truoc`
+  return `${days} ngày trước`
 }
 
 export default function NotificationBell() {
@@ -92,10 +92,10 @@ export default function NotificationBell() {
           <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-2xl border border-outline-variant bg-surface-container-low shadow-xl">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-outline-variant px-4 py-3">
-              <h3 className="text-sm font-bold text-on-surface">Thong bao</h3>
+              <h3 className="text-sm font-bold text-on-surface">Thông báo</h3>
               {unreadCount > 0 && (
                 <button onClick={markAllAsRead} className="text-xs font-medium text-primary hover:underline">
-                  Doc tat ca
+                  Đọc tất cả
                 </button>
               )}
             </div>
@@ -104,7 +104,7 @@ export default function NotificationBell() {
             <div className="max-h-80 overflow-y-auto">
               {notifications.length === 0 ? (
                 <div className="px-4 py-8 text-center text-sm text-on-surface-variant">
-                  Chua co thong bao nao
+                  Chưa có thông báo nào
                 </div>
               ) : (
                 notifications.map((n) => (

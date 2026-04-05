@@ -44,11 +44,11 @@ function Stars({ rating, size = "sm" }: { rating: number; size?: "sm" | "lg" }) 
 
 function timeAgo(date: string) {
   const days = Math.floor((Date.now() - new Date(date).getTime()) / 86400000)
-  if (days === 0) return "Hom nay"
-  if (days === 1) return "Hom qua"
-  if (days < 30) return `${days} ngay truoc`
-  if (days < 365) return `${Math.floor(days / 30)} thang truoc`
-  return `${Math.floor(days / 365)} nam truoc`
+  if (days === 0) return "Hôm nay"
+  if (days === 1) return "Hôm qua"
+  if (days < 30) return `${days} ngày trước`
+  if (days < 365) return `${Math.floor(days / 30)} tháng trước`
+  return `${Math.floor(days / 365)} năm trước`
 }
 
 export default function ReviewsSection({ projectId }: { projectId: string }) {
@@ -74,7 +74,6 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
 
     setReviews(data as Review[])
 
-    // Compute stats
     if (data.length > 0) {
       const dist: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
       let sumR = 0, sumL = 0, sumQ = 0, sumA = 0
@@ -103,10 +102,10 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-on-surface">Danh gia & Nhan xet</h2>
+        <h2 className="text-xl font-bold text-on-surface">Đánh giá & Nhận xét</h2>
         <button onClick={() => setShowDialog(true)}
           className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">
-          Viet danh gia
+          Viết đánh giá
         </button>
       </div>
 
@@ -116,7 +115,7 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
           <div className="flex flex-col items-center rounded-2xl border border-outline-variant bg-surface-container-low p-6">
             <span className="text-5xl font-bold text-on-surface">{stats.avg.toFixed(1)}</span>
             <Stars rating={stats.avg} size="lg" />
-            <span className="mt-1 text-sm text-on-surface-variant">{stats.total} danh gia</span>
+            <span className="mt-1 text-sm text-on-surface-variant">{stats.total} đánh giá</span>
             <div className="mt-4 w-full space-y-1.5">
               {[5, 4, 3, 2, 1].map((star) => (
                 <div key={star} className="flex items-center gap-2 text-xs">
@@ -133,11 +132,11 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
 
           {/* Category ratings */}
           <div className="space-y-3 rounded-2xl border border-outline-variant bg-surface-container-low p-6 lg:col-span-2">
-            <h3 className="text-sm font-semibold text-on-surface">Danh gia theo tieu chi</h3>
+            <h3 className="text-sm font-semibold text-on-surface">Đánh giá theo tiêu chí</h3>
             {[
-              { label: "Vi tri", icon: "location_on", value: stats.avgLocation },
-              { label: "Chat luong", icon: "verified", value: stats.avgQuality },
-              { label: "Tien ich", icon: "fitness_center", value: stats.avgAmenities },
+              { label: "Vị trí", icon: "location_on", value: stats.avgLocation },
+              { label: "Chất lượng", icon: "verified", value: stats.avgQuality },
+              { label: "Tiện ích", icon: "fitness_center", value: stats.avgAmenities },
             ].map((c) => (
               <div key={c.label} className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-[18px] text-on-surface-variant">{c.icon}</span>
@@ -153,7 +152,7 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
       ) : (
         <div className="rounded-2xl border border-outline-variant bg-surface-container-low p-12 text-center">
           <span className="material-symbols-outlined mb-2 text-5xl text-on-surface-variant/30">rate_review</span>
-          <p className="text-on-surface-variant">Chua co danh gia nao. Hay la nguoi dau tien!</p>
+          <p className="text-on-surface-variant">Chưa có đánh giá nào. Hãy là người đầu tiên!</p>
         </div>
       )}
 
@@ -166,7 +165,7 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
                 className={`rounded-lg px-3 py-1.5 text-xs font-medium ${
                   sort === s ? "bg-primary text-white" : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container"
                 }`}>
-                {s === "recent" ? "Moi nhat" : s === "helpful" ? "Huu ich" : "Cao nhat"}
+                {s === "recent" ? "Mới nhất" : s === "helpful" ? "Hữu ích" : "Cao nhất"}
               </button>
             ))}
           </div>
@@ -180,10 +179,10 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-on-surface">{r.profiles?.full_name || "Nguoi dung"}</span>
+                      <span className="text-sm font-semibold text-on-surface">{r.profiles?.full_name || "Người dùng"}</span>
                       {r.is_verified_buyer && (
                         <span className="rounded bg-secondary-container px-1.5 py-0.5 text-[10px] font-bold text-on-secondary-container">
-                          Da mua
+                          Đã mua
                         </span>
                       )}
                     </div>
@@ -199,13 +198,13 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
                   <div className="mt-3 grid gap-2 sm:grid-cols-2">
                     {r.pros?.length > 0 && (
                       <div className="rounded-lg bg-secondary-container/20 p-2.5">
-                        <p className="mb-1 text-xs font-semibold text-secondary">Uu diem</p>
+                        <p className="mb-1 text-xs font-semibold text-secondary">Ưu điểm</p>
                         {r.pros.map((p, i) => <p key={i} className="text-xs text-on-surface-variant">+ {p}</p>)}
                       </div>
                     )}
                     {r.cons?.length > 0 && (
                       <div className="rounded-lg bg-error-container/20 p-2.5">
-                        <p className="mb-1 text-xs font-semibold text-error">Nhuoc diem</p>
+                        <p className="mb-1 text-xs font-semibold text-error">Nhược điểm</p>
                         {r.cons.map((c, i) => <p key={i} className="text-xs text-on-surface-variant">- {c}</p>)}
                       </div>
                     )}
@@ -215,7 +214,7 @@ export default function ReviewsSection({ projectId }: { projectId: string }) {
                 <button onClick={() => handleHelpful(r.id)}
                   className="mt-3 flex items-center gap-1 text-xs text-on-surface-variant hover:text-primary">
                   <span className="material-symbols-outlined text-[14px]">thumb_up</span>
-                  Huu ich ({r.helpful_count})
+                  Hữu ích ({r.helpful_count})
                 </button>
               </div>
             ))}

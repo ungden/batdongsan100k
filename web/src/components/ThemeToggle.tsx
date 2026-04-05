@@ -4,9 +4,9 @@ import { useState } from "react"
 import { useTheme } from "./ThemeContext"
 
 const OPTIONS = [
-  { value: "light" as const, label: "Sang", icon: "light_mode" },
-  { value: "dark" as const, label: "Toi", icon: "dark_mode" },
-  { value: "system" as const, label: "He thong", icon: "desktop_windows" },
+  { value: "light" as const, label: "Sáng", icon: "light_mode" },
+  { value: "dark" as const, label: "Tối", icon: "dark_mode" },
+  { value: "system" as const, label: "Hệ thống", icon: "desktop_windows" },
 ]
 
 export default function ThemeToggle() {

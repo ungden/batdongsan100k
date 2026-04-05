@@ -4,18 +4,18 @@ import { useState, useMemo } from "react"
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 
 const PRESETS = [
-  { label: "An toan", down: 50, rate: 7, term: 15 },
-  { label: "Can bang", down: 30, rate: 8, term: 20 },
-  { label: "Tich cuc", down: 20, rate: 8.5, term: 25 },
-  { label: "Dau tu", down: 20, rate: 9, term: 30 },
+  { label: "An toàn", down: 50, rate: 7, term: 15 },
+  { label: "Cân bằng", down: 30, rate: 8, term: 20 },
+  { label: "Tích cực", down: 20, rate: 8.5, term: 25 },
+  { label: "Đầu tư", down: 20, rate: 9, term: 30 },
 ]
 
 const COLORS = ["#001e40", "#006c47", "#ba1a1a"]
 
 function formatVND(value: number) {
-  if (value >= 1e9) return `${(value / 1e9).toFixed(1).replace(/\.0$/, "")} ty`
-  if (value >= 1e6) return `${(value / 1e6).toFixed(0)} trieu`
-  return `${value.toLocaleString("vi-VN")} d`
+  if (value >= 1e9) return `${(value / 1e9).toFixed(1).replace(/\.0$/, "")} tỷ`
+  if (value >= 1e6) return `${(value / 1e6).toFixed(0)} triệu`
+  return `${value.toLocaleString("vi-VN")} đ`
 }
 
 export default function MortgageCalculator() {
@@ -40,9 +40,9 @@ export default function MortgageCalculator() {
   }, [price, downPct, rate, term, income])
 
   const pieData = [
-    { name: "Tra truoc", value: result.downAmount },
-    { name: "Goc vay", value: result.loan },
-    { name: "Lai suat", value: result.totalInterest },
+    { name: "Trả trước", value: result.downAmount },
+    { name: "Gốc vay", value: result.loan },
+    { name: "Lãi suất", value: result.totalInterest },
   ]
 
   function applyPreset(p: typeof PRESETS[0]) {
@@ -55,40 +55,40 @@ export default function MortgageCalculator() {
     <div className="grid gap-8 lg:grid-cols-2">
       {/* Input */}
       <div className="space-y-5">
-        <h3 className="text-lg font-bold text-on-surface">Thong tin khoan vay</h3>
+        <h3 className="text-lg font-bold text-on-surface">Thông tin khoản vay</h3>
 
         {/* Presets */}
         <div className="flex flex-wrap gap-2">
           {PRESETS.map((p) => (
             <button key={p.label} onClick={() => applyPreset(p)}
               className="rounded-lg border border-outline-variant px-3 py-1.5 text-xs font-medium text-on-surface-variant hover:bg-surface-container">
-              {p.label} ({p.down}%/{p.term}nam)
+              {p.label} ({p.down}%/{p.term} năm)
             </button>
           ))}
         </div>
 
-        <InputSlider label="Gia bat dong san" value={price} onChange={setPrice} min={500e6} max={50e9} step={100e6} format={formatVND} />
-        <InputSlider label="Tra truoc (%)" value={downPct} onChange={setDownPct} min={10} max={70} step={5} format={(v) => `${v}%`} />
-        <InputSlider label="Lai suat (%/nam)" value={rate} onChange={setRate} min={4} max={15} step={0.5} format={(v) => `${v}%`} />
-        <InputSlider label="Ky han (nam)" value={term} onChange={setTerm} min={5} max={30} step={1} format={(v) => `${v} nam`} />
-        <InputSlider label="Thu nhap hang thang" value={income} onChange={setIncome} min={10e6} max={500e6} step={5e6} format={formatVND} />
+        <InputSlider label="Giá bất động sản" value={price} onChange={setPrice} min={500e6} max={50e9} step={100e6} format={formatVND} />
+        <InputSlider label="Trả trước (%)" value={downPct} onChange={setDownPct} min={10} max={70} step={5} format={(v) => `${v}%`} />
+        <InputSlider label="Lãi suất (%/năm)" value={rate} onChange={setRate} min={4} max={15} step={0.5} format={(v) => `${v}%`} />
+        <InputSlider label="Kỳ hạn (năm)" value={term} onChange={setTerm} min={5} max={30} step={1} format={(v) => `${v} năm`} />
+        <InputSlider label="Thu nhập hàng tháng" value={income} onChange={setIncome} min={10e6} max={500e6} step={5e6} format={formatVND} />
       </div>
 
       {/* Results */}
       <div className="space-y-6">
-        <h3 className="text-lg font-bold text-on-surface">Ket qua tinh toan</h3>
+        <h3 className="text-lg font-bold text-on-surface">Kết quả tính toán</h3>
 
         <div className="grid grid-cols-2 gap-3">
-          <ResultCard label="Tra gop hang thang" value={formatVND(result.monthly)} highlight />
-          <ResultCard label="Tong tra" value={formatVND(result.totalPayment)} />
-          <ResultCard label="Tong lai" value={formatVND(result.totalInterest)} />
-          <ResultCard label="Ty le no/thu nhap" value={`${result.debtRatio.toFixed(1)}%`}
+          <ResultCard label="Trả góp hàng tháng" value={formatVND(result.monthly)} highlight />
+          <ResultCard label="Tổng trả" value={formatVND(result.totalPayment)} />
+          <ResultCard label="Tổng lãi" value={formatVND(result.totalInterest)} />
+          <ResultCard label="Tỷ lệ nợ/thu nhập" value={`${result.debtRatio.toFixed(1)}%`}
             status={result.debtRatio <= 40 ? "good" : result.debtRatio <= 50 ? "warn" : "bad"} />
         </div>
 
         {/* Pie Chart */}
         <div className="rounded-2xl border border-outline-variant bg-surface-container-low p-4">
-          <p className="mb-2 text-sm font-semibold text-on-surface-variant">Co cau chi phi</p>
+          <p className="mb-2 text-sm font-semibold text-on-surface-variant">Cơ cấu chi phí</p>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>

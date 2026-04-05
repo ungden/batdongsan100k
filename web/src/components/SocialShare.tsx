@@ -51,7 +51,7 @@ export default function SocialShare({ url, title }: SocialShareProps) {
         className="flex items-center gap-1.5 rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-sm font-medium text-on-surface-variant transition-colors hover:bg-surface-container"
       >
         <span className="material-symbols-outlined text-[18px]">share</span>
-        <span className="hidden sm:inline">Chia s</span>
+        <span className="hidden sm:inline">Chia sẻ</span>
       </button>
 
       {open && (
@@ -78,7 +78,7 @@ export default function SocialShare({ url, title }: SocialShareProps) {
               <span className="material-symbols-outlined text-[18px]">
                 {copied ? "check" : "content_copy"}
               </span>
-              {copied ? "Da sao chep!" : "Sao chep link"}
+              {copied ? "Đã sao chép!" : "Sao chép liên kết"}
             </button>
           </div>
         </>
