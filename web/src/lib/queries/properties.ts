@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { Agent, Property } from '@/lib/types'
 
 // Columns needed for property cards (avoid select *)
-const PROPERTY_CARD_COLUMNS = 'id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, views_count, created_at, agent:agents(id, name, phone, avatar)'
+const PROPERTY_CARD_COLUMNS = 'id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, views_count, created_at, price_tag, agent:agents(id, name, phone, avatar)'
 
 // Full columns for detail page
 const PROPERTY_DETAIL_COLUMNS = '*, agent:agents(id, name, phone, avatar)'
@@ -66,6 +66,7 @@ function mapToProperty(row: Record<string, unknown>): Property {
     longitude: row.longitude as number | undefined,
     priorityLevel: Boolean(row.is_priority) ? 1 : 0,
     sortDate: (row.created_at as string) || new Date().toISOString(),
+    priceTag: (row.price_tag as any) || null,
   }
 }
 

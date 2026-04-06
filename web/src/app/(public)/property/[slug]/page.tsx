@@ -189,6 +189,11 @@ export default async function PropertyDetailPage({
             </div>
           </div>
 
+          {/* Price AI Analysis */}
+          {property.priceTag && (
+            <PriceAnalysisBadge tag={property.priceTag} price={property.price} area={property.area} category={property.category} />
+          )}
+
           {/* Specifications Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-surface-container-low rounded-xl">
             {property.direction && (
@@ -390,4 +395,59 @@ export default async function PropertyDetailPage({
       </div>
     </div>
   );
+}
+
+function PriceAnalysisBadge({ tag, price, area, category }: { tag: string; price: number; area: number; category: string }) {
+  const config: Record<string, { label: string; desc: string; icon: string; bg: string; border: string; text: string }> = {
+    hot_deal: {
+      label: "Giá cực tốt",
+      desc: "Giá thấp hơn đáng kể so với trung bình khu vực cùng loại hình. Đây có thể là cơ hội tốt.",
+      icon: "local_fire_department", bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700",
+    },
+    below_market: {
+      label: "Dưới thị trường",
+      desc: "Giá thấp hơn 20-40% so với trung bình khu vực. Nên tìm hiểu kỹ lý do.",
+      icon: "arrow_downward", bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700",
+    },
+    above_market: {
+      label: "Trên thị trường",
+      desc: "Giá cao hơn 20-50% so với trung bình khu vực. Có thể do vị trí đặc biệt hoặc nội thất cao cấp.",
+      icon: "arrow_upward", bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700",
+    },
+    overpriced: {
+      label: "Giá cao bất thường",
+      desc: "Giá cao hơn 50% so với trung bình khu vực cùng loại hình. Nên so sánh kỹ trước khi quyết định.",
+      icon: "warning", bg: "bg-red-50", border: "border-red-200", text: "text-red-700",
+    },
+  }
+  const c = config[tag]
+  if (!c) return null
+
+  const pricePerSqm = area > 0 ? price / area : 0
+  const isRent = category === 'rent'
+
+  function fmtPsm(v: number) {
+    if (isRent) return v >= 1e6 ? `${(v / 1e6).toFixed(0)} triệu/m²` : `${Math.round(v).toLocaleString('vi-VN')}đ/m²`
+    return v >= 1e6 ? `${(v / 1e6).toFixed(1)} triệu/m²` : `${Math.round(v).toLocaleString('vi-VN')}đ/m²`
+  }
+
+  return (
+    <div className={`${c.bg} ${c.border} border rounded-xl p-4 flex items-start gap-3`}>
+      <span className={`material-symbols-outlined text-xl ${c.text}`}>{c.icon}</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1">
+          <span className={`text-sm font-bold ${c.text}`}>{c.label}</span>
+          <span className="text-[10px] font-medium bg-white/80 text-on-surface-variant px-2 py-0.5 rounded-full">
+            AI phân tích
+          </span>
+        </div>
+        <p className="text-xs text-on-surface-variant leading-relaxed">{c.desc}</p>
+        {pricePerSqm > 0 && (
+          <p className="text-xs font-medium text-on-surface mt-1.5">
+            Giá/m² hiện tại: <span className={`font-bold ${c.text}`}>{fmtPsm(pricePerSqm)}</span>
+          </p>
+        )}
+      </div>
+    </div>
+  )
 }

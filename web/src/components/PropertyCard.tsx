@@ -30,6 +30,13 @@ const TYPE_COLORS: Record<string, string> = {
   "kho-xuong": "bg-slate-600",
 };
 
+const PRICE_TAG_CONFIG: Record<string, { label: string; icon: string; bg: string }> = {
+  hot_deal: { label: "Giá cực tốt", icon: "local_fire_department", bg: "bg-rose-500" },
+  below_market: { label: "Dưới thị trường", icon: "arrow_downward", bg: "bg-emerald-500" },
+  above_market: { label: "Trên thị trường", icon: "arrow_upward", bg: "bg-amber-500" },
+  overpriced: { label: "Giá cao bất thường", icon: "warning", bg: "bg-red-600" },
+};
+
 const BLUR_DATA_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88enTfwAJYgPNhP/y3wAAAABJRU5ErkJggg==";
 
 function cleanTitle(title: string): string {
@@ -109,6 +116,12 @@ export default function PropertyCard({ property, isVip = false, priority = false
               <span className={`text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm w-fit ${isRent ? "bg-orange-500" : "bg-[#001e40]"}`}>
                 {isRent ? "CHO THUÊ" : "BÁN"}
               </span>
+              {property.priceTag && PRICE_TAG_CONFIG[property.priceTag] && (
+                <span className={`${PRICE_TAG_CONFIG[property.priceTag].bg} text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-sm w-fit flex items-center gap-1`}>
+                  <span className="material-symbols-outlined text-[12px]">{PRICE_TAG_CONFIG[property.priceTag].icon}</span>
+                  {PRICE_TAG_CONFIG[property.priceTag].label}
+                </span>
+              )}
             </div>
             <span className={`absolute top-3 right-3 ${typeBg} text-white text-[10px] font-medium px-2 py-1 rounded-md z-10`}>
               {typeLabel}
@@ -206,6 +219,13 @@ export default function PropertyCard({ property, isVip = false, priority = false
             >
               {isRent ? "CHO THUÊ" : "BÁN"}
             </span>
+            {/* Price anomaly badge */}
+            {property.priceTag && PRICE_TAG_CONFIG[property.priceTag] && (
+              <span className={`${PRICE_TAG_CONFIG[property.priceTag].bg} text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-sm w-fit flex items-center gap-1`}>
+                <span className="material-symbols-outlined text-[12px]">{PRICE_TAG_CONFIG[property.priceTag].icon}</span>
+                {PRICE_TAG_CONFIG[property.priceTag].label}
+              </span>
+            )}
           </div>
 
           {/* Top-right: Type badge */}

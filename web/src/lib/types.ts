@@ -28,6 +28,7 @@ export interface Property {
   longitude?: number;
   priorityLevel?: number;
   sortDate?: string;
+  priceTag?: 'hot_deal' | 'below_market' | 'above_market' | 'overpriced' | null;
 }
 
 export type PropertyStatus = 'draft' | 'published' | 'sold' | 'rented' | 'hidden';
