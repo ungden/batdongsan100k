@@ -38,6 +38,9 @@ export interface ProjectDetail extends ProjectSummary {
   typeBreakdown: Record<string, number>
   categoryBreakdown: Record<string, number>
   priceRanges: { label: string; count: number }[]
+  // Tách riêng stats bán vs thuê
+  saleStats: { count: number; minPrice: number; maxPrice: number; avgPrice: number }
+  rentStats: { count: number; minPrice: number; maxPrice: number; avgPrice: number }
 }
 
 export interface MarketKPIs {
@@ -154,6 +157,10 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
       { label: '> 20 tỷ', min: 20_000_000_000, max: Infinity, count: 0 },
     ]
 
+    // Stats tách riêng bán vs thuê
+    const saleStats = { count: 0, minPrice: Infinity, maxPrice: 0, avgPrice: 0, total: 0 }
+    const rentStats = { count: 0, minPrice: Infinity, maxPrice: 0, avgPrice: 0, total: 0 }
+
     for (const p of props || []) {
       // Gallery: collect unique images
       if (Array.isArray(p.images)) {
@@ -167,14 +174,27 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
       // Category breakdown
       const c = p.category || 'sale'
       categoryBreakdown[c] = (categoryBreakdown[c] || 0) + 1
-      // Price ranges
+      // Price ranges (chỉ tính cho mua bán)
       const price = Number(p.price || 0)
-      if (price > 0) {
+      if (price > 0 && c === 'sale') {
         for (const bucket of priceBuckets) {
           if (price >= bucket.min && price < bucket.max) { bucket.count++; break }
         }
       }
+      // Sale/Rent stats
+      if (price > 0) {
+        const stats = c === 'rent' ? rentStats : saleStats
+        stats.count++
+        stats.total += price
+        if (price < stats.minPrice) stats.minPrice = price
+        if (price > stats.maxPrice) stats.maxPrice = price
+      }
     }
+
+    saleStats.avgPrice = saleStats.count > 0 ? saleStats.total / saleStats.count : 0
+    if (saleStats.minPrice === Infinity) saleStats.minPrice = 0
+    rentStats.avgPrice = rentStats.count > 0 ? rentStats.total / rentStats.count : 0
+    if (rentStats.minPrice === Infinity) rentStats.minPrice = 0
 
     return {
       ...mapProject(data),
@@ -182,6 +202,8 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
       typeBreakdown,
       categoryBreakdown,
       priceRanges: priceBuckets.filter(b => b.count > 0).map(b => ({ label: b.label, count: b.count })),
+      saleStats: { count: saleStats.count, minPrice: saleStats.minPrice, maxPrice: saleStats.maxPrice, avgPrice: saleStats.avgPrice },
+      rentStats: { count: rentStats.count, minPrice: rentStats.minPrice, maxPrice: rentStats.maxPrice, avgPrice: rentStats.avgPrice },
     }
   } catch (err) {
     console.error('Error fetching project detail:', err)

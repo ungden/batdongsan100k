@@ -198,28 +198,72 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Stats Cards */}
+      {/* Stats Cards - Mua bán */}
+      {project.saleStats.count > 0 && (
+        <section className="max-w-7xl mx-auto px-4 md:px-8 mb-6">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-3 flex items-center gap-2">
+            <span className="material-symbols-outlined text-[16px]">sell</span>
+            Mua bán ({project.saleStats.count} tin)
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
+              <span className="material-symbols-outlined text-emerald-600 text-2xl mb-1">trending_up</span>
+              <div className="text-2xl font-black text-on-surface">{formatPrice(project.saleStats.minPrice)}</div>
+              <div className="text-[11px] text-on-surface-variant font-medium">Giá thấp nhất</div>
+            </div>
+            <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
+              <span className="material-symbols-outlined text-rose-500 text-2xl mb-1">trending_down</span>
+              <div className="text-2xl font-black text-on-surface">{formatPrice(project.saleStats.maxPrice)}</div>
+              <div className="text-[11px] text-on-surface-variant font-medium">Giá cao nhất</div>
+            </div>
+            <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
+              <span className="material-symbols-outlined text-secondary text-2xl mb-1">payments</span>
+              <div className="text-2xl font-black text-on-surface">{project.avgPricePerSqm > 0 ? formatPricePerSqm(project.avgPricePerSqm) : "—"}</div>
+              <div className="text-[11px] text-on-surface-variant font-medium">Giá TB/m²</div>
+            </div>
+            <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
+              <span className="material-symbols-outlined text-amber-600 text-2xl mb-1">square_foot</span>
+              <div className="text-2xl font-black text-on-surface">{project.avgArea > 0 ? `${Math.round(project.avgArea)} m²` : "—"}</div>
+              <div className="text-[11px] text-on-surface-variant font-medium">Diện tích TB</div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Stats Cards - Cho thuê */}
+      {project.rentStats.count > 0 && (
+        <section className="max-w-7xl mx-auto px-4 md:px-8 mb-6">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-orange-600 mb-3 flex items-center gap-2">
+            <span className="material-symbols-outlined text-[16px]">key</span>
+            Cho thuê ({project.rentStats.count} tin)
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="bg-orange-50 rounded-xl border border-orange-200 p-4 text-center">
+              <span className="material-symbols-outlined text-orange-600 text-2xl mb-1">trending_up</span>
+              <div className="text-2xl font-black text-on-surface">{formatPrice(project.rentStats.minPrice)}</div>
+              <div className="text-[11px] text-on-surface-variant font-medium">Giá thuê thấp nhất</div>
+            </div>
+            <div className="bg-orange-50 rounded-xl border border-orange-200 p-4 text-center">
+              <span className="material-symbols-outlined text-orange-600 text-2xl mb-1">trending_down</span>
+              <div className="text-2xl font-black text-on-surface">{formatPrice(project.rentStats.maxPrice)}</div>
+              <div className="text-[11px] text-on-surface-variant font-medium">Giá thuê cao nhất</div>
+            </div>
+            <div className="bg-orange-50 rounded-xl border border-orange-200 p-4 text-center">
+              <span className="material-symbols-outlined text-orange-600 text-2xl mb-1">price_check</span>
+              <div className="text-2xl font-black text-on-surface">{formatPrice(project.rentStats.avgPrice)}</div>
+              <div className="text-[11px] text-on-surface-variant font-medium">Giá thuê trung bình</div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Tổng quan */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mb-10">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
             <span className="material-symbols-outlined text-primary text-2xl mb-1">home_work</span>
             <div className="text-2xl font-black text-on-surface">{project.propertyCount}</div>
-            <div className="text-[11px] text-on-surface-variant font-medium">Tin đăng</div>
-          </div>
-          <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
-            <span className="material-symbols-outlined text-emerald-600 text-2xl mb-1">trending_up</span>
-            <div className="text-2xl font-black text-on-surface">{formatPrice(project.minPrice)}</div>
-            <div className="text-[11px] text-on-surface-variant font-medium">Giá thấp nhất</div>
-          </div>
-          <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
-            <span className="material-symbols-outlined text-rose-500 text-2xl mb-1">trending_down</span>
-            <div className="text-2xl font-black text-on-surface">{formatPrice(project.maxPrice)}</div>
-            <div className="text-[11px] text-on-surface-variant font-medium">Giá cao nhất</div>
-          </div>
-          <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
-            <span className="material-symbols-outlined text-secondary text-2xl mb-1">payments</span>
-            <div className="text-2xl font-black text-on-surface">{project.avgPricePerSqm > 0 ? formatPricePerSqm(project.avgPricePerSqm) : "—"}</div>
-            <div className="text-[11px] text-on-surface-variant font-medium">Giá TB/m²</div>
+            <div className="text-[11px] text-on-surface-variant font-medium">Tổng tin đăng</div>
           </div>
           <div className="bg-white rounded-xl border border-outline-variant/20 p-4 text-center">
             <span className="material-symbols-outlined text-amber-600 text-2xl mb-1">square_foot</span>
@@ -295,19 +339,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Sale/Rent breakdown */}
-      {Object.keys(project.categoryBreakdown).length > 1 && (
-        <section className="max-w-7xl mx-auto px-4 md:px-8 mb-10">
-          <div className="flex gap-3">
-            {Object.entries(project.categoryBreakdown).map(([cat, count]) => (
-              <div key={cat} className={`flex-1 rounded-xl p-4 text-center ${cat === 'rent' ? 'bg-orange-50 border border-orange-200' : 'bg-primary/5 border border-primary/20'}`}>
-                <div className={`text-2xl font-black ${cat === 'rent' ? 'text-orange-600' : 'text-primary'}`}>{count}</div>
-                <div className="text-xs font-medium text-on-surface-variant">{cat === 'rent' ? 'Cho thuê' : 'Mua bán'}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Sale/Rent breakdown - hiển thị khi chỉ có 1 loại */}
 
       {/* Property Listings */}
       <section className="max-w-7xl mx-auto px-4 md:px-8">
