@@ -254,15 +254,60 @@ async function main() {
   const supabaseKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
   const supabase = createClient(supabaseUrl, supabaseKey);
 
+  // Tạo crawl log entry trước khi insert
+  const startedAt = new Date().toISOString();
+  const { data: logEntry } = await supabase.from("crawl_logs").insert({
+    started_at: startedAt,
+    status: "running",
+    total_crawled: listings.length,
+    args: { input: args.input, limit: args.limit },
+  }).select("id").single();
+
+  const logId = logEntry?.id;
+
+  // Tính source stats từ listings
+  const sourceBreakdown = {};
+  for (const l of listings) {
+    const src = l.source || "unknown";
+    sourceBreakdown[src] = (sourceBreakdown[src] || 0) + 1;
+  }
+
   const summary = await insertListings(supabase, listings, false);
   console.log("Insert summary:");
   console.log(JSON.stringify(summary, null, 2));
+
+  // Cập nhật crawl log với kết quả
+  if (logId) {
+    await supabase.from("crawl_logs").update({
+      completed_at: new Date().toISOString(),
+      status: "success",
+      total_inserted: summary.inserted,
+      total_skipped: summary.skipped,
+      total_failed: summary.failed,
+      created_agents: summary.createdAgents,
+      source_stats: sourceBreakdown,
+    }).eq("id", logId);
+    console.log(`Crawl log saved: ${logId}`);
+  }
 
   const { count } = await supabase.from("properties").select("*", { count: "exact", head: true });
   console.log(`Total properties in DB: ${count}`);
 }
 
-main().catch((error) => {
+main().catch(async (error) => {
   console.error(error);
+  // Ghi lỗi vào crawl log nếu có thể
+  try {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      await supabase.from("crawl_logs").insert({
+        status: "failed",
+        error_message: error.message || String(error),
+        completed_at: new Date().toISOString(),
+      });
+    }
+  } catch {}
   process.exit(1);
 });

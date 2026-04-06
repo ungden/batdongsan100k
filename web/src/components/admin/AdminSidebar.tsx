@@ -18,6 +18,7 @@ const navItems: NavItem[] = [
   { icon: 'group', label: 'Người dùng', href: '/admin/users' },
   { icon: 'contact_mail', label: 'Liên hệ', href: '/admin/leads', badgeKey: 'new_contacts' },
   { icon: 'article', label: 'Bài viết', href: '/admin/posts' },
+  { icon: 'cloud_sync', label: 'Thu thập dữ liệu', href: '/admin/crawl-status' },
   { icon: 'bar_chart', label: 'Thống kê', href: '/admin/analytics' },
   { icon: 'settings', label: 'Cài đặt', href: '/admin/settings' },
 ]
