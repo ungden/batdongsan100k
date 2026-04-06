@@ -23,6 +23,11 @@ export async function submitPropertyAction(
   const district = formData.get('district') as string
   const address = formData.get('address') as string
   const category = (formData.get('category') as string) || 'sale'
+  const bedrooms = parseInt(formData.get('bedrooms') as string || '0', 10)
+  const bathrooms = parseInt(formData.get('bathrooms') as string || '0', 10)
+  const direction = (formData.get('direction') as string) || ''
+  const imagesRaw = (formData.get('images') as string) || ''
+  const images = imagesRaw.split('\n').map(s => s.trim()).filter(s => s.startsWith('http')).slice(0, 12)
 
   if (!title || !type || !priceRaw || !area) {
     return { success: false, error: 'Vui lòng nhập đầy đủ thông tin bắt buộc' }
@@ -57,8 +62,11 @@ export async function submitPropertyAction(
       district: district || '',
       city: city || '',
       area,
+      bedrooms,
+      bathrooms,
+      direction: direction || null,
       description: description || '',
-      images: [],
+      images,
       features: [],
       created_by: user.id,
     })

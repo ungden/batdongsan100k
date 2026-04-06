@@ -176,7 +176,63 @@ export default function PostPropertyPage() {
             </div>
           </section>
 
-          {/* Section 2: Media Upload */}
+          {/* Section 2: Chi tiết BĐS */}
+          <section className="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] border border-outline-variant/10">
+            <div className="flex items-center gap-3 mb-8">
+              <span
+                className="material-symbols-outlined text-secondary text-3xl"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                bedroom_parent
+              </span>
+              <h2 className="text-2xl font-bold tracking-tight">Chi Tiết Bất Động Sản</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
+                  Số phòng ngủ
+                </label>
+                <select name="bedrooms" className="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg py-4 px-6 appearance-none">
+                  <option value="0">Không có</option>
+                  <option value="1">1 phòng</option>
+                  <option value="2" selected>2 phòng</option>
+                  <option value="3">3 phòng</option>
+                  <option value="4">4 phòng</option>
+                  <option value="5">5+ phòng</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
+                  Số phòng tắm
+                </label>
+                <select name="bathrooms" className="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg py-4 px-6 appearance-none">
+                  <option value="0">Không có</option>
+                  <option value="1">1 phòng</option>
+                  <option value="2" selected>2 phòng</option>
+                  <option value="3">3 phòng</option>
+                  <option value="4">4+ phòng</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
+                  Hướng nhà
+                </label>
+                <select name="direction" className="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg py-4 px-6 appearance-none">
+                  <option value="">Không xác định</option>
+                  <option value="Đông">Đông</option>
+                  <option value="Tây">Tây</option>
+                  <option value="Nam">Nam</option>
+                  <option value="Bắc">Bắc</option>
+                  <option value="Đông Bắc">Đông Bắc</option>
+                  <option value="Đông Nam">Đông Nam</option>
+                  <option value="Tây Bắc">Tây Bắc</option>
+                  <option value="Tây Nam">Tây Nam</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 3: Hình ảnh */}
           <section className="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] border border-outline-variant/10">
             <div className="flex items-center gap-3 mb-8">
               <span
@@ -185,26 +241,21 @@ export default function PostPropertyPage() {
               >
                 add_a_photo
               </span>
-              <h2 className="text-2xl font-bold tracking-tight">Hình Ảnh &amp; Video</h2>
+              <h2 className="text-2xl font-bold tracking-tight">Hình Ảnh</h2>
             </div>
-            <div className="border-2 border-dashed border-outline-variant rounded-2xl p-12 text-center bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group">
-              <span className="material-symbols-outlined text-5xl text-outline group-hover:text-primary mb-4 transition-colors">
-                cloud_upload
-              </span>
-              <p className="text-lg font-semibold text-on-surface">
-                Kéo và thả hình ảnh vào đây
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
+                Link hình ảnh (mỗi dòng 1 URL)
+              </label>
+              <textarea
+                name="images"
+                className="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg py-4 px-6 transition-all font-mono text-sm"
+                placeholder={"https://example.com/anh-1.jpg\nhttps://example.com/anh-2.jpg\nhttps://example.com/anh-3.jpg"}
+                rows={5}
+              ></textarea>
+              <p className="text-xs text-on-surface-variant mt-2">
+                Dán link ảnh trực tiếp (JPG, PNG, WEBP). Tối đa 12 ảnh. Ảnh đầu tiên sẽ làm ảnh đại diện.
               </p>
-              <p className="text-sm text-on-surface-variant mt-2">
-                Dung lượng tối đa 10MB/ảnh. Định dạng: JPG, PNG, WEBP
-              </p>
-              <button className="mt-6 bg-white border border-outline-variant px-8 py-3 rounded-md font-bold text-sm hover:bg-primary hover:text-white hover:border-primary transition-all">
-                Chọn từ máy tính
-              </button>
-            </div>
-            <div className="grid grid-cols-3 md:grid-cols-4 gap-4 mt-8">
-              <div className="aspect-square bg-surface-container rounded-lg border-2 border-dashed border-outline-variant flex items-center justify-center">
-                <span className="material-symbols-outlined text-outline">add</span>
-              </div>
             </div>
           </section>
 
@@ -310,11 +361,6 @@ export default function PostPropertyPage() {
               </li>
             </ul>
           </div>
-
-          {/* Hidden fields for bedrooms/bathrooms/direction */}
-          <input type="hidden" name="bedrooms" value="0" />
-          <input type="hidden" name="bathrooms" value="0" />
-          <input type="hidden" name="direction" value="" />
 
           {/* Error Message */}
           {state?.error && (

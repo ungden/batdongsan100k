@@ -65,7 +65,7 @@ export async function createPaymentOrderAction(listingId: string, packageId: str
   }
 
   // Create a pending payment order
-  const orderCode = `TT${Date.now().toString().slice(-6)}${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+  const orderCode = `TT${Date.now().toString(36).toUpperCase()}${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
   
   let newOrderId = '';
 

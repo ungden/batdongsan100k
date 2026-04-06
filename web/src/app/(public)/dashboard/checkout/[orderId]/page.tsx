@@ -113,7 +113,7 @@ export default function CheckoutPage({ params }: { params: { orderId: string } }
   const bankAcc = process.env.NEXT_PUBLIC_SEPAY_ACC || '0987654321';
   
   // SePay VietQR generation
-  const qrUrl = `https://qr.sepay.vn/img?acc=${bankAcc}&bank=${bankName}&amount=${order.amount}&des=${order.order_code}`;
+  const qrUrl = `https://qr.sepay.vn/img?acc=${encodeURIComponent(bankAcc)}&bank=${encodeURIComponent(bankName)}&amount=${encodeURIComponent(order.amount)}&des=${encodeURIComponent(order.order_code)}`;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-24 sm:px-6 lg:px-8 bg-surface min-h-screen">

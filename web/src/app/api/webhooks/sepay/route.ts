@@ -1,42 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Setup admin client to bypass RLS for webhooks
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
+function getAdminClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+  return createClient(url, key);
+}
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = getAdminClient();
     const payload = await req.json();
 
-    // SePay Payload reference:
-    // { gateway, transactionDate, accountNumber, amountIn, amountOut, accumulated, code, transactionContent, referenceNumber, body }
-    
-    // We only care about incoming money
-    if (payload.amountIn <= 0) {
+    // Only care about incoming money
+    if (!payload.amountIn || payload.amountIn <= 0) {
       return NextResponse.json({ success: true, message: 'Not an incoming transaction' });
     }
 
     const amountPaid = payload.amountIn;
     const content = payload.transactionContent || '';
 
-    // Search for order code in the transaction content
-    // We expect the order code to be something like "TT123456789"
-    // Since SePay tries to extract the code into payload.code, we can use that, or fallback to parsing the content
-    
-    const extractedCodeMatch = content.match(/TT\d{9}/i);
+    // Extract order code (format: TT + 9 digits)
+    const extractedCodeMatch = content.match(/TT\d{9,}/i);
     const orderCode = payload.code || (extractedCodeMatch ? extractedCodeMatch[0].toUpperCase() : null);
 
     if (!orderCode) {
-      return NextResponse.json({ success: false, message: 'Could not extract order code from content' });
+      return NextResponse.json({ success: false, message: 'Could not extract order code' });
     }
 
-    // 1. Find the pending order
+    // 1. Find the pending order - exact match, not substring
     const { data: order, error: orderError } = await supabase
       .from('payment_orders')
       .select('*')
-      .ilike('order_code', `%${orderCode}%`)
+      .eq('order_code', orderCode)
       .eq('status', 'pending')
       .single();
 
@@ -49,8 +45,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Paid amount is less than order amount' });
     }
 
-    // 3. Mark order as paid
-    const { error: updateOrderError } = await supabase
+    // 3. Mark order as paid (idempotency: only update if still pending)
+    const { data: updatedOrder, error: updateOrderError } = await supabase
       .from('payment_orders')
       .update({
         status: 'paid',
@@ -58,21 +54,24 @@ export async function POST(req: NextRequest) {
         sepay_code: payload.code,
         paid_at: new Date().toISOString()
       })
-      .eq('id', order.id);
+      .eq('id', order.id)
+      .eq('status', 'pending') // Idempotency guard: only update if still pending
+      .select('id')
+      .single();
 
-    if (updateOrderError) {
-      throw updateOrderError;
+    if (updateOrderError || !updatedOrder) {
+      // Order already processed (race condition or duplicate webhook)
+      return NextResponse.json({ success: true, message: 'Order already processed' });
     }
 
-    // 4. Upgrade the listing!
-    // 4.1 Get package info
+    // 4. Upgrade the listing
     const { data: pkg } = await supabase.from('packages').select('*').eq('id', order.package_id).single();
     if (!pkg) throw new Error('Package not found for order');
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + pkg.duration_days);
 
-    // 4.2 Insert listing_packages
+    // 4.1 Insert listing_packages
     await supabase.from('listing_packages').insert({
       listing_id: order.listing_id,
       package_id: pkg.id,
@@ -82,7 +81,7 @@ export async function POST(req: NextRequest) {
       is_active: true
     });
 
-    // 4.3 Update properties table
+    // 4.2 Update properties table
     await supabase.from('properties').update({
       is_vip: pkg.priority > 0,
       is_priority: pkg.priority > 0,
