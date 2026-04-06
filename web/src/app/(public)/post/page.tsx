@@ -2,6 +2,7 @@
 
 import { useState, useActionState } from "react";
 import { submitPropertyAction } from "./actions";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 const steps = [
   { num: "01", label: "Thông Tin Cơ Bản" },
@@ -13,6 +14,7 @@ const steps = [
 export default function PostPropertyPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [category, setCategory] = useState<'sale' | 'rent'>('sale');
+  const [images, setImages] = useState<string[]>([]);
   const [state, formAction, isPending] = useActionState(submitPropertyAction, null);
 
   return (
@@ -243,20 +245,10 @@ export default function PostPropertyPage() {
               </span>
               <h2 className="text-2xl font-bold tracking-tight">Hình Ảnh</h2>
             </div>
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">
-                Link hình ảnh (mỗi dòng 1 URL)
-              </label>
-              <textarea
-                name="images"
-                className="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg py-4 px-6 transition-all font-mono text-sm"
-                placeholder={"https://example.com/anh-1.jpg\nhttps://example.com/anh-2.jpg\nhttps://example.com/anh-3.jpg"}
-                rows={5}
-              ></textarea>
-              <p className="text-xs text-on-surface-variant mt-2">
-                Dán link ảnh trực tiếp (JPG, PNG, WEBP). Tối đa 12 ảnh. Ảnh đầu tiên sẽ làm ảnh đại diện.
-              </p>
-            </div>
+            <ImageUploader images={images} onChange={setImages} maxImages={12} />
+            <p className="text-xs text-on-surface-variant mt-3">
+              Tối đa 12 ảnh, dung lượng tối đa 10MB/ảnh. Ảnh đầu tiên sẽ làm ảnh đại diện.
+            </p>
           </section>
 
           {/* Section 3: Location */}

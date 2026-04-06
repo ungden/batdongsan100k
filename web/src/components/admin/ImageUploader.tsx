@@ -162,11 +162,11 @@ export default function ImageUploader({
           </span>
           <p className="text-sm text-on-surface/50">
             {uploading
-              ? 'Dang tai len...'
-              : 'Keo tha hinh anh hoac click de chon'}
+              ? 'Đang tải lên...'
+              : 'Kéo thả hình ảnh hoặc click để chọn'}
           </p>
           <p className="text-xs text-on-surface/30 mt-1">
-            {images.length}/{maxImages} hinh anh
+            {images.length}/{maxImages} hình ảnh
           </p>
         </div>
       )}
@@ -183,7 +183,7 @@ export default function ImageUploader({
               addUrl()
             }
           }}
-          placeholder="Hoac nhap URL hinh anh..."
+          placeholder="Hoặc nhập URL hình ảnh..."
           className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
         />
         <button
@@ -192,7 +192,7 @@ export default function ImageUploader({
           disabled={!urlInput.trim() || images.length >= maxImages}
           className="px-3 py-2 bg-gray-100 text-on-surface/70 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
         >
-          Them
+          Thêm
         </button>
       </div>
 
