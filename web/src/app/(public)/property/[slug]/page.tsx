@@ -85,8 +85,56 @@ export default async function PropertyDetailPage({
     "Bai do xe": "local_parking",
   };
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://batdongsan100k.vercel.app";
+  const isRent = property.category === 'rent';
+  const propertyJsonLd = {
+    "@context": "https://schema.org",
+    "@type": isRent ? "RentAction" : "Product",
+    "name": property.title,
+    "description": property.description?.slice(0, 500) || property.title,
+    "image": property.images?.slice(0, 5) || [],
+    "url": `${SITE_URL}/property/${property.slug}`,
+    "offers": {
+      "@type": "Offer",
+      "price": property.price,
+      "priceCurrency": "VND",
+      "availability": "https://schema.org/InStock",
+      "url": `${SITE_URL}/property/${property.slug}`,
+    },
+    ...(property.latitude && property.longitude ? {
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": property.latitude,
+        "longitude": property.longitude,
+      },
+    } : {}),
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": property.district,
+      "addressRegion": property.city,
+      "addressCountry": "VN",
+    },
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", position: 1, name: "Trang chủ", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Tin đăng", item: `${SITE_URL}/listings` },
+      { "@type": "ListItem", position: 3, name: property.title, item: `${SITE_URL}/property/${property.slug}` },
+    ],
+  };
+
   return (
     <div className="pt-24 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(propertyJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero Gallery */}
       <section className="max-w-7xl mx-auto px-8 mb-12">
         <div className="grid grid-cols-4 grid-rows-2 gap-4 h-[300px] md:h-[500px] lg:h-[600px]">

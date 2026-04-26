@@ -109,8 +109,11 @@ export default function CheckoutPage({ params }: { params: { orderId: string } }
     );
   }
 
-  const bankName = process.env.NEXT_PUBLIC_SEPAY_BANK || 'MBBank';
-  const bankAcc = process.env.NEXT_PUBLIC_SEPAY_ACC || '0987654321';
+  const bankName = process.env.NEXT_PUBLIC_SEPAY_BANK;
+  const bankAcc = process.env.NEXT_PUBLIC_SEPAY_ACC;
+  if (!bankName || !bankAcc) {
+    throw new Error('SePay chưa được cấu hình. Vui lòng liên hệ admin.');
+  }
   
   // SePay VietQR generation
   const qrUrl = `https://qr.sepay.vn/img?acc=${encodeURIComponent(bankAcc)}&bank=${encodeURIComponent(bankName)}&amount=${encodeURIComponent(order.amount)}&des=${encodeURIComponent(order.order_code)}`;

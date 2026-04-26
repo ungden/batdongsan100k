@@ -21,7 +21,8 @@ export async function updateSession(request: NextRequest) {
 
   const isAdminRoute = request.nextUrl.pathname.startsWith('/admin')
   const isLoginPage = request.nextUrl.pathname === '/admin/login'
-  const isPublicAuthPage = request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/register'
+  const publicAuthPages = ['/login', '/register', '/forgot-password', '/reset-password']
+  const isPublicAuthPage = publicAuthPages.includes(request.nextUrl.pathname)
 
   // Admin routes protection
   if (isAdminRoute) {

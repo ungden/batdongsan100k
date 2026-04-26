@@ -13,8 +13,12 @@ export default function Footer() {
               <span className="text-[#001e40]">Titan</span><span className="text-[#006c47]">Home</span>
             </span>
           </Link>
-          <p className="text-sm text-on-surface-variant leading-relaxed">
+          <p className="text-sm text-on-surface-variant leading-relaxed mb-3">
             Nền tảng bất động sản hàng đầu Việt Nam, cung cấp giải pháp tìm kiếm và ký gửi chuyên nghiệp với hệ thống dữ liệu chính xác.
+          </p>
+          <p className="text-xs text-on-surface-variant/70 leading-relaxed">
+            Vận hành bởi Titan Labs<br/>
+            MST: 0300000000 (cập nhật khi có)
           </p>
         </div>
 
@@ -33,10 +37,10 @@ export default function Footer() {
         <div>
           <h4 className="font-bold text-primary mb-6 text-sm uppercase tracking-widest">Công Ty</h4>
           <ul className="space-y-4">
-            <li><Link href="/post" className="text-on-surface-variant hover:text-primary text-sm">Đăng Tin Bất Động Sản</Link></li>
-            <li><Link href="/listings" className="text-on-surface-variant hover:text-primary text-sm">Tìm Kiếm BĐS</Link></li>
-            <li><Link href="/login" className="text-on-surface-variant hover:text-primary text-sm">Đăng Nhập / Đăng Ký</Link></li>
-            <li><Link href="/saved" className="text-on-surface-variant hover:text-primary text-sm">Tin Đã Lưu</Link></li>
+            <li><Link href="/about" className="text-on-surface-variant hover:text-primary text-sm">Giới thiệu</Link></li>
+            <li><Link href="/contact" className="text-on-surface-variant hover:text-primary text-sm">Liên hệ</Link></li>
+            <li><Link href="/terms" className="text-on-surface-variant hover:text-primary text-sm">Điều khoản sử dụng</Link></li>
+            <li><Link href="/privacy" className="text-on-surface-variant hover:text-primary text-sm">Chính sách bảo mật</Link></li>
           </ul>
         </div>
 
@@ -46,11 +50,15 @@ export default function Footer() {
           <ul className="space-y-4 text-sm text-on-surface-variant">
             <li className="flex items-center gap-2">
               <span className="material-symbols-outlined text-[16px] text-secondary">mail</span>
-              alexle@titanlabs.vn
+              <a href="mailto:alexle@titanlabs.vn" className="hover:text-primary">alexle@titanlabs.vn</a>
             </li>
             <li className="flex items-center gap-2">
               <span className="material-symbols-outlined text-[16px] text-secondary">location_on</span>
               TP. Hồ Chí Minh, Việt Nam
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[16px] text-secondary">flag</span>
+              <a href="mailto:alexle@titanlabs.vn?subject=Báo cáo tin vi phạm" className="hover:text-primary">Báo cáo tin vi phạm</a>
             </li>
           </ul>
         </div>
@@ -61,6 +69,13 @@ export default function Footer() {
         <p className="text-sm text-on-surface-variant">
           &copy; {new Date().getFullYear()} TitanHome. Bảo lưu mọi quyền.
         </p>
+        <div className="flex gap-4 text-xs text-on-surface-variant">
+          <Link href="/terms" className="hover:text-primary">Điều khoản</Link>
+          <span>·</span>
+          <Link href="/privacy" className="hover:text-primary">Bảo mật</Link>
+          <span>·</span>
+          <Link href="/contact" className="hover:text-primary">Liên hệ</Link>
+        </div>
       </div>
     </footer>
   );
