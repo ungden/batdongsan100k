@@ -1,6 +1,28 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Property } from '@/lib/types'
 
+export interface ProjectIntel {
+  roiFromLaunch: number | null
+  cagrSinceLaunch: number | null
+  priceChange1m: number | null
+  priceChange6m: number | null
+  priceChange12m: number | null
+  grossYield: number | null
+  netYield: number | null
+  activeSaleListings: number
+  activeRentListings: number
+  liquidityScore: number | null
+  riskScore: number | null
+  riskTags: string[]
+  strengths: string[]
+  weaknesses: string[]
+  risks: string[]
+  titanScore: number | null
+  livingScore: number | null
+  investmentScore: number | null
+  rentalScore: number | null
+}
+
 export interface ProjectSummary {
   id: string
   name: string
@@ -31,6 +53,10 @@ export interface ProjectSummary {
   totalAreaHa: number | null
   rentalYield: number | null
   badges: string[]
+  // Market intelligence (joined from project_intel)
+  intel: ProjectIntel | null
+  // Top catalyst chips (preview of project_catalysts)
+  topCatalysts: { title: string; impact: string; horizon: string }[]
 }
 
 export interface ProjectDetail extends ProjectSummary {
@@ -50,9 +76,42 @@ export interface MarketKPIs {
   trendDown: number
   newListings7d: number
   totalProperties: number
+  // New: top performers for hero cards
+  topRoi: { name: string; slug: string; value: number } | null
+  topYield: { name: string; slug: string; value: number } | null
+  topCatalyst: { name: string; slug: string; count: number } | null
+  topTitan: { name: string; slug: string; value: number } | null
+  // Sparkline data (last 6 months avg per sqm market-wide)
+  marketTrend: number[]
 }
 
-function mapProject(row: any): ProjectSummary {
+function mapIntel(row: any): ProjectIntel | null {
+  if (row.titan_score == null && row.roi_from_launch == null && row.intel_gross_yield == null) return null
+  const num = (v: any) => v == null ? null : Number(v)
+  return {
+    roiFromLaunch: num(row.roi_from_launch),
+    cagrSinceLaunch: num(row.cagr_since_launch),
+    priceChange1m: num(row.price_change_1m),
+    priceChange6m: num(row.price_change_6m),
+    priceChange12m: num(row.price_change_12m),
+    grossYield: num(row.intel_gross_yield),
+    netYield: num(row.net_yield),
+    activeSaleListings: row.active_sale_listings || 0,
+    activeRentListings: row.active_rent_listings || 0,
+    liquidityScore: num(row.liquidity_score),
+    riskScore: num(row.risk_score),
+    riskTags: row.risk_tags || [],
+    strengths: row.strengths || [],
+    weaknesses: row.weaknesses || [],
+    risks: row.risks || [],
+    titanScore: num(row.titan_score),
+    livingScore: num(row.living_score),
+    investmentScore: num(row.investment_score),
+    rentalScore: num(row.rental_score),
+  }
+}
+
+function mapProject(row: any, catalysts?: { title: string; impact: string; horizon: string }[]): ProjectSummary {
   return {
     id: row.id,
     name: row.name,
@@ -82,23 +141,45 @@ function mapProject(row: any): ProjectSummary {
     totalAreaHa: row.total_area_ha ? Number(row.total_area_ha) : null,
     rentalYield: row.rental_yield ? Number(row.rental_yield) : null,
     badges: row.badges || [],
+    intel: mapIntel(row),
+    topCatalysts: catalysts || [],
   }
 }
 
 // ============================================================
 // Get all projects with optional filters
 // ============================================================
+export type ProjectSortField =
+  | 'name'
+  | 'property_count'
+  | 'avg_price_per_sqm'
+  | 'avg_price'
+  | 'titan_score'
+  | 'roi_from_launch'
+  | 'gross_yield'
+  | 'liquidity_score'
+  | 'price_change_12m'
+
+export type PurposeFilter = 'living' | 'rental' | 'investment' | 'flip'
+
 export async function getProjects(filters?: {
   search?: string
   status?: string
   city?: string
-  sort?: 'name' | 'property_count' | 'avg_price_per_sqm' | 'avg_price'
+  legal?: string                  // 'so_hong' | 'hdmb'
+  minYield?: number
+  minRoi?: number
+  minLiquidity?: number
+  maxPrice?: number               // tỷ
+  purpose?: PurposeFilter
+  sort?: ProjectSortField
   sortDir?: 'asc' | 'desc'
 }, limit = 60): Promise<ProjectSummary[]> {
   try {
     const supabase = await createClient()
+    // Use view that left-joins project_intel
     let query = supabase
-      .from('projects')
+      .from('v_projects_with_intel')
       .select('*')
 
     if (filters?.search) {
@@ -110,14 +191,64 @@ export async function getProjects(filters?: {
     if (filters?.city) {
       query = query.ilike('city', `%${filters.city}%`)
     }
+    if (filters?.legal === 'so_hong') {
+      query = query.ilike('legal_status', '%sổ hồng%')
+    } else if (filters?.legal === 'hdmb') {
+      query = query.ilike('legal_status', '%hđmb%')
+    }
+    if (filters?.minYield != null) {
+      query = query.gte('intel_gross_yield', filters.minYield)
+    }
+    if (filters?.minRoi != null) {
+      query = query.gte('roi_from_launch', filters.minRoi)
+    }
+    if (filters?.minLiquidity != null) {
+      query = query.gte('liquidity_score', filters.minLiquidity)
+    }
+    if (filters?.maxPrice != null) {
+      query = query.lte('min_price', filters.maxPrice * 1_000_000_000)
+    }
 
-    const sortField = filters?.sort || 'property_count'
-    const sortDir = filters?.sortDir === 'asc'
-    query = query.order(sortField, { ascending: sortDir }).limit(limit)
+    // Purpose-driven re-rank: pick the score column matching intent.
+    // Maps "Tôi muốn mua để..." → which composite drives ranking.
+    const purposeSort: Record<PurposeFilter, string> = {
+      living: 'titan_score',
+      rental: 'intel_gross_yield',
+      investment: 'roi_from_launch',
+      flip: 'liquidity_score',
+    }
+
+    const sortField: ProjectSortField =
+      filters?.purpose ? (purposeSort[filters.purpose] || 'titan_score')
+      : (filters?.sort || 'titan_score')
+    const sortAsc = filters?.sortDir === 'asc'
+    query = query.order(sortField, { ascending: sortAsc, nullsFirst: false }).limit(limit)
 
     const { data, error } = await query
     if (error) throw error
-    return (data || []).map(mapProject)
+
+    const projects = (data || [])
+    if (projects.length === 0) return []
+
+    // Fetch top catalysts for these projects in one batch
+    const ids = projects.map((p: any) => p.id)
+    const { data: catRows } = await supabase
+      .from('project_catalysts')
+      .select('project_id, title, impact, horizon, expected_date')
+      .in('project_id', ids)
+      .order('impact', { ascending: false })
+      .order('expected_date', { ascending: true })
+
+    const catalystMap = new Map<string, { title: string; impact: string; horizon: string }[]>()
+    for (const c of (catRows || []) as any[]) {
+      const arr = catalystMap.get(c.project_id) || []
+      if (arr.length < 2) {
+        arr.push({ title: c.title, impact: c.impact, horizon: c.horizon })
+      }
+      catalystMap.set(c.project_id, arr)
+    }
+
+    return projects.map((row: any) => mapProject(row, catalystMap.get(row.id) || []))
   } catch (err) {
     console.error('Error fetching projects:', err)
     return []
@@ -131,7 +262,7 @@ export async function getProjectBySlug(slug: string): Promise<ProjectDetail | nu
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
-      .from('projects')
+      .from('v_projects_with_intel')
       .select('*')
       .eq('slug', slug)
       .single()
@@ -268,37 +399,189 @@ export async function getProjectProperties(projectId: string, limit = 24): Promi
 }
 
 // ============================================================
+// Deep intel for AI panel (project + intel + catalysts + price history)
+// ============================================================
+
+export interface ProjectCatalyst {
+  id: number
+  title: string
+  category: string
+  impact: string
+  status: string
+  horizon: string
+  expectedDate: string | null
+  description: string | null
+  sourceUrl: string | null
+}
+
+export interface PricePoint {
+  date: string
+  pricePerSqm: number
+}
+
+export interface ProjectDeepIntel {
+  project: ProjectSummary
+  catalysts: ProjectCatalyst[]
+  priceHistory: PricePoint[]
+  nearby: { name: string; slug: string; titanScore: number | null; avgPricePerSqm: number }[]
+}
+
+export async function getProjectDeepIntel(slug: string): Promise<ProjectDeepIntel | null> {
+  try {
+    const supabase = await createClient()
+    const { data: row, error } = await supabase
+      .from('v_projects_with_intel')
+      .select('*')
+      .eq('slug', slug)
+      .single()
+    if (error || !row) return null
+
+    const [catRes, histRes, nearbyRes] = await Promise.all([
+      supabase.from('project_catalysts')
+        .select('*')
+        .eq('project_id', row.id)
+        .order('expected_date', { ascending: true }),
+      supabase.from('project_price_history')
+        .select('snapshot_date, avg_price_per_sqm')
+        .eq('project_id', row.id)
+        .order('snapshot_date', { ascending: true }),
+      supabase.from('v_projects_with_intel')
+        .select('name, slug, titan_score, avg_price_per_sqm')
+        .eq('city', row.city)
+        .neq('slug', slug)
+        .order('titan_score', { ascending: false, nullsFirst: false })
+        .limit(3),
+    ])
+
+    const project = mapProject(row)
+    const catalysts: ProjectCatalyst[] = ((catRes.data || []) as any[]).map((c) => ({
+      id: c.id,
+      title: c.title,
+      category: c.category,
+      impact: c.impact,
+      status: c.status,
+      horizon: c.horizon,
+      expectedDate: c.expected_date,
+      description: c.description,
+      sourceUrl: c.source_url,
+    }))
+    const priceHistory: PricePoint[] = ((histRes.data || []) as any[]).map((h) => ({
+      date: String(h.snapshot_date),
+      pricePerSqm: Number(h.avg_price_per_sqm || 0),
+    }))
+    const nearby = ((nearbyRes.data || []) as any[]).map((n) => ({
+      name: n.name,
+      slug: n.slug,
+      titanScore: n.titan_score == null ? null : Number(n.titan_score),
+      avgPricePerSqm: Number(n.avg_price_per_sqm || 0),
+    }))
+
+    return { project, catalysts, priceHistory, nearby }
+  } catch (err) {
+    console.error('getProjectDeepIntel failed:', err)
+    return null
+  }
+}
+
+// ============================================================
 // Market KPIs
 // ============================================================
 export async function getMarketKPIs(): Promise<MarketKPIs> {
+  const empty: MarketKPIs = {
+    totalProjects: 0, avgPricePerSqm: 0, trendUp: 0, trendDown: 0, newListings7d: 0, totalProperties: 0,
+    topRoi: null, topYield: null, topCatalyst: null, topTitan: null, marketTrend: [],
+  }
   try {
     const supabase = await createClient()
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
 
-    const [projectsResult, newListingsResult] = await Promise.all([
-      supabase.from('projects').select('avg_price_per_sqm, property_count'),
+    const [intelResult, newListingsResult, trendResult, catalystResult] = await Promise.all([
+      supabase.from('v_projects_with_intel').select(
+        'name, slug, avg_price_per_sqm, property_count, price_change_12m, roi_from_launch, intel_gross_yield, titan_score'
+      ),
       supabase.from('properties').select('*', { count: 'exact', head: true })
-        .eq('status', 'published')
-        .gte('created_at', sevenDaysAgo),
+        .eq('status', 'published').gte('created_at', sevenDaysAgo),
+      // Market-wide monthly average (last 6 months)
+      supabase.from('project_price_history')
+        .select('snapshot_date, avg_price_per_sqm')
+        .gte('snapshot_date', new Date(Date.now() - 200 * 86400_000).toISOString().slice(0, 10))
+        .order('snapshot_date', { ascending: true }),
+      // Top catalyst by high-impact count
+      supabase.from('project_catalysts')
+        .select('project_id, projects:projects(name, slug)')
+        .eq('impact', 'high'),
     ])
 
-    const projects = projectsResult.data || []
-    const totalProjects = projects.length
-    const totalProperties = projects.reduce((sum, p) => sum + (p.property_count || 0), 0)
-    const validPrices = projects.filter(p => p.avg_price_per_sqm > 0)
-    const avgPricePerSqm = validPrices.length > 0
-      ? validPrices.reduce((sum, p) => sum + Number(p.avg_price_per_sqm), 0) / validPrices.length
+    const rows = intelResult.data || []
+    const totalProjects = rows.length
+    const totalProperties = rows.reduce((s, r: any) => s + (r.property_count || 0), 0)
+    const validPrices = rows.filter((r: any) => r.avg_price_per_sqm > 0)
+    const avgPricePerSqm = validPrices.length
+      ? validPrices.reduce((s, r: any) => s + Number(r.avg_price_per_sqm), 0) / validPrices.length
       : 0
+
+    let trendUp = 0, trendDown = 0
+    for (const r of rows as any[]) {
+      const ch = Number(r.price_change_12m)
+      if (Number.isFinite(ch)) {
+        if (ch > 0) trendUp++
+        else if (ch < 0) trendDown++
+      }
+    }
+
+    const pickTop = (key: string) => {
+      const filtered = rows.filter((r: any) => Number.isFinite(Number(r[key])))
+      if (!filtered.length) return null
+      const top = filtered.reduce((best: any, r: any) => Number(r[key]) > Number(best[key]) ? r : best)
+      return { name: top.name, slug: top.slug, value: Number(Number(top[key]).toFixed(2)) }
+    }
+    const topRoi = pickTop('roi_from_launch')
+    const topYield = pickTop('intel_gross_yield')
+    const topTitan = pickTop('titan_score')
+
+    // Top catalyst: project with most high-impact catalysts
+    const catCounts = new Map<string, { name: string; slug: string; count: number }>()
+    for (const c of (catalystResult.data || []) as any[]) {
+      const proj = Array.isArray(c.projects) ? c.projects[0] : c.projects
+      if (!proj) continue
+      const cur = catCounts.get(c.project_id) || { name: proj.name, slug: proj.slug, count: 0 }
+      cur.count++
+      catCounts.set(c.project_id, cur)
+    }
+    let topCatalyst: { name: string; slug: string; count: number } | null = null
+    for (const v of catCounts.values()) {
+      if (!topCatalyst || v.count > topCatalyst.count) topCatalyst = v
+    }
+
+    // Build sparkline: avg of all projects per month, last 6 buckets
+    const buckets = new Map<string, { sum: number; n: number }>()
+    for (const r of (trendResult.data || []) as any[]) {
+      const key = String(r.snapshot_date).slice(0, 7) // YYYY-MM
+      const cur = buckets.get(key) || { sum: 0, n: 0 }
+      cur.sum += Number(r.avg_price_per_sqm || 0)
+      cur.n++
+      buckets.set(key, cur)
+    }
+    const marketTrend = Array.from(buckets.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-6)
+      .map(([, { sum, n }]) => Math.round(sum / Math.max(1, n)))
 
     return {
       totalProjects,
       avgPricePerSqm: Math.round(avgPricePerSqm),
-      trendUp: Math.round(totalProjects * 0.6), // Placeholder - needs price history data
-      trendDown: Math.round(totalProjects * 0.2),
+      trendUp,
+      trendDown,
       newListings7d: newListingsResult.count || 0,
       totalProperties,
+      topRoi,
+      topYield,
+      topCatalyst,
+      topTitan,
+      marketTrend,
     }
-  } catch {
-    return { totalProjects: 0, avgPricePerSqm: 0, trendUp: 0, trendDown: 0, newListings7d: 0, totalProperties: 0 }
+  } catch (err) {
+    console.error('getMarketKPIs failed:', err)
+    return empty
   }
 }
