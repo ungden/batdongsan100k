@@ -1,8 +1,50 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Agent, Property } from '@/lib/types'
+import { classifyDeal, dealClassToPriceTag } from '@/lib/intel/deal-classifier'
 
 // Columns needed for property cards (avoid select *)
-const PROPERTY_CARD_COLUMNS = 'id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, views_count, created_at, price_tag, agent:agents(id, name, phone, avatar)'
+const PROPERTY_CARD_COLUMNS = 'id, title, slug, price, price_formatted, price_unit, type, category, address, district, city, bedrooms, bathrooms, area, images, is_featured, is_vip, is_priority, views_count, created_at, price_tag, project_id, agent:agents(id, name, phone, avatar)'
+
+/**
+ * Look up project avg_price_per_sqm for the listed properties and override
+ * `priceTag` with our deterministic Good Deal classifier when the listing
+ * belongs to a tracked project. DB-level `price_tag` (legacy) is preserved
+ * when no project mapping exists.
+ */
+async function enrichWithDealClass(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  properties: Property[],
+  rawRows: Record<string, unknown>[],
+): Promise<Property[]> {
+  const projectIds = Array.from(new Set(rawRows.map((r) => r.project_id as string).filter(Boolean)))
+  if (projectIds.length === 0) return properties
+
+  const { data: projects } = await supabase
+    .from('projects')
+    .select('id, avg_price_per_sqm')
+    .in('id', projectIds)
+
+  const avgMap = new Map<string, number>()
+  for (const p of (projects || []) as { id: string; avg_price_per_sqm: number | null }[]) {
+    if (p.avg_price_per_sqm) avgMap.set(p.id, Number(p.avg_price_per_sqm))
+  }
+
+  return properties.map((prop, idx) => {
+    const pid = rawRows[idx]?.project_id as string | undefined
+    if (!pid) return prop
+    const avg = avgMap.get(pid)
+    if (!avg) return prop
+    const cls = classifyDeal({
+      listingPrice: prop.price,
+      listingArea: prop.area,
+      projectAvgPricePerSqm: avg,
+      category: prop.category,
+    })
+    const tag = dealClassToPriceTag(cls)
+    if (tag) return { ...prop, priceTag: tag }
+    return prop
+  })
+}
 
 // Full columns for detail page
 const PROPERTY_DETAIL_COLUMNS = '*, agent:agents(id, name, phone, avatar)'
@@ -127,7 +169,10 @@ export async function getPublishedProperties(
 
     const { data, error, count } = await query
     if (error) throw error
-    return { properties: (data || []).map(mapToProperty), count: count || 0 }
+    const rawRows = (data || []) as Record<string, unknown>[]
+    const mapped = rawRows.map(mapToProperty)
+    const enriched = await enrichWithDealClass(supabase, mapped, rawRows)
+    return { properties: enriched, count: count || 0 }
   } catch {
     return { properties: [], count: 0 }
   }
@@ -149,7 +194,9 @@ export async function getHomepageProperties() {
       .limit(60)
 
     if (error) throw error
-    const all = (data || []).map(mapToProperty)
+    const rawRows = (data || []) as Record<string, unknown>[]
+    const allMapped = rawRows.map(mapToProperty)
+    const all = await enrichWithDealClass(supabase, allMapped, rawRows)
 
     // Phân loại từ 1 dataset
     const vip = all.filter(p => p.isFeatured).slice(0, 6)
@@ -235,7 +282,9 @@ export async function getFeaturedProperties(limit = 6): Promise<Property[]> {
       .limit(limit)
 
     if (error) throw error
-    return (data || []).map(mapToProperty)
+    const rawRows = (data || []) as Record<string, unknown>[]
+    const mapped = rawRows.map(mapToProperty)
+    return await enrichWithDealClass(supabase, mapped, rawRows)
   } catch {
     return []
   }

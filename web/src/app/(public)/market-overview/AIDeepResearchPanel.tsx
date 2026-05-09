@@ -220,7 +220,7 @@ export default function AIDeepResearchPanel({ data }: Props) {
                       <LineChart data={chartData}>
                         <XAxis dataKey="date" fontSize={10} stroke="#94a3b8" />
                         <YAxis fontSize={10} stroke="#94a3b8" tickFormatter={(v) => `${v}tr`} />
-                        <Tooltip formatter={(v: number) => [`${v} tr/m²`, "Giá"]} />
+                        <Tooltip formatter={(v) => [`${v} tr/m²`, "Giá"] as [string, string]} />
                         <Line type="monotone" dataKey="price" stroke="#0ea5e9" strokeWidth={2} dot={false} />
                       </LineChart>
                     </ResponsiveContainer>
@@ -308,24 +308,7 @@ export default function AIDeepResearchPanel({ data }: Props) {
           )}
 
           {tab === "chat" && (
-            <div className="space-y-3">
-              <div className="bg-surface-container-lowest rounded-xl p-4 text-sm text-on-surface-variant">
-                <span className="material-symbols-outlined text-[16px] align-middle mr-1">construction</span>
-                AI Chat đang phát triển. Tạm thời bạn có thể xem các câu hỏi gợi ý:
-              </div>
-              <div className="space-y-2">
-                {[
-                  "Dự án này có đáng mua không?",
-                  "Giá hiện tại có cao không?",
-                  "Loại căn nào dễ cho thuê nhất?",
-                  "So với dự án gần đó thì sao?",
-                ].map((q) => (
-                  <button key={q} className="w-full text-left bg-white border border-outline-variant/30 hover:border-primary/40 rounded-xl px-3 py-2 text-sm text-on-surface">
-                    {q}
-                  </button>
-                ))}
-              </div>
-            </div>
+            <ProjectChat slug={project.slug} />
           )}
         </div>
 
@@ -383,6 +366,110 @@ function Tag({ color, children }: { color: 'indigo' | 'rose' | 'amber' | 'slate'
 function fmtPct(v: number | null | undefined): string {
   if (v == null) return "—";
   return `${v > 0 ? "+" : ""}${v.toFixed(1)}%`;
+}
+
+interface ChatMessage { role: "user" | "assistant"; content: string }
+
+function ProjectChat({ slug }: { slug: string }) {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const SUGGESTIONS = [
+    "Dự án này có đáng mua không?",
+    "Giá hiện tại có cao không?",
+    "Cho thuê có ổn không?",
+    "So với dự án gần đó thì sao?",
+    "Rủi ro lớn nhất là gì?",
+  ];
+
+  async function ask(question: string) {
+    if (!question.trim() || busy) return;
+    setMessages((m) => [...m, { role: "user", content: question }]);
+    setInput("");
+    setBusy(true);
+    try {
+      const res = await fetch("/api/ai/project-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, question }),
+      });
+      const json = await res.json();
+      const answer = json?.ok ? json.answer : "Xin lỗi, hệ thống đang bận.";
+      setMessages((m) => [...m, { role: "assistant", content: answer }]);
+    } catch {
+      setMessages((m) => [...m, { role: "assistant", content: "Lỗi kết nối. Hãy thử lại sau." }]);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="flex flex-col h-full -m-5 p-5">
+      <div className="flex-1 space-y-3 mb-3 overflow-y-auto">
+        {messages.length === 0 ? (
+          <div>
+            <div className="bg-surface-container-lowest rounded-xl p-3 text-xs text-on-surface-variant mb-3">
+              <span className="material-symbols-outlined text-[14px] align-middle mr-1">tips_and_updates</span>
+              Đặt câu hỏi về dự án — AI trả lời dựa trên data intel mới nhất.
+            </div>
+            <div className="space-y-1.5">
+              {SUGGESTIONS.map((q) => (
+                <button
+                  key={q}
+                  onClick={() => ask(q)}
+                  className="w-full text-left bg-white border border-outline-variant/30 hover:border-primary/40 rounded-xl px-3 py-2 text-sm text-on-surface"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          messages.map((m, i) => (
+            <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap ${
+                m.role === "user"
+                  ? "bg-primary text-white"
+                  : "bg-surface-container-lowest text-on-surface"
+              }`}>
+                {m.content}
+              </div>
+            </div>
+          ))
+        )}
+        {busy && (
+          <div className="flex justify-start">
+            <div className="bg-surface-container-lowest text-on-surface-variant text-sm rounded-2xl px-3 py-2">
+              <span className="inline-block w-1.5 h-1.5 bg-on-surface-variant rounded-full animate-pulse mr-1" />
+              AI đang phân tích...
+            </div>
+          </div>
+        )}
+      </div>
+
+      <form
+        onSubmit={(e) => { e.preventDefault(); ask(input); }}
+        className="flex items-center gap-2 border-t border-outline-variant/20 pt-3"
+      >
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Hỏi gì về dự án này..."
+          disabled={busy}
+          className="flex-1 px-3 py-2 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm focus:ring-2 focus:ring-primary/30 focus:outline-none"
+        />
+        <button
+          type="submit"
+          disabled={busy || !input.trim()}
+          className="bg-primary text-white p-2 rounded-xl disabled:opacity-50"
+        >
+          <span className="material-symbols-outlined text-[18px]">send</span>
+        </button>
+      </form>
+    </div>
+  );
 }
 
 function colorPct(v: number | null | undefined): string {

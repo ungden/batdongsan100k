@@ -1,0 +1,33 @@
+name: Weekly Catalyst Crawl
+
+on:
+  schedule:
+    - cron: '30 2 * * 0'  # Sunday 02:30 UTC
+  workflow_dispatch:
+
+jobs:
+  crawl-catalysts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: crawler
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: crawler/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run catalyst crawl
+        run: node catalyst-crawl.mjs --limit=80

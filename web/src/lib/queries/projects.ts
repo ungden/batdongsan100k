@@ -218,7 +218,7 @@ export async function getProjects(filters?: {
       flip: 'liquidity_score',
     }
 
-    const sortField: ProjectSortField =
+    const sortField: string =
       filters?.purpose ? (purposeSort[filters.purpose] || 'titan_score')
       : (filters?.sort || 'titan_score')
     const sortAsc = filters?.sortDir === 'asc'
@@ -530,9 +530,9 @@ export async function getMarketKPIs(): Promise<MarketKPIs> {
     }
 
     const pickTop = (key: string) => {
-      const filtered = rows.filter((r: any) => Number.isFinite(Number(r[key])))
+      const filtered = (rows as any[]).filter((r) => Number.isFinite(Number(r[key])))
       if (!filtered.length) return null
-      const top = filtered.reduce((best: any, r: any) => Number(r[key]) > Number(best[key]) ? r : best)
+      const top = filtered.reduce((best, r) => Number(r[key]) > Number(best[key]) ? r : best)
       return { name: top.name, slug: top.slug, value: Number(Number(top[key]).toFixed(2)) }
     }
     const topRoi = pickTop('roi_from_launch')
