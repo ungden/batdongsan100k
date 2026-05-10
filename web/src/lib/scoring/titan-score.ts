@@ -9,7 +9,7 @@
  *   • living      — leans on legal/developer/risk-inverted
  */
 
-export type DeveloperTier = 'tier1' | 'tier2' | 'unknown'
+export type DeveloperTier = 'tier1' | 'tier2' | 'tier3' | 'unknown'
 
 export interface ScoreInputs {
   /** % gain since launch_price → current avg_price_per_sqm. Null when no launch_price. */
@@ -38,25 +38,46 @@ export interface ScoreOutput {
   breakdown: Record<string, number>
 }
 
-/** Top-tier Vietnamese developers with strong delivery track record. */
+/** Top-tier Vietnamese developers — strong delivery track record, large balance sheet. */
 const TIER1_DEVELOPERS = new Set([
   'Vingroup', 'Vinhomes',
   'Masterise Homes', 'CapitaLand',
   'Keppel Land', 'Gamuda Land',
   'Phú Mỹ Hưng', 'SonKim Land',
-  'Nam Long Group',
+  'Nam Long Group', 'Ecopark',
+  'BIM Group', 'Phát Đạt',
 ])
 
+/** Mid-tier — credible but with minor delivery delays or smaller scale. */
 const TIER2_DEVELOPERS = new Set([
-  'Novaland', 'Hưng Thịnh Corp',
-  'Sunshine Group', 'TNR Holdings',
+  'Hưng Thịnh Corp', 'Sunshine Group',
   'Kusto Home', 'An Gia',
+  'Đất Xanh', 'Bcons',
+  'Hà Đô', 'MIK Group',
+  'Văn Phú Invest', 'Geleximco',
+])
+
+/**
+ * Distressed / high-risk developers as of 2024-2026:
+ * - Novaland: NovaWorld Phan Thiết & Aqua City pháp lý dừng 2+ năm,
+ *   nợ ~$229M, lỗ VND 4.4T (2024). Đang tái cơ cấu.
+ * - TNR Holdings, FLC, Tân Hoàng Minh: nhiều dự án treo / pháp lý phức tạp.
+ * - Refico, Saigonres: track record yếu, chậm sổ.
+ */
+const TIER3_DEVELOPERS = new Set([
+  'Novaland',
+  'TNR Holdings', 'FLC',
+  'Tân Hoàng Minh', 'Refico', 'Saigonres',
 ])
 
 /** Classify developer string into a tier. Free-text matching, case-insensitive contains. */
 export function developerTier(developer: string | null | undefined): DeveloperTier {
   if (!developer) return 'unknown'
   const lower = developer.toLowerCase()
+  // Check tier3 FIRST so a Tier-1 substring (e.g. "Land") doesn't shadow it.
+  for (const t3 of TIER3_DEVELOPERS) {
+    if (lower.includes(t3.toLowerCase())) return 'tier3'
+  }
   for (const t1 of TIER1_DEVELOPERS) {
     if (lower.includes(t1.toLowerCase())) return 'tier1'
   }
@@ -113,6 +134,7 @@ function riskInvertedComponent(risk: number | null): number {
 function developerComponent(tier: DeveloperTier): number {
   if (tier === 'tier1') return 10
   if (tier === 'tier2') return 7
+  if (tier === 'tier3') return 3 // distressed: pull score down
   return 5
 }
 
